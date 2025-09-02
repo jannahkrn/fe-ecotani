@@ -1,11 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Tambahkan baris ini
-const LoginPage = () => {
+import { Link, useNavigate } from 'react-router-dom'; // Tambahkan useNavigate
+
+const LoginPage = ({ onLogin }) => {
+  const navigate = useNavigate();
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    // Simulasi login berhasil. Anggap saja validasi sudah sukses.
+    // Panggil fungsi onLogin dari App.jsx
+    onLogin('Alif');
+    // Arahkan ke halaman utama
+    navigate('/');
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 font-sans">
       <div className="text-center mb-8">
         <div className="flex justify-center items-center mb-2">
-          {/* Pastikan path gambar logo sudah benar */}
           <img src="/src/assets/logo.png" alt="Ecotani Logo" className="h-10" />
         </div>
         <p className="text-sm text-gray-600">Platform Jual Beli Limbah</p>
@@ -20,7 +31,8 @@ const LoginPage = () => {
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">Masuk ke Akun</h2>
         <p className="text-center text-gray-500 mb-6">Masukkan email dan password Anda untuk melanjutkan</p>
         
-        <form className="space-y-6">
+        {/* Tambahkan onSubmit ke form */}
+        <form className="space-y-6" onSubmit={handleLoginSubmit}> 
           <div>
             <label className="block text-sm font-medium text-gray-700">Email</label>
             <input
@@ -47,7 +59,7 @@ const LoginPage = () => {
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
-          Belum punya akun? <Link to="/register" className="font-semibold text-ecotani-green hover:underline">Daftar Sekarang</Link>    
+          Belum punya akun? <Link to="/register" className="font-semibold text-ecotani-green hover:underline">Daftar Sekarang</Link>
         </p>
       </div>
     </div>

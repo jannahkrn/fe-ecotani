@@ -1,6 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Tambahkan useNavigate
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    // Di sini kamu bisa tambahkan logika untuk mengirim data ke API backend
+    // Setelah proses registrasi berhasil, arahkan pengguna ke halaman login
+    navigate('/login');
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 font-sans">
       <div className="text-center mb-8">
@@ -20,7 +30,8 @@ const RegisterPage = () => {
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">Informasi Personal</h2>
         <p className="text-center text-gray-500 mb-6">Isi data diri yang tertera dibawah ini.</p>
         
-        <form className="grid grid-cols-2 gap-x-10 gap-y-6">
+        {/* Tambahkan onSubmit ke form */}
+        <form className="grid grid-cols-2 gap-x-10 gap-y-6" onSubmit={handleRegisterSubmit}>
           <div className="col-span-2">
             <label className="block text-sm font-medium text-gray-700">Nama Lengkap</label>
             <input

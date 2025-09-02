@@ -3,9 +3,8 @@ import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
 import ChatAI from '../../components/user/ChatAi'; // Import komponen ChatAI
 
-const HomePage = () => {
-  // Untuk mengubah tampilan navbar menjadi "Hai, Alif", ubah nilai isLoggedIn menjadi true
-  const isLoggedIn = false; 
+// Menerima props isLoggedIn dan userName dari App.jsx
+const HomePage = ({ isLoggedIn, userName }) => {
   // State untuk mengontrol visibilitas chat AI
   const [isChatOpen, setIsChatOpen] = useState(false);
 
@@ -24,12 +23,13 @@ const HomePage = () => {
 
   return (
     <div className="overflow-x-hidden relative font-sans">
-      <Navbar isLoggedIn={isLoggedIn} />
+      {/* Meneruskan props ke Navbar */}
+      <Navbar isLoggedIn={isLoggedIn} userName={userName} /> 
       
       {/* Zanu Mascot */}
       <div
         className="fixed bottom-5 right-5 z-50 cursor-pointer transition-transform duration-300 hover:scale-110"
-        onClick={toggleChat} // Tambahkan onClick handler di sini
+        onClick={toggleChat}
       >
         <img src="/src/assets/zanu.png" alt="Zanu Mascot" className="w-20 h-auto" />
       </div>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-const Navbar = ({ isLoggedIn }) => {
+// Tambahkan userName sebagai prop
+const Navbar = ({ isLoggedIn, userName }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
@@ -52,13 +53,12 @@ const Navbar = ({ isLoggedIn }) => {
           </div>
           
           {isLoggedIn ? (
-            <div className="font-semibold text-ecotani-green">
-              <p>Hai, Alif</p>
-            </div>
+            <Link to="/profile" className="font-semibold text-ecotani-green hover:underline">
+              <p>Hai, {userName}</p>
+            </Link>
           ) : (
             <div className="flex gap-3">
               <Link to="/login" className="py-2 px-5 rounded-full border-2 border-ecotani-green text-ecotani-green font-semibold transition-colors hover:bg-ecotani-green hover:text-white">Masuk</Link>
-              {/* Ubah button menjadi Link */}
               <Link to="/register" className="py-2 px-5 rounded-full bg-ecotani-green text-white font-semibold transition-colors hover:bg-green-700">Daftar</Link>
             </div>
           )}
