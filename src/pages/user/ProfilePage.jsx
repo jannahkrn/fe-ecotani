@@ -6,6 +6,13 @@ import { Link } from 'react-router-dom';
 
 const ProfilePage = ({ cartItems }) => {
     const [activeTab, setActiveTab] = useState('profile');
+    const [hasStore, setHasStore] = useState(false);
+    const [isCreatingStore, setIsCreatingStore] = useState(false);
+    const [storeData, setStoreData] = useState({
+        storeName: '',
+        operationalHours: '',
+        storeDescription: ''
+    });
 
     // Dummy data untuk profile
     const userProfile = {
@@ -78,6 +85,132 @@ const ProfilePage = ({ cartItems }) => {
             status: "pending-payment"
         }
     ];
+
+    const handleCreateStore = () => {
+        setIsCreatingStore(true);
+    };
+
+    const handleSaveStore = () => {
+        // Logika untuk menyimpan data toko, bisa ke database
+        // Untuk saat ini, kita hanya akan mengubah state
+        setHasStore(true);
+        setIsCreatingStore(false);
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setStoreData(prevData => ({ ...prevData, [name]: value }));
+    };
+
+    const renderSellerProfileContent = () => {
+        if (isCreatingStore) {
+            return (
+                <div className="bg-white p-6 rounded-lg shadow-md space-y-6">
+                    <h2 className="text-xl font-bold text-gray-800">Tambah Toko</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                        <div className="flex flex-col">
+                            <label className="text-sm font-semibold text-gray-600 mb-2">Nama Toko</label>
+                            <input
+                                type="text"
+                                name="storeName"
+                                value={storeData.storeName}
+                                onChange={handleInputChange}
+                                placeholder="Nama Toko"
+                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-sm font-semibold text-gray-600 mb-2">Jam Operasional</label>
+                            <input
+                                type="text"
+                                name="operationalHours"
+                                value={storeData.operationalHours}
+                                onChange={handleInputChange}
+                                placeholder="Jam Operasional Toko. Contoh: 09:00 - 21:00 WIB"
+                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                            />
+                        </div>
+                    </div>
+                    <div className="flex flex-col">
+                        <label className="text-sm font-semibold text-gray-600 mb-2">Deskripsi Toko</label>
+                        <textarea
+                            name="storeDescription"
+                            value={storeData.storeDescription}
+                            onChange={handleInputChange}
+                            placeholder="Deskripsi Toko"
+                            rows="4"
+                            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                        />
+                    </div>
+                    <div className="flex justify-end">
+                        <button
+                            onClick={handleSaveStore}
+                            className="bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors"
+                        >
+                            Simpan
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        if (hasStore) {
+            // Tampilan saat toko sudah dibuat
+            return (
+                <div className="space-y-6">
+                    <div className="bg-white p-6 rounded-lg shadow-md space-y-6">
+                        <h2 className="text-xl font-bold text-gray-800">Informasi Toko</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                            <div className="flex flex-col">
+                                <p className="font-semibold text-gray-600">Nama Toko</p>
+                                <p className="text-gray-800">{storeData.storeName}</p>
+                            </div>
+                            <div className="flex flex-col">
+                                <p className="font-semibold text-gray-600">Jam Operasional</p>
+                                <p className="text-gray-800">{storeData.operationalHours}</p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col">
+                            <p className="font-semibold text-gray-600">Deskripsi Toko</p>
+                            <p className="text-gray-800">{storeData.storeDescription}</p>
+                        </div>
+                    </div>
+
+                    <div className="bg-white p-6 rounded-lg shadow-md space-y-6">
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-xl font-bold text-gray-800">Daftar Produk</h2>
+                            <button className="bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors">
+                                Tambah Produk
+                            </button>
+                        </div>
+                        <div className="text-center py-12">
+                            <p className="text-xl font-bold text-gray-800 mb-2">Produk Masih Kosong!</p>
+                            <p className="text-gray-600">
+                                Klik Tambah Produk Untuk Menjual Limbah.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        
+        // Tampilan saat belum ada toko
+        return (
+            <div className="flex flex-col items-center justify-center p-8 bg-white rounded-lg shadow-md text-center">
+                <p className="text-xl font-bold text-gray-800 mb-4">
+                    OOPS! Anda belum mempunyai Toko.
+                    <br />
+                    Silahkan Membuat Toko terlebih dahulu.
+                </p>
+                <button
+                    onClick={handleCreateStore}
+                    className="bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors"
+                >
+                    Buat Toko
+                </button>
+            </div>
+        );
+    };
 
     const renderTabContent = () => {
         switch (activeTab) {
@@ -205,7 +338,7 @@ const ProfilePage = ({ cartItems }) => {
                     </div>
                 );
             case 'seller-profile':
-                return <p>Ini adalah halaman Profil Penjual.</p>;
+                return renderSellerProfileContent();
             case 'sales-history':
                 return <p>Ini adalah halaman Riwayat Penjualan.</p>;
             default:
