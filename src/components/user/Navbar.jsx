@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Tambahkan Link
 
 const Navbar = ({ isLoggedIn }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -7,7 +7,6 @@ const Navbar = ({ isLoggedIn }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Arahkan ke halaman /search dengan query sebagai parameter
     navigate(`/search?q=${searchQuery}`);
   };
 
@@ -26,10 +25,10 @@ const Navbar = ({ isLoggedIn }) => {
           <img src="/src/assets/logo.png" alt="Ecotani Logo" className="h-10" />
         </div>
         <ul className="flex gap-8 m-0 p-0 list-none">
-          <li><a href="/" className="text-gray-800 font-medium hover:text-ecotani-green transition-colors">Beranda</a></li>
-          <li><a href="#edukasi" className="text-gray-800 font-medium hover:text-ecotani-green transition-colors">Edukasi</a></li>
-          <li><a href="#komunitas" className="text-gray-800 font-medium hover:text-ecotani-green transition-colors">Komunitas</a></li>
-          <li><a href="#bantuan" className="text-gray-800 font-medium hover:text-ecotani-green transition-colors">Bantuan</a></li>
+          <li><Link to="/" className="text-gray-800 font-medium hover:text-ecotani-green transition-colors">Beranda</Link></li>
+          <li><a href="#" className="text-gray-800 font-medium hover:text-ecotani-green transition-colors">Edukasi</a></li>
+          <li><a href="#" className="text-gray-800 font-medium hover:text-ecotani-green transition-colors">Komunitas</a></li>
+          <li><a href="#" className="text-gray-800 font-medium hover:text-ecotani-green transition-colors">Bantuan</a></li>
         </ul>
 
         <div className="flex items-center gap-5">
@@ -51,14 +50,15 @@ const Navbar = ({ isLoggedIn }) => {
             <span className="cursor-pointer">🛒</span>
             <span className="cursor-pointer">💬</span>
           </div>
-
+          
           {isLoggedIn ? (
             <div className="font-semibold text-ecotani-green">
               <p>Hai, Alif</p>
             </div>
           ) : (
             <div className="flex gap-3">
-              <button className="py-2 px-5 rounded-full border-2 border-ecotani-green text-ecotani-green font-semibold transition-colors hover:bg-ecotani-green hover:text-white">Masuk</button>
+              {/* Ubah button menjadi Link */}
+              <Link to="/login" className="py-2 px-5 rounded-full border-2 border-ecotani-green text-ecotani-green font-semibold transition-colors hover:bg-ecotani-green hover:text-white">Masuk</Link>
               <button className="py-2 px-5 rounded-full bg-ecotani-green text-white font-semibold transition-colors hover:bg-green-700">Daftar</button>
             </div>
           )}
