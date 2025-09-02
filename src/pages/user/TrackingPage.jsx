@@ -1,112 +1,206 @@
 // src/pages/user/TrackingPage.jsx
 
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
+import AuthContext from '../../context/AuthContext';
 
-const TrackingPage = ({ isLoggedIn, userName, cartItems }) => {
-    // Ambil data state dari halaman sebelumnya
+const TrackingPage = () => {
+    const { isLoggedIn, userName } = useContext(AuthContext);
     const location = useLocation();
-    const paymentMethod = location.state?.paymentMethod || 'transfer'; // Default ke 'transfer' jika tidak ada data
+    const { paymentMethod } = location.state || { paymentMethod: 'transfer' };
 
-    // Data dummy untuk pesanan
-    const orderData = {
-        nomorPesanan: 'ECT-2025-00001',
-        tanggalPesanan: '31 Agustus 2025',
-        metodePengiriman: 'Reguler - JNE',
-        subtotal: 9000,
-        ongkosKirim: 15000,
-        totalPembayaran: 24000,
-        item: {
-            name: 'Botol Plastik',
-            price: 'Rp3.000/100 gram',
-            seller: 'Jannah Kurniawati',
-            image: '/src/assets/detail-product.png',
-            tag: 'Plastik'
-        }
+    // State untuk mengelola status pesanan COD:
+    // false: belum diterima pembeli
+    // true: sudah diterima pembeli
+    const [isOrderReceived, setIsOrderReceived] = useState(false);
+
+    // Fungsi untuk mensimulasikan status "Pesanan Diterima" oleh pembeli
+    const handleOrderReceived = () => {
+        setIsOrderReceived(true);
+        alert("Terima kasih telah mengonfirmasi pesanan! Silakan berikan ulasan Anda.");
     };
 
-    return (
-        <div className="font-sans">
-            <Navbar isLoggedIn={isLoggedIn} userName={userName} cartItems={cartItems} />
-            <main className="container mx-auto px-12 py-8">
-                <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Lacak Pesanan</h1>
+    // Data riwayat tracking yang statis, diurutkan dari terlama ke terbaru
+    const trackingHistory = [
+        {
+            status: "Pesanan Diajukan",
+            date: "31 Agustus 2025",
+            location: "Klaten, Jawa Tengah"
+        },
+        {
+            status: "Pesanan Dikonfirmasi",
+            date: "31 Agustus 2025",
+            location: "Pesanan dikonfirmasi penjual dan mulai dikemas. Klaten, Jawa Tengah"
+        },
+        {
+            status: "Pesanan Dikirim",
+            date: "01 September 2025",
+            location: "Pesanan telah diserahkan ke kurir JNE. Klaten, Jawa Tengah"
+        },
+        {
+            status: "Dalam Perjalanan",
+            date: "03 September 2025",
+            location: "Paket sedang dalam perjalanan menuju alamat tujuan. Jakarta, Jakarta Pusat"
+        },
+        {
+            status: "Pesanan Diterima",
+            date: "05 September 2025",
+            location: "Pesanan telah diterima oleh pembeli. Bogor, Jawa Barat"
+        }
+    ];
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {/* Kolom Kiri: Riwayat Tracking */}
-                    <div className="md:col-span-2">
-                        {/* Status Saat Ini */}
-                        <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-                            <h2 className="text-xl font-bold mb-2">Dalam Perjalanan</h2>
-                            <p className="text-sm text-gray-600 mb-4">Estimasi tiba: 05 September 2025</p>
-                            <p className="font-semibold text-gray-800">Nomor Resi JNE</p>
-                            <p className="text-ecotani-green font-bold text-lg">JNE 123456789</p>
+    return (
+        <div className="font-sans bg-gray-100 min-h-screen">
+            <Navbar isLoggedIn={isLoggedIn} userName={userName} />
+            
+            <main className="container mx-auto px-12 py-8">
+                <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+                    <h1 className="text-2xl font-bold text-ecotani-green mb-4">
+                        Lacak Pesanan
+                    </h1>
+                </div>
+
+                <div className="grid grid-cols-3 gap-8">
+                    {/* Kolom Kiri */}
+                    <div className="col-span-2 space-y-8">
+                        {/* Status Pesanan */}
+                        <div className="bg-white p-8 rounded-lg shadow-md">
+                            <h2 className="text-xl font-bold text-gray-800 mb-4">Status Pesanan</h2>
+                            {/* Konten status pesanan disesuaikan */}
+                            {paymentMethod === 'transfer' ? (
+                                <>
+                                    <p className="text-gray-600 mb-2">Pesanan Anda sedang menunggu konfirmasi pembayaran dari penjual.</p>
+                                    <p className="text-gray-600 font-semibold mt-4">Nomor Pesanan</p>
+                                    <p className="text-ecotani-green text-lg font-bold">ECT-2025-00001</p>
+                                </>
+                            ) : ( // Jika COD
+                                <>
+                                    <p className="text-gray-600 mb-2">Estimasi tiba: 05 September 2025</p>
+                                    <p className="text-gray-600 font-semibold">Nomor Resi JNE</p>
+                                    <p className="text-ecotani-green text-lg font-bold">JNE 123456789</p>
+                                </>
+                            )}
                         </div>
                         
-                        {/* Riwayat Tracking - Logika Kondisional */}
-                        <div className="bg-white p-6 rounded-lg shadow-md">
-                            <h2 className="text-xl font-bold mb-4">Riwayat Tracking</h2>
-                            <ul className="relative border-l border-gray-300 ml-4">
-                                {/* Pesanan Diajukan - Hanya untuk Transfer */}
-                                {paymentMethod === 'transfer' && (
-                                    <li className="mb-4 ml-6 relative">
-                                        <div className="absolute w-4 h-4 bg-gray-400 rounded-full -left-2 top-0 transform -translate-x-1/2"></div>
-                                        <div className="p-2 -ml-2">
-                                            <p className="font-semibold text-gray-800">Pesanan Diajukan <span className="text-sm text-gray-500 font-normal">31 Agustus 2025</span></p>
-                                            <p className="text-sm text-gray-600">Menunggu pembayaran dikonfirmasi.</p>
+                        {/* Riwayat Tracking */}
+                        <div className="bg-white p-8 rounded-lg shadow-md">
+                            <h2 className="text-xl font-bold text-gray-800 mb-4">Riwayat Tracking</h2>
+                            <div className="border-l-2 border-gray-200 ml-4 pl-4 space-y-6">
+                                {trackingHistory.map((track, index) => {
+                                    const isInitialStatus = track.status === "Pesanan Diajukan";
+                                    const bulletColorClass = 
+                                        paymentMethod === 'transfer' && isInitialStatus
+                                            ? 'bg-green-500' // Hijau jika transfer DAN statusnya "Pesanan Diajukan"
+                                            : paymentMethod === 'transfer' && !isInitialStatus
+                                                ? 'bg-gray-400' // Abu-abu jika transfer TAPI statusnya BUKAN "Pesanan Diajukan"
+                                                : 'bg-green-500'; // Hijau untuk semua jika bukan transfer (COD)
+
+                                    const isLastItem = index === trackingHistory.length - 1;
+                                    
+                                    return (
+                                        <div key={index} className="relative">
+                                            <div className={`absolute -left-5 top-0 w-4 h-4 rounded-full border-2 border-white ${bulletColorClass}`}></div>
+                                            <div className="flex justify-between items-end w-full"> {/* Menggunakan flexbox untuk memposisikan tombol */}
+                                                <div>
+                                                    <h3 className="font-semibold text-gray-800">{track.status}</h3>
+                                                    <p className="text-sm text-gray-500">{track.date}</p>
+                                                    <p className="text-sm text-gray-600">{track.location}</p>
+                                                </div>
+                                                {/* Tombol/Teks "Pesanan Diterima" ada di sini */}
+                                                {paymentMethod === 'cod' && isLastItem && (
+                                                    isOrderReceived ? (
+                                                        <p className="text-green-600 font-semibold text-right">Pesanan Diterima!</p>
+                                                    ) : (
+                                                        <button
+                                                            onClick={handleOrderReceived}
+                                                            className="bg-ecotani-green text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors"
+                                                        >
+                                                            Pesanan Diterima
+                                                        </button>
+                                                    )
+                                                )}
+                                            </div>
                                         </div>
-                                    </li>
-                                )}
-                                {/* Pesanan Dikonfirmasi - Selalu Tampil (kecuali status paling awal) */}
-                                <li className="mb-4 ml-6 relative">
-                                    <div className="absolute w-4 h-4 bg-green-500 rounded-full -left-2 top-0 transform -translate-x-1/2"></div>
-                                    <div className="p-2 -ml-2">
-                                        <p className="font-semibold text-gray-800">Pesanan Dikonfirmasi <span className="text-sm text-gray-500 font-normal">31 Agustus 2025</span></p>
-                                        <p className="text-sm text-gray-600">Pesanan dikonfirmasi penjual dan mulai dikemas. Klaten, Jawa Tengah</p>
-                                    </div>
-                                </li>
-                                {/* ... Langkah-langkah tracking lainnya */}
-                            </ul>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
 
-                    {/* Kolom Kanan: Detail Pesanan */}
-                    <div className="md:col-span-1">
-                        <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-                            <h2 className="text-xl font-bold mb-4">Detail Pesanan</h2>
-                            <div className="space-y-2 text-gray-700">
-                                <div className="flex justify-between"><span>Nomor Pesanan</span><span className="font-semibold">{orderData.nomorPesanan}</span></div>
-                                <div className="flex justify-between"><span>Tanggal Pesanan</span><span className="font-semibold">{orderData.tanggalPesanan}</span></div>
-                                <div className="flex justify-between"><span>Metode Pengiriman</span><span className="font-semibold">{orderData.metodePengiriman}</span></div>
-                            </div>
-                            <div className="border-t border-gray-200 mt-4 pt-4 space-y-2 text-gray-700">
-                                <div className="flex justify-between"><span>Subtotal</span><span>Rp{orderData.subtotal.toLocaleString('id-ID')}</span></div>
-                                <div className="flex justify-between"><span>Ongkos Kirim</span><span>Rp{orderData.ongkosKirim.toLocaleString('id-ID')}</span></div>
-                                <div className="flex justify-between"><span>Biaya Admin</span><span>Kosek</span></div>
-                            </div>
-                            <div className="flex justify-between text-lg font-bold border-t border-gray-300 mt-4 pt-4">
-                                <span>Total Pembayaran</span>
-                                <span className="text-ecotani-green">Rp{orderData.totalPembayaran.toLocaleString('id-ID')}</span>
-                            </div>
+                    {/* Kolom Kanan */}
+                    <div className="col-span-1 space-y-8">
+                        {/* Alamat Pengiriman */}
+                        <div className="bg-white p-8 rounded-lg shadow-md">
+                            <h2 className="text-xl font-bold mb-4">Alamat Pengiriman</h2>
+                            <h3 className="font-semibold text-gray-800">Alif Dzaka | +62 123 456 789</h3>
+                            <p className="text-gray-600">Jalan Bogor No. 123, RT 01 RW 12, Jawa Barat, 12345</p>
                         </div>
 
-                        {/* Item Pesanan */}
-                        <div className="bg-white p-6 rounded-lg shadow-md">
-                            <h2 className="text-xl font-bold mb-4">Item Pesanan</h2>
-                            <div className="flex items-center gap-4">
-                                <img src={orderData.item.image} alt={orderData.item.name} className="w-20 h-20 object-cover rounded-lg" />
-                                <div className="flex-grow">
-                                    <span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs font-medium">{orderData.item.tag}</span>
-                                    <h3 className="font-semibold mt-1">{orderData.item.name}</h3>
-                                    <p className="text-sm text-gray-600">Penjual: {orderData.item.seller}</p>
-                                    <p className="text-sm text-gray-600">{orderData.item.price}</p>
-                                </div>
+                        {/* Butuh Bantuan */}
+                        <div className="bg-white p-8 rounded-lg shadow-md">
+                            <h2 className="text-xl font-bold mb-4">Butuh Bantuan?</h2>
+                            <p className="text-gray-600">
+                                Jika ada masalah dengan pesanan Anda, silakan hubungi customer service kami. Zanu selalu ada disekitar Anda.
+                            </p>
+                        </div>
+                        
+                        {/* Detail Pesanan */}
+                        <div className="bg-white p-8 rounded-lg shadow-md">
+                            <h2 className="text-xl font-bold mb-4">Detail Pesanan</h2>
+                            <div className="grid grid-cols-2 gap-4 text-gray-700">
+                                <p className="font-semibold">Nomor Pesanan</p>
+                                <p>ECT-2025-00001</p>
+                                <p className="font-semibold">Tanggal Pesanan</p>
+                                <p>31 Agustus 2025</p>
+                                <p className="font-semibold">Metode Pengiriman</p>
+                                <p>Reguler - JNE</p>
+                                <p className="font-semibold">Subtotal</p>
+                                <p>Rp9.000</p>
+                                <p className="font-semibold">Ongkos Kirim</p>
+                                <p>Rp15.000</p>
+                                <p className="font-semibold">Biaya Admin</p>
+                                <p>Kosek</p>
+                                <p className="font-semibold">Total Pembayaran</p>
+                                <p>Kosek</p>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Item Pesanan */}
+                <div className="bg-white p-8 rounded-lg shadow-md mt-8">
+                    <h2 className="text-xl font-bold mb-4">Item Pesanan</h2>
+                    <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-4">
+                            <img src="/src/assets/detail-product.png" alt="Botol Plastik" className="w-20 h-20 object-cover rounded-lg" />
+                            <div>
+                                <p className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs font-medium inline-block mb-1">Plastik</p>
+                                <h3 className="font-semibold">Botol Plastik</h3>
+                                <p className="text-sm text-gray-600">Penjual: Jannah Kurniawati</p>
+                                <p className="text-sm text-gray-600">Rp3.000/100 gram</p>
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <p className="font-semibold text-lg text-ecotani-green">Rp9.000</p>
+
+                            {/* Tombol Beri Ulasan dan Chat Penjual muncul di sini */}
+                            {paymentMethod === 'cod' && isOrderReceived && (
+                                <div className="flex gap-2 mt-2">
+                                    <button className="flex-1 bg-gray-200 text-gray-800 py-2 px-6 rounded-full font-semibold hover:bg-gray-300 transition-colors">
+                                        Beri Ulasan
+                                    </button>
+                                    <button className="flex-1 bg-ecotani-green text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors">
+                                        Chat Penjual
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </main>
+            
             <Footer />
         </div>
     );

@@ -1,11 +1,15 @@
 // src/pages/user/CheckoutPage.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
+import AuthContext from '../../context/AuthContext'; // Import AuthContext
 
-const CheckoutPage = ({ isLoggedIn, userName, cartItems }) => {
+const CheckoutPage = ({ cartItems }) => {
+    // Ambil data login dari context
+    const { isLoggedIn, userName } = useContext(AuthContext);
+
     const navigate = useNavigate();
     const [paymentMethod, setPaymentMethod] = useState('transfer');
 
@@ -15,8 +19,12 @@ const CheckoutPage = ({ isLoggedIn, userName, cartItems }) => {
     const total = subtotal + ongkir;
 
     const handleCheckout = () => {
-        // Meneruskan metode pembayaran ke halaman tracking
-        navigate('/tracking', { state: { paymentMethod } });
+        if (paymentMethod === 'transfer') {
+            navigate('/payment-upload');
+        } else {
+            // Logika untuk metode pembayaran selain transfer
+            navigate('/tracking', { state: { paymentMethod } });
+        }
     };
 
     return (
