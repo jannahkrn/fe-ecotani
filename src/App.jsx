@@ -14,11 +14,14 @@ import TrackingPage from "./pages/user/TrackingPage";
 import PaymentUploadPage from "./pages/user/PaymentUploadPage";
 import RatingAndReviewPage from "./pages/user/RatingAndReviewPage";
 import ProfilePage from "./pages/user/ProfilePage";
-import NotFoundPage from "./pages/NotFoundPage"; // ⬅️ import halaman 404
+import NotFoundPage from "./pages/NotFoundPage";
+import ChatPage from "./pages/user/ChatPage"; // ⬅️ Tambahkan Chat
 import { AuthProvider } from "./context/AuthContext";
+import Navbar from "./components/user/Navbar";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
+  const [hasNewChat, setHasNewChat] = useState(true); // contoh notifikasi chat
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -52,6 +55,9 @@ function App() {
   return (
     <AuthProvider>
       <div className="App">
+        {/* Navbar tampil di semua halaman */}
+        <Navbar cartItems={cartItems} hasNewChat={hasNewChat} />
+
         <Routes>
           <Route path="/" element={<HomePage cartItems={cartItems} />} />
           <Route path="/search" element={<SearchPage cartItems={cartItems} />} />
@@ -66,7 +72,7 @@ function App() {
             path="/seller/products/:productId"
             element={<SellerProductDetailPage cartItems={cartItems} />}
           />
-          {/* Halaman edit produk (sementara placeholder) */}
+          {/* Halaman edit produk */}
           <Route
             path="/seller/products/edit/:productId"
             element={
@@ -89,7 +95,6 @@ function App() {
             path="/tracking"
             element={<TrackingPage cartItems={cartItems} />}
           />
-          {/* pastikan route ini sesuai dengan Link di PurchaseItem */}
           <Route
             path="/payment-upload"
             element={<PaymentUploadPage cartItems={cartItems} />}
@@ -112,8 +117,9 @@ function App() {
             element={<ProfilePage cartItems={cartItems} />}
           />
           <Route path="/must-login" element={<MustLoginPage />} />
+          <Route path="/chat" element={<ChatPage />} /> {/* ⬅️ route chat */}
 
-          {/* ⬇️ Tambahkan route paling akhir untuk NotFoundPage */}
+          {/* Route fallback */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

@@ -1,10 +1,10 @@
 // src/components/user/Navbar.jsx
-import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
-import AuthContext from '../../context/AuthContext';
-import { FaShoppingCart, FaUserCircle } from 'react-icons/fa';
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../../context/AuthContext";
+import { FaShoppingCart, FaUserCircle, FaComments } from "react-icons/fa";
 
-const Navbar = ({ cartItems = [] }) => {
+const Navbar = ({ cartItems = [], hasNewChat = true }) => {
   const { isLoggedIn, userName } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
@@ -31,14 +31,34 @@ const Navbar = ({ cartItems = [] }) => {
             <span className="text-xl font-bold text-ecotani-green">ECOTANI</span>
           </Link>
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-gray-600 hover:text-ecotani-green transition-colors font-medium">Home</Link>
-            <Link to="/about" className="text-gray-600 hover:text-ecotani-green transition-colors font-medium">About</Link>
-            <Link to="/citizen-science" className="text-gray-600 hover:text-ecotani-green transition-colors font-medium">Citizen Science</Link>
-            <Link to="/help" className="text-gray-600 hover:text-ecotani-green transition-colors font-medium">Help</Link>
+            <Link
+              to="/"
+              className="text-gray-600 hover:text-ecotani-green transition-colors font-medium"
+            >
+              Home
+            </Link>
+            <Link
+              to="/about"
+              className="text-gray-600 hover:text-ecotani-green transition-colors font-medium"
+            >
+              About
+            </Link>
+            <Link
+              to="/citizen-science"
+              className="text-gray-600 hover:text-ecotani-green transition-colors font-medium"
+            >
+              Citizen Science
+            </Link>
+            <Link
+              to="/help"
+              className="text-gray-600 hover:text-ecotani-green transition-colors font-medium"
+            >
+              Help
+            </Link>
           </div>
         </div>
 
-        {/* Search, Cart, dan User */}
+        {/* Search, Cart, Chat, dan User */}
         <div className="flex items-center gap-6">
           {/* Form Search */}
           <form onSubmit={handleSearch} className="relative">
@@ -66,7 +86,10 @@ const Navbar = ({ cartItems = [] }) => {
           </form>
 
           {/* Cart */}
-          <Link to="/cart" className="relative text-gray-600 hover:text-ecotani-green transition-colors">
+          <Link
+            to="/cart"
+            className="relative text-gray-600 hover:text-ecotani-green transition-colors"
+          >
             <FaShoppingCart className="h-6 w-6" />
             {totalItemsInCart > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -75,14 +98,33 @@ const Navbar = ({ cartItems = [] }) => {
             )}
           </Link>
 
+          {/* Chat */}
+          <Link
+            to="/chat"
+            className="relative text-gray-600 hover:text-ecotani-green transition-colors"
+          >
+            <FaComments className="h-6 w-6" />
+            {hasNewChat && (
+              <span className="absolute -top-1 -right-1 bg-red-500 h-3 w-3 rounded-full"></span>
+            )}
+          </Link>
+
           {/* User */}
           {isLoggedIn ? (
-            <Link to="/profile" className="flex items-center gap-2 text-gray-600 hover:text-ecotani-green transition-colors">
+            <Link
+              to="/profile"
+              className="flex items-center gap-2 text-gray-600 hover:text-ecotani-green transition-colors"
+            >
               <FaUserCircle className="h-6 w-6" />
-              <span className="font-semibold hidden sm:inline">Hai, {userName}</span>
+              <span className="font-semibold hidden sm:inline">
+                Hai, {userName}
+              </span>
             </Link>
           ) : (
-            <Link to="/login" className="flex items-center gap-2 text-gray-600 hover:text-ecotani-green transition-colors">
+            <Link
+              to="/login"
+              className="flex items-center gap-2 text-gray-600 hover:text-ecotani-green transition-colors"
+            >
               <FaUserCircle className="h-6 w-6" />
               <span className="font-semibold hidden sm:inline">Masuk</span>
             </Link>
