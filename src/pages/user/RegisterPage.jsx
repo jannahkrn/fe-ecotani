@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Tambahkan useNavigate
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -15,7 +15,6 @@ const RegisterPage = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 font-sans">
       <div className="text-center mb-8">
         <div className="flex justify-center items-center mb-2">
-          {/* Pastikan path gambar logo sudah benar */}
           <img src="/src/assets/logo.png" alt="Ecotani Logo" className="h-10" />
         </div>
         <p className="text-sm text-gray-600">Platform Jual Beli Limbah</p>
@@ -30,7 +29,6 @@ const RegisterPage = () => {
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">Informasi Personal</h2>
         <p className="text-center text-gray-500 mb-6">Isi data diri yang tertera dibawah ini.</p>
         
-        {/* Tambahkan onSubmit ke form */}
         <form className="grid grid-cols-2 gap-x-10 gap-y-6" onSubmit={handleRegisterSubmit}>
           <div className="col-span-2">
             <label className="block text-sm font-medium text-gray-700">Nama Lengkap</label>

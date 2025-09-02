@@ -1,14 +1,16 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Tambahkan useNavigate
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext'; // Import AuthContext
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = () => {
+  // Ambil handleLogin dari Context
+  const { handleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    // Simulasi login berhasil. Anggap saja validasi sudah sukses.
-    // Panggil fungsi onLogin dari App.jsx
-    onLogin('Alif');
+    // Panggil fungsi handleLogin dari Context
+    handleLogin('Alif');
     // Arahkan ke halaman utama
     navigate('/');
   };
@@ -31,7 +33,6 @@ const LoginPage = ({ onLogin }) => {
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">Masuk ke Akun</h2>
         <p className="text-center text-gray-500 mb-6">Masukkan email dan password Anda untuk melanjutkan</p>
         
-        {/* Tambahkan onSubmit ke form */}
         <form className="space-y-6" onSubmit={handleLoginSubmit}> 
           <div>
             <label className="block text-sm font-medium text-gray-700">Email</label>

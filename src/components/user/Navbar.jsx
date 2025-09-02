@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+// src/components/user/Navbar.jsx
 
-// Tambahkan default value array kosong pada cartItems
-const Navbar = ({ isLoggedIn, userName, cartItems = [] }) => {
+import React, { useState, useContext } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext'; // Import AuthContext
+
+// Hapus props isLoggedIn dan userName
+const Navbar = ({ cartItems = [] }) => {
+  // Ambil isLoggedIn, userName, dan handleLogout dari Context
+  const { isLoggedIn, userName, handleLogout } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
@@ -63,8 +68,14 @@ const Navbar = ({ isLoggedIn, userName, cartItems = [] }) => {
           </div>
           
           {isLoggedIn ? (
-            <div className="font-semibold text-ecotani-green">
-              <p>Hai, {userName}</p>
+            <div className="flex items-center gap-3">
+              <p className="font-semibold text-ecotani-green">Hai, {userName}</p>
+              <button
+                onClick={handleLogout}
+                className="py-2 px-5 rounded-full border-2 border-red-500 text-red-500 font-semibold transition-colors hover:bg-red-500 hover:text-white"
+              >
+                Logout
+              </button>
             </div>
           ) : (
             <div className="flex gap-3">

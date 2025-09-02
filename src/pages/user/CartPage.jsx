@@ -1,8 +1,12 @@
+// src/pages/user/CartPage.jsx
+
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
 
-const CartPage = ({ cartItems, updateQuantity }) => {
+// Tambahkan isLoggedIn dan userName di props yang diterima
+const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
   // Fungsi untuk menghitung total harga
   const subtotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -16,7 +20,8 @@ const CartPage = ({ cartItems, updateQuantity }) => {
 
   return (
     <div className="font-sans">
-      <Navbar cartItems={cartItems} />
+      {/* Teruskan props isLoggedIn dan userName ke Navbar */}
+      <Navbar cartItems={cartItems} isLoggedIn={isLoggedIn} userName={userName} />
 
       <main className="container mx-auto px-12 py-8 min-h-screen">
         <h1 className="text-3xl font-bold text-center text-ecotani-green my-8">
@@ -36,12 +41,12 @@ const CartPage = ({ cartItems, updateQuantity }) => {
             <p className="text-gray-500 mt-2">
               Yuk, cari produk limbah daur ulang pilihanmu!
             </p>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="mt-4 inline-block bg-ecotani-green text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition-colors"
             >
               Mulai Belanja
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-3 gap-8">

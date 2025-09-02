@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+// src/App.jsx
+
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/user/HomePage';
 import SearchPage from './pages/user/SearchPage';
 import ProductDetailPage from './pages/user/ProductDetailPage';
-import SellerDetailPage from './pages/user/SellerDetailPage'; // Tambahkan import halaman ini
+import SellerDetailPage from './pages/user/SellerDetailPage';
 import LoginPage from './pages/user/LoginPage';
 import RegisterPage from './pages/user/RegisterPage';
 import CartPage from './pages/user/CartPage';
 import MustLoginPage from './pages/user/MustLoginPage';
+import CheckoutPage from './pages/user/CheckoutPage'; 
+import TrackingPage from './pages/user/TrackingPage';
+
+// Import AuthProvider dari file yang baru saja dibuat
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
+  // Hapus state isLoggedIn, userName, dan handleLogin karena sudah di Context
   const [cartItems, setCartItems] = useState([]);
 
-  const handleLogin = (name) => {
-    setIsLoggedIn(true);
-    setUserName(name);
-  };
+  // Tambahkan useEffect untuk menyimpan cartItems ke Local Storage jika perlu
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
   
   const addToCart = (product) => {
     const existingItem = cartItems.find(item => item.id === product.id);
@@ -41,45 +47,33 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Routes>
-        <Route 
-          path="/" 
-          element={<HomePage isLoggedIn={isLoggedIn} userName={userName} cartItems={cartItems} />} 
-        />
-        <Route 
-          path="/search" 
-          element={<SearchPage isLoggedIn={isLoggedIn} userName={userName} cartItems={cartItems} />} 
-        />
-        <Route 
-          path="/products/:productName" 
-          element={<ProductDetailPage 
-            isLoggedIn={isLoggedIn} 
-            userName={userName} 
-            addToCart={addToCart} 
-            cartItems={cartItems} 
-          />} 
-        />
-        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-        <Route path="/register" element={<RegisterPage />} />
+    // Bungkus seluruh Routes dengan AuthProvider
+    <AuthProvider>
+      <div className="App">
+        <Routes>
+          {/* Hapus props isLoggedIn dan userName di semua Route */}
+          <Route path="/" element={<HomePage cartItems={cartItems} />} />
+          <Route path="/search" element={<SearchPage cartItems={cartItems} />} />
+          <Route path="/products/:productName" element={<ProductDetailPage addToCart={addToCart} cartItems={cartItems} />} />
+          
+          {/* Ubah elemen untuk LoginPage */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          
+          <Route path="/seller/:sellerName" element={<SellerDetailPage cartItems={cartItems} />} />
+          <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} />
+          <Route path="/tracking" element={<TrackingPage cartItems={cartItems} />} />
 
-        {/* Tambahkan rute baru ini */}
-        <Route 
-          path="/seller/:sellerName" 
-          element={<SellerDetailPage isLoggedIn={isLoggedIn} userName={userName} cartItems={cartItems} />} 
-        />
-        
-        {/* Implementasi logika untuk halaman keranjang */}
-        <Route 
-          path="/cart" 
-          element={
-            isLoggedIn 
-              ? <CartPage cartItems={cartItems} updateQuantity={updateCartItemQuantity} /> 
-              : <MustLoginPage /> // Jika belum login, tampilkan halaman ini
-          } 
-        />
-      </Routes>
-    </div>
+          <Route 
+            path="/cart" 
+            element={
+              // Kita akan ubah logika ini nanti agar menggunakan Context
+              <CartPage cartItems={cartItems} updateQuantity={updateCartItemQuantity} /> 
+            } 
+          />
+        </Routes>
+      </div>
+    </AuthProvider>
   );
 }
 
