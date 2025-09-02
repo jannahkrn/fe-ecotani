@@ -3,10 +3,11 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/user/HomePage';
 import SearchPage from './pages/user/SearchPage';
 import ProductDetailPage from './pages/user/ProductDetailPage';
+import SellerDetailPage from './pages/user/SellerDetailPage'; // Tambahkan import halaman ini
 import LoginPage from './pages/user/LoginPage';
 import RegisterPage from './pages/user/RegisterPage';
 import CartPage from './pages/user/CartPage';
-import MustLoginPage from './pages/user/MustLoginPage'; // Tambahkan import halaman ini
+import MustLoginPage from './pages/user/MustLoginPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -61,6 +62,12 @@ function App() {
         />
         <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
         <Route path="/register" element={<RegisterPage />} />
+
+        {/* Tambahkan rute baru ini */}
+        <Route 
+          path="/seller/:sellerName" 
+          element={<SellerDetailPage isLoggedIn={isLoggedIn} userName={userName} cartItems={cartItems} />} 
+        />
         
         {/* Implementasi logika untuk halaman keranjang */}
         <Route 

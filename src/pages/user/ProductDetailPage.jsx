@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
 
@@ -170,7 +170,12 @@ const ProductDetailPage = ({ isLoggedIn, userName, addToCart, cartItems }) => {
             </div>
             <div className="flex gap-2">
               <button className="py-2 px-4 rounded-full border border-ecotani-green text-ecotani-green text-sm font-semibold">Chat dengan Penjual</button>
-              <button className="py-2 px-4 rounded-full bg-ecotani-green text-white text-sm font-semibold">Lihat Toko</button>
+              <Link 
+                to={`/seller/${product.seller.replace(/\s+/g, '')}`} 
+                className="py-2 px-4 rounded-full bg-ecotani-green text-white text-sm font-semibold hover:bg-green-700 transition-colors"
+              >
+                Lihat Toko
+              </Link>
             </div>
           </div>
           <p className="mt-4 text-sm text-gray-700">Produsen kompos organik terpercaya dengan pengalaman lebih dari 10 tahun. Kami berkomitmen menyediakan produk berkualitas tinggi untuk mendukung pertanian berkelanjutan.</p>
