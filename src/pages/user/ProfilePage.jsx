@@ -1,14 +1,10 @@
-// src/pages/user/ProfilePage.jsx
-
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
-import AuthContext from '../../context/AuthContext';
 import { FaUserCircle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-// Terima prop cartItems di sini
 const ProfilePage = ({ cartItems }) => {
-    const { isLoggedIn, userName } = useContext(AuthContext);
     const [activeTab, setActiveTab] = useState('profile');
 
     // Dummy data untuk profile
@@ -20,67 +16,194 @@ const ProfilePage = ({ cartItems }) => {
         purchases: 89,
         sellerRating: 4.8,
         buyerRating: 4.9,
-        phone: "+62 767 888 999",
-        gender: "Laki-Laki",
-        addresses: [
-            {
-                name: "Alif Dzaka Nurhakim",
-                phone: "+62 767 888 999",
-                address: "Jalan Bogor No. 123, RT 01 RW 12, Jawa Barat, 12345"
-            },
-            {
-                name: "Alif Dzaka Nurhakim",
-                phone: "+62 767 888 999",
-                address: "Asrama Putra Gedung J, Telkom University"
-            }
-        ]
     };
 
-    const renderContent = () => {
+    // Dummy data untuk Riwayat Pembelian
+    const purchaseHistory = [
+        {
+            id: 1,
+            productName: "Botol Plastik",
+            productCategory: "Plastik",
+            productImage: "/src/assets/detail-product.png",
+            sellerName: "Jannah K",
+            price: 9000,
+            paymentMethod: "Transfer",
+            transactionStatus: "Selesai",
+            status: "completed-rated",
+            sellerRating: 4.5,
+            productRating: 4.7
+        },
+        {
+            id: 2,
+            productName: "Botol Plastik",
+            productCategory: "Plastik",
+            productImage: "/src/assets/detail-product.png",
+            sellerName: "Jannah K",
+            price: 9000,
+            paymentMethod: "Transfer",
+            transactionStatus: "Diajukan",
+            status: "awaiting-verification"
+        },
+        {
+            id: 3,
+            productName: "Botol Plastik",
+            productCategory: "Plastik",
+            productImage: "/src/assets/detail-product.png",
+            sellerName: "Jannah K",
+            price: 9000,
+            paymentMethod: "COD",
+            transactionStatus: "Selesai",
+            status: "completed"
+        },
+        {
+            id: 4,
+            productName: "Botol Plastik",
+            productCategory: "Plastik",
+            productImage: "/src/assets/detail-product.png",
+            sellerName: "Jannah K",
+            price: 9000,
+            paymentMethod: "Transfer",
+            transactionStatus: "Selesai",
+            status: "completed"
+        },
+        {
+            id: 5,
+            productName: "Botol Plastik",
+            productCategory: "Plastik",
+            productImage: "/src/assets/detail-product.png",
+            sellerName: "Jannah K",
+            price: 9000,
+            paymentMethod: "Transfer",
+            transactionStatus: "Belum Bayar",
+            status: "pending-payment"
+        }
+    ];
+
+    const renderTabContent = () => {
         switch (activeTab) {
             case 'profile':
                 return (
-                    <div className="space-y-6">
-                        <div className="grid md:grid-cols-2 gap-x-16 gap-y-4">
-                            <div>
-                                <h3 className="font-semibold text-gray-700">Nama Lengkap</h3>
-                                <p className="text-gray-900">{userProfile.name}</p>
+                    <div>
+                        <h2 className="text-xl font-bold text-gray-800 mb-4">Informasi Dasar</h2>
+                        {/* Konten profil pribadi */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                            <div className="flex flex-col">
+                                <label className="text-sm font-semibold text-gray-600">Nama Lengkap</label>
+                                <p className="text-gray-800">{userProfile.name}</p>
                             </div>
-                            <div>
-                                <h3 className="font-semibold text-gray-700">Email</h3>
-                                <p className="text-gray-900">{userProfile.email}</p>
+                            <div className="flex flex-col">
+                                <label className="text-sm font-semibold text-gray-600">Email</label>
+                                <p className="text-gray-800">{userProfile.email}</p>
                             </div>
-                            <div>
-                                <h3 className="font-semibold text-gray-700">Nomor Telepon</h3>
-                                <p className="text-gray-900">{userProfile.phone}</p>
+                            <div className="flex flex-col">
+                                <label className="text-sm font-semibold text-gray-600">Nomor Telepon</label>
+                                <p className="text-gray-800">+62 822 888 999</p>
                             </div>
-                            <div>
-                                <h3 className="font-semibold text-gray-700">Jenis Kelamin</h3>
-                                <p className="text-gray-900">{userProfile.gender}</p>
+                            <div className="flex flex-col">
+                                <label className="text-sm font-semibold text-gray-600">Jenis Kelamin</label>
+                                <p className="text-gray-800">Laki-Laki</p>
                             </div>
                         </div>
 
-                        <div className="pt-4">
-                            <div className="flex justify-between items-center mb-4">
-                                <h3 className="font-semibold text-gray-700 text-lg">Alamat Pengiriman</h3>
-                                <button className="text-ecotani-green font-semibold hover:underline">+ Tambah Alamat</button>
+                        <h2 className="text-xl font-bold text-gray-800 mt-8 mb-4">Alamat Pengiriman</h2>
+                        {/* Dummy data untuk alamat */}
+                        <div className="bg-gray-100 p-4 rounded-lg flex justify-between items-center mb-4">
+                            <div>
+                                <p className="font-semibold text-gray-800">Alif Dzaka Nurhakim | +62 822 888 999</p>
+                                <p className="text-sm text-gray-600">Jalan Bogor No. 123, RT 01 RW 12, Jawa Barat, 12345</p>
                             </div>
-                            <div className="space-y-4">
-                                {userProfile.addresses.map((addr, index) => (
-                                    <div key={index} className="border-b pb-4 last:border-b-0 last:pb-0">
-                                        <p className="font-semibold">{addr.name} | {addr.phone}</p>
-                                        <p className="text-gray-600">{addr.address}</p>
-                                        <div className="text-right">
-                                            <button className="text-ecotani-green font-semibold hover:underline">Ubah Alamat</button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                            <button className="text-ecotani-green text-sm font-semibold">Ubah Alamat</button>
                         </div>
+                        <button className="text-ecotani-green text-sm font-semibold hover:underline">+ Tambah Alamat</button>
                     </div>
                 );
             case 'purchase-history':
-                return <p>Ini adalah halaman Riwayat Pembelian.</p>;
+                return (
+                    <div className="space-y-4">
+                        <h2 className="text-xl font-bold text-gray-800">Riwayat Pembelian</h2>
+                        {purchaseHistory.map((order) => {
+                            const renderStatus = () => {
+                                switch (order.status) {
+                                    case 'completed-rated':
+                                        return (
+                                            <div className="text-right">
+                                                <p className="text-sm font-semibold text-gray-600">
+                                                    Rating dari penjual: {order.sellerRating} / 5.0
+                                                </p>
+                                                <p className="text-sm font-semibold text-gray-600">
+                                                    Rating untuk produk: {order.productRating} / 5.0
+                                                </p>
+                                            </div>
+                                        );
+                                    case 'completed':
+                                        return (
+                                            <div className="flex justify-end gap-2 mt-2">
+                                                <Link to="/review" className="text-sm font-semibold text-white bg-ecotani-green px-4 py-2 rounded-full hover:bg-green-700 transition-colors">
+                                                    Rating Sekarang
+                                                </Link>
+                                            </div>
+                                        );
+                                    case 'pending-payment':
+                                        return (
+                                            <div className="flex justify-end gap-2 mt-2">
+                                                <Link to="/payment-upload" className="text-sm font-semibold text-white bg-red-500 px-4 py-2 rounded-full hover:bg-red-600 transition-colors">
+                                                    Bayar Sekarang
+                                                </Link>
+                                            </div>
+                                        );
+                                    case 'awaiting-verification':
+                                        return (
+                                            <div className="text-right">
+                                                <p className="text-sm font-medium text-gray-500">
+                                                    Bukti Transfer sedang Diverifikasi
+                                                </p>
+                                            </div>
+                                        );
+                                    default:
+                                        return null;
+                                }
+                            };
+
+                            return (
+                                <div key={order.id} className="bg-white p-6 rounded-lg shadow-md flex justify-between items-center mb-4">
+                                    <div className="flex items-start gap-6 flex-grow">
+                                        <img src={order.productImage} alt={order.productName} className="w-24 h-24 object-cover rounded-lg" />
+                                        <div>
+                                            <p className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs font-medium inline-block mb-1">
+                                                {order.productCategory}
+                                            </p>
+                                            <h3 className="font-semibold text-lg">{order.productName}</h3>
+                                            <p className="text-sm text-gray-600">Penjual: {order.sellerName}</p>
+                                            <div className="flex items-center gap-2 mt-2">
+                                                <span className="text-sm font-medium text-gray-500">{order.paymentMethod}</span>
+                                                <span className={`text-sm font-medium px-2 py-1 rounded-full 
+                                                    ${order.transactionStatus === 'Selesai' ? 'bg-green-100 text-green-700' :
+                                                      order.transactionStatus === 'Diajukan' ? 'bg-yellow-100 text-yellow-700' :
+                                                      order.transactionStatus === 'Belum Bayar' ? 'bg-red-100 text-red-700' :
+                                                      'bg-gray-100 text-gray-700'}`}
+                                                >
+                                                    {order.transactionStatus}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex flex-col items-end justify-between self-stretch">
+                                        <p className="font-bold text-lg text-ecotani-green">
+                                            Rp{order.price.toLocaleString('id-ID')}
+                                        </p>
+                                        <div className="mt-4">
+                                            <Link to={`/tracking?orderId=${order.id}`} className="text-sm text-ecotani-green font-semibold hover:underline">
+                                                Detail Pesanan
+                                            </Link>
+                                        </div>
+                                        {renderStatus()}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                );
             case 'seller-profile':
                 return <p>Ini adalah halaman Profil Penjual.</p>;
             case 'sales-history':
@@ -92,13 +215,11 @@ const ProfilePage = ({ cartItems }) => {
 
     return (
         <div className="font-sans bg-gray-100 min-h-screen">
-            {/* Teruskan prop cartItems ke Navbar */}
-            <Navbar isLoggedIn={isLoggedIn} userName={userName} cartItems={cartItems} />
+            <Navbar cartItems={cartItems} />
 
             <main className="container mx-auto px-12 py-8">
                 <div className="bg-white p-8 rounded-lg shadow-md mb-8">
                     <div className="flex items-center gap-6 mb-8">
-                        {/* Profile Picture Placeholder */}
                         <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
                             <FaUserCircle className="text-7xl text-gray-400" />
                         </div>
@@ -109,7 +230,6 @@ const ProfilePage = ({ cartItems }) => {
                         </div>
                     </div>
                     
-                    {/* Summary Cards */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div className="bg-ecotani-green text-white p-4 rounded-lg text-center">
                             <p className="text-3xl font-bold">{userProfile.sales}</p>
@@ -130,7 +250,6 @@ const ProfilePage = ({ cartItems }) => {
                     </div>
                 </div>
 
-                {/* Tabs dan Konten */}
                 <div className="bg-white p-8 rounded-lg shadow-md">
                     <div className="flex border-b border-gray-200 mb-6">
                         <button
@@ -166,7 +285,8 @@ const ProfilePage = ({ cartItems }) => {
                             Riwayat Penjualan
                         </button>
                     </div>
-                    {renderContent()}
+
+                    {renderTabContent()}
                 </div>
             </main>
 
