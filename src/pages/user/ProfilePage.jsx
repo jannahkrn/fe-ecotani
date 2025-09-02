@@ -6,13 +6,26 @@ import { Link } from 'react-router-dom';
 
 const ProfilePage = ({ cartItems }) => {
     const [activeTab, setActiveTab] = useState('profile');
-    const [hasStore, setHasStore] = useState(false);
+    const [hasStore, setHasStore] = useState(true);
     const [isCreatingStore, setIsCreatingStore] = useState(false);
+    const [isAddingProduct, setIsAddingProduct] = useState(false);
     const [storeData, setStoreData] = useState({
-        storeName: '',
-        operationalHours: '',
-        storeDescription: ''
+        storeName: 'Alif Store',
+        operationalHours: '09:00 - 21:00 WIB',
+        storeDescription: 'Toko online terpercaya menjual gadget, aksesoris teknologi, dan fashion dengan kualitas terbaik. Melayani pengiriman ke seluruh Indonesia.'
     });
+
+    const [products, setProducts] = useState([]);
+    const [productData, setProductData] = useState({
+        productTitle: '',
+        condition: '',
+        category: '',
+        weight: '',
+        price: '',
+        location: '',
+        description: '',
+    });
+    const [uploadedImages, setUploadedImages] = useState([]);
 
     // Dummy data untuk profile
     const userProfile = {
@@ -91,15 +104,59 @@ const ProfilePage = ({ cartItems }) => {
     };
 
     const handleSaveStore = () => {
-        // Logika untuk menyimpan data toko, bisa ke database
-        // Untuk saat ini, kita hanya akan mengubah state
         setHasStore(true);
         setIsCreatingStore(false);
     };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setStoreData(prevData => ({ ...prevData, [name]: value }));
+        if (isCreatingStore) {
+            setStoreData(prevData => ({ ...prevData, [name]: value }));
+        } else if (isAddingProduct) {
+            setProductData(prevData => ({ ...prevData, [name]: value }));
+        }
+    };
+
+    const handleAddProductClick = () => {
+        setIsAddingProduct(true);
+    };
+
+    const handleSaveProduct = () => {
+        const newProduct = {
+            id: products.length + 1,
+            title: productData.productTitle,
+            category: productData.category,
+            image: uploadedImages.length > 0 ? uploadedImages[0] : "/src/assets/detail-product.png", // Use first uploaded image or a placeholder
+            seller: storeData.storeName,
+            stock: productData.weight,
+            price: productData.price
+        };
+        setProducts(prevProducts => [...prevProducts, newProduct]);
+        setIsAddingProduct(false);
+        setProductData({
+            productTitle: '',
+            condition: '',
+            category: '',
+            weight: '',
+            price: '',
+            location: '',
+            description: '',
+        });
+        setUploadedImages([]);
+    };
+
+    const handleImageUpload = (event) => {
+        const files = Array.from(event.target.files);
+        if (uploadedImages.length + files.length > 5) {
+            alert("Maksimal 5 foto dapat diunggah.");
+            return;
+        }
+        const newImageUrls = files.map(file => URL.createObjectURL(file));
+        setUploadedImages(prevImages => [...prevImages, ...newImageUrls]);
+    };
+    
+    const handleRemoveImage = (index) => {
+        setUploadedImages(prevImages => prevImages.filter((_, i) => i !== index));
     };
 
     const renderSellerProfileContent = () => {
@@ -154,6 +211,148 @@ const ProfilePage = ({ cartItems }) => {
             );
         }
 
+        if (isAddingProduct) {
+            return (
+                <div className="bg-white p-6 rounded-lg shadow-md space-y-6">
+                    <h2 className="text-xl font-bold text-gray-800 mb-2">Tambah Produk</h2>
+                    <p className="text-sm text-gray-500 mb-4">Berat minimal limbah yang dapat dijual adalah 100 gram (0,1 kg).</p>
+
+                    <h3 className="text-lg font-semibold text-gray-700">Informasi Limbah</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                        <div className="flex flex-col">
+                            <label className="text-sm font-semibold text-gray-600 mb-2">Judul Limbah</label>
+                            <input
+                                type="text"
+                                name="productTitle"
+                                value={productData.productTitle}
+                                onChange={handleInputChange}
+                                placeholder="Judul Limbah. Contoh: Kulit jagung"
+                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-sm font-semibold text-gray-600 mb-2">Kondisi</label>
+                            <input
+                                type="text"
+                                name="condition"
+                                value={productData.condition}
+                                onChange={handleInputChange}
+                                placeholder="Basah atau Kering"
+                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-sm font-semibold text-gray-600 mb-2">Kategori</label>
+                            <input
+                                type="text"
+                                name="category"
+                                value={productData.category}
+                                onChange={handleInputChange}
+                                placeholder="Bisa bermacam-macam, seperti anorganik, organik, kayu, atau tekstil."
+                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-sm font-semibold text-gray-600 mb-2">Berat (gram)</label>
+                            <input
+                                type="text"
+                                name="weight"
+                                value={productData.weight}
+                                onChange={handleInputChange}
+                                placeholder="100 gram"
+                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-sm font-semibold text-gray-600 mb-2">Lokasi</label>
+                            <input
+                                type="text"
+                                name="location"
+                                value={productData.location}
+                                onChange={handleInputChange}
+                                placeholder="Contoh: Klaten, Jawa Tengah"
+                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-sm font-semibold text-gray-600 mb-2">Harga per gram (Rp)</label>
+                            <input
+                                type="text"
+                                name="price"
+                                value={productData.price}
+                                onChange={handleInputChange}
+                                placeholder="2000"
+                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                            />
+                        </div>
+                    </div>
+                    <div className="flex flex-col mt-4">
+                        <label className="text-sm font-semibold text-gray-600 mb-2">Deskripsi</label>
+                        <textarea
+                            name="description"
+                            value={productData.description}
+                            onChange={handleInputChange}
+                            placeholder="Deskripsikan kondisi dan detail limbah anda."
+                            rows="4"
+                            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                        />
+                    </div>
+                    
+                    <h3 className="text-lg font-semibold text-gray-700 mt-6">Foto Limbah (Maksimal 5 foto)</h3>
+                    <div className="bg-gray-100 p-8 rounded-lg text-center border-2 border-dashed border-gray-300 relative">
+                        {uploadedImages.length > 0 ? (
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-4">
+                                {uploadedImages.map((image, index) => (
+                                    <div key={index} className="relative group">
+                                        <img src={image} alt={`Pratinjau ${index + 1}`} className="w-full h-24 object-cover rounded-lg" />
+                                        <button
+                                            onClick={() => handleRemoveImage(index)}
+                                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex justify-center items-center">
+                                <svg className="w-16 h-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L15 16m-2-4l4.586-4.586a2 2 0 012.828 0L20 12m-6 4h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                        )}
+                        <p className="mt-2 text-gray-600 font-semibold">Upload Foto Limbah</p>
+                        <p className="text-sm text-gray-500">Klik tombol di bawah untuk upload foto limbah transfer</p>
+                        <input
+                            type="file"
+                            id="imageUpload"
+                            hidden
+                            multiple
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                        />
+                        <button
+                            onClick={() => document.getElementById('imageUpload').click()}
+                            className="mt-4 bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors"
+                        >
+                            Upload File
+                        </button>
+                    </div>
+
+                    <div className="flex justify-end mt-8">
+                        <button
+                            onClick={handleSaveProduct}
+                            className="bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors"
+                        >
+                            Tambahkan Limbah
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
         if (hasStore) {
             // Tampilan saat toko sudah dibuat
             return (
@@ -179,16 +378,39 @@ const ProfilePage = ({ cartItems }) => {
                     <div className="bg-white p-6 rounded-lg shadow-md space-y-6">
                         <div className="flex justify-between items-center">
                             <h2 className="text-xl font-bold text-gray-800">Daftar Produk</h2>
-                            <button className="bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors">
+                            <button
+                                onClick={handleAddProductClick}
+                                className="bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors"
+                            >
                                 Tambah Produk
                             </button>
                         </div>
-                        <div className="text-center py-12">
-                            <p className="text-xl font-bold text-gray-800 mb-2">Produk Masih Kosong!</p>
-                            <p className="text-gray-600">
-                                Klik Tambah Produk Untuk Menjual Limbah.
-                            </p>
-                        </div>
+                        {products.length > 0 ? (
+                            products.map(product => (
+                                <div key={product.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                    <div className="flex items-center gap-4">
+                                        <img src={product.image} alt={product.title} className="w-20 h-20 object-cover rounded-md" />
+                                        <div>
+                                            <p className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs font-medium inline-block mb-1">{product.category}</p>
+                                            <p className="font-semibold text-gray-800">{product.title}</p>
+                                            <p className="text-sm text-gray-600">Penjual: {product.seller}</p>
+                                            <p className="text-sm text-gray-600">Stok Tersedia</p>
+                                            <p className="font-bold text-sm text-ecotani-green">Rp{product.price.toLocaleString('id-ID')} / {product.weight} gram</p>
+                                        </div>
+                                    </div>
+                                    <button className="bg-ecotani-green text-white font-semibold py-2 px-4 rounded-full hover:bg-green-700 transition-colors">
+                                        Detail Produk
+                                    </button>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="text-center py-12">
+                                <p className="text-xl font-bold text-gray-800 mb-2">Produk Masih Kosong!</p>
+                                <p className="text-gray-600">
+                                    Klik Tambah Produk Untuk Menjual Limbah.
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </div>
             );
