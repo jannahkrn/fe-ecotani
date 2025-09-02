@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom'; // Tambahkan baris ini
 const LoginPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 font-sans">
@@ -47,7 +47,7 @@ const LoginPage = () => {
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
-          Belum punya akun? <a href="#" className="font-semibold text-ecotani-green hover:underline">Daftar Sekarang</a>
+          Belum punya akun? <Link to="/register" className="font-semibold text-ecotani-green hover:underline">Daftar Sekarang</Link>    
         </p>
       </div>
     </div>
