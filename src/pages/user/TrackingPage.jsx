@@ -1,7 +1,7 @@
 // src/pages/user/TrackingPage.jsx
 
 import React, { useState, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
 import AuthContext from '../../context/AuthContext';
@@ -9,20 +9,21 @@ import AuthContext from '../../context/AuthContext';
 const TrackingPage = () => {
     const { isLoggedIn, userName } = useContext(AuthContext);
     const location = useLocation();
+    const navigate = useNavigate(); // Tambahkan hook useNavigate
     const { paymentMethod } = location.state || { paymentMethod: 'transfer' };
 
-    // State untuk mengelola status pesanan COD:
-    // false: belum diterima pembeli
-    // true: sudah diterima pembeli
     const [isOrderReceived, setIsOrderReceived] = useState(false);
 
-    // Fungsi untuk mensimulasikan status "Pesanan Diterima" oleh pembeli
     const handleOrderReceived = () => {
         setIsOrderReceived(true);
         alert("Terima kasih telah mengonfirmasi pesanan! Silakan berikan ulasan Anda.");
     };
 
-    // Data riwayat tracking yang statis, diurutkan dari terlama ke terbaru
+    const handleReviewClick = () => {
+        // Arahkan ke halaman review
+        navigate('/review');
+    };
+
     const trackingHistory = [
         {
             status: "Pesanan Diajukan",
@@ -68,14 +69,13 @@ const TrackingPage = () => {
                         {/* Status Pesanan */}
                         <div className="bg-white p-8 rounded-lg shadow-md">
                             <h2 className="text-xl font-bold text-gray-800 mb-4">Status Pesanan</h2>
-                            {/* Konten status pesanan disesuaikan */}
                             {paymentMethod === 'transfer' ? (
                                 <>
                                     <p className="text-gray-600 mb-2">Pesanan Anda sedang menunggu konfirmasi pembayaran dari penjual.</p>
                                     <p className="text-gray-600 font-semibold mt-4">Nomor Pesanan</p>
                                     <p className="text-ecotani-green text-lg font-bold">ECT-2025-00001</p>
                                 </>
-                            ) : ( // Jika COD
+                            ) : (
                                 <>
                                     <p className="text-gray-600 mb-2">Estimasi tiba: 05 September 2025</p>
                                     <p className="text-gray-600 font-semibold">Nomor Resi JNE</p>
@@ -92,23 +92,22 @@ const TrackingPage = () => {
                                     const isInitialStatus = track.status === "Pesanan Diajukan";
                                     const bulletColorClass = 
                                         paymentMethod === 'transfer' && isInitialStatus
-                                            ? 'bg-green-500' // Hijau jika transfer DAN statusnya "Pesanan Diajukan"
+                                            ? 'bg-green-500'
                                             : paymentMethod === 'transfer' && !isInitialStatus
-                                                ? 'bg-gray-400' // Abu-abu jika transfer TAPI statusnya BUKAN "Pesanan Diajukan"
-                                                : 'bg-green-500'; // Hijau untuk semua jika bukan transfer (COD)
+                                                ? 'bg-gray-400'
+                                                : 'bg-green-500';
 
                                     const isLastItem = index === trackingHistory.length - 1;
                                     
                                     return (
                                         <div key={index} className="relative">
                                             <div className={`absolute -left-5 top-0 w-4 h-4 rounded-full border-2 border-white ${bulletColorClass}`}></div>
-                                            <div className="flex justify-between items-end w-full"> {/* Menggunakan flexbox untuk memposisikan tombol */}
+                                            <div className="flex justify-between items-end w-full">
                                                 <div>
                                                     <h3 className="font-semibold text-gray-800">{track.status}</h3>
                                                     <p className="text-sm text-gray-500">{track.date}</p>
                                                     <p className="text-sm text-gray-600">{track.location}</p>
                                                 </div>
-                                                {/* Tombol/Teks "Pesanan Diterima" ada di sini */}
                                                 {paymentMethod === 'cod' && isLastItem && (
                                                     isOrderReceived ? (
                                                         <p className="text-green-600 font-semibold text-right">Pesanan Diterima!</p>
@@ -188,7 +187,10 @@ const TrackingPage = () => {
                             {/* Tombol Beri Ulasan dan Chat Penjual muncul di sini */}
                             {paymentMethod === 'cod' && isOrderReceived && (
                                 <div className="flex gap-2 mt-2">
-                                    <button className="flex-1 bg-gray-200 text-gray-800 py-2 px-6 rounded-full font-semibold hover:bg-gray-300 transition-colors">
+                                    <button
+                                        onClick={handleReviewClick} // Tambahkan handler ini
+                                        className="flex-1 bg-gray-200 text-gray-800 py-2 px-6 rounded-full font-semibold hover:bg-gray-300 transition-colors"
+                                    >
                                         Beri Ulasan
                                     </button>
                                     <button className="flex-1 bg-ecotani-green text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors">
