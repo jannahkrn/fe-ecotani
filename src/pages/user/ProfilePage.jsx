@@ -414,9 +414,9 @@ const ProfilePage = ({ cartItems }) => {
                                             <p className="font-bold text-sm text-ecotani-green">Rp{parseInt(product.price).toLocaleString('id-ID')} / {product.weight} gram</p>
                                         </div>
                                     </div>
-                                    <button className="bg-ecotani-green text-white font-semibold py-2 px-4 rounded-full hover:bg-green-700 transition-colors">
+                                    <Link to={`/seller/products/${product.id}`} className="bg-ecotani-green text-white font-semibold py-2 px-4 rounded-full hover:bg-green-700 transition-colors">
                                         Detail Produk
-                                    </button>
+                                    </Link>
                                 </div>
                             ))
                         ) : (

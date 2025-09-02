@@ -1,9 +1,9 @@
-// src/App.jsx
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/user/HomePage";
 import SearchPage from "./pages/user/SearchPage";
 import ProductDetailPage from "./pages/user/ProductDetailPage";
+import SellerProductDetailPage from "./pages/user/SellerProductDetailPage";
 import SellerDetailPage from "./pages/user/SellerDetailPage";
 import LoginPage from "./pages/user/LoginPage";
 import RegisterPage from "./pages/user/RegisterPage";
@@ -50,32 +50,90 @@ function App() {
 
   return (
     <AuthProvider>
+           {" "}
       <div className="App">
+               {" "}
         <Routes>
+                   {" "}
           <Route path="/" element={<HomePage cartItems={cartItems} />} />
-          <Route path="/search" element={<SearchPage cartItems={cartItems} />} />
+                   {" "}
+          <Route
+            path="/search"
+            element={<SearchPage cartItems={cartItems} />}
+          />
+                   {" "}
           <Route
             path="/products/:productName"
-            element={<ProductDetailPage addToCart={addToCart} cartItems={cartItems} />}
+            element={
+              <ProductDetailPage addToCart={addToCart} cartItems={cartItems} />
+            }
           />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/seller/:sellerName" element={<SellerDetailPage cartItems={cartItems} />} />
-          <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} />
-          <Route path="/tracking" element={<TrackingPage cartItems={cartItems} />} />
-
+                   {" "}
+          {/* Tambahkan rute baru untuk halaman detail produk penjual */}
+                   {" "}
+          <Route
+            path="/seller/products/:productId"
+            element={<SellerProductDetailPage cartItems={cartItems} />}
+          />
+          {/* Rute untuk halaman edit produk */}
+          <Route
+            path="/seller/products/edit/:productId"
+            element={
+              <h1 className="text-center text-4xl mt-20">
+                Halaman Edit Produk (Belum ada)
+              </h1>
+            }
+          />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                   {" "}
+          <Route
+            path="/seller/:sellerName"
+            element={<SellerDetailPage cartItems={cartItems} />}
+          />
+                   {" "}
+          <Route
+            path="/checkout"
+            element={<CheckoutPage cartItems={cartItems} />}
+          />
+                   {" "}
+          <Route
+            path="/tracking"
+            element={<TrackingPage cartItems={cartItems} />}
+          />
+                   {" "}
           {/* pastikan route ini sesuai dengan Link di PurchaseItem */}
-          <Route path="/payment-upload" element={<PaymentUploadPage cartItems={cartItems} />} />
-          <Route path="/review" element={<RatingAndReviewPage cartItems={cartItems} />} />
-
+                   {" "}
+          <Route
+            path="/payment-upload"
+            element={<PaymentUploadPage cartItems={cartItems} />}
+          />
+                   {" "}
+          <Route
+            path="/review"
+            element={<RatingAndReviewPage cartItems={cartItems} />}
+          />
+                   {" "}
           <Route
             path="/cart"
-            element={<CartPage cartItems={cartItems} updateQuantity={updateCartItemQuantity} />}
+            element={
+              <CartPage
+                cartItems={cartItems}
+                updateQuantity={updateCartItemQuantity}
+              />
+            }
           />
-          <Route path="/profile" element={<ProfilePage cartItems={cartItems} />} />
-          <Route path="/must-login" element={<MustLoginPage />} />
+                   {" "}
+          <Route
+            path="/profile"
+            element={<ProfilePage cartItems={cartItems} />}
+          />
+                    <Route path="/must-login" element={<MustLoginPage />} />   
+             {" "}
         </Routes>
+             {" "}
       </div>
+         {" "}
     </AuthProvider>
   );
 }
