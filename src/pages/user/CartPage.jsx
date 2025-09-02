@@ -30,8 +30,9 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
 
         {cartItems.length === 0 ? (
           <div className="text-center py-20">
+            {/* Pastikan path cartIcon sudah benar jika kamu menggunakannya */}
             <img
-              src={cartIcon}
+              src="/src/assets/cart-icon.png" 
               alt="Keranjang Kosong"
               className="mx-auto w-40 h-auto mb-6"
             />
@@ -117,9 +118,14 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
                 <span>Total Item</span>
                 <span>{cartItems.length}</span>
               </div>
-              <button className="w-full bg-ecotani-green text-white py-3 rounded-full font-semibold hover:bg-green-700 transition-colors">
+              
+              {/* PERUBAHAN DI SINI: Ganti <button> dengan <Link> */}
+              <Link
+                to="/checkout"
+                className="w-full py-3 bg-ecotani-green text-white text-center font-semibold rounded-full transition-colors hover:bg-green-700"
+              >
                 Lanjut ke Pembayaran
-              </button>
+              </Link>
             </div>
           </div>
         )}
