@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
-import ChatAI from '../../components/user/ChatAi'; // Import komponen ChatAI
+import ChatAI from '../../components/user/ChatAi';
 
-// Menerima props isLoggedIn dan userName dari App.jsx
-const HomePage = ({ isLoggedIn, userName }) => {
-  // State untuk mengontrol visibilitas chat AI
+const HomePage = ({ isLoggedIn, userName, cartItems }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleChat = () => {
@@ -24,7 +22,7 @@ const HomePage = ({ isLoggedIn, userName }) => {
   return (
     <div className="overflow-x-hidden relative font-sans">
       {/* Meneruskan props ke Navbar */}
-      <Navbar isLoggedIn={isLoggedIn} userName={userName} /> 
+      <Navbar isLoggedIn={isLoggedIn} userName={userName} cartItems={cartItems} /> 
       
       {/* Zanu Mascot */}
       <div
@@ -34,7 +32,6 @@ const HomePage = ({ isLoggedIn, userName }) => {
         <img src="/src/assets/zanu.png" alt="Zanu Mascot" className="w-20 h-auto" />
       </div>
 
-      {/* Tampilkan ChatAI jika isChatOpen bernilai true */}
       {isChatOpen && <ChatAI onClose={toggleChat} />}
 
       <main className="px-12">

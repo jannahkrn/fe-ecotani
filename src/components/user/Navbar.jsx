@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-// Tambahkan userName sebagai prop
-const Navbar = ({ isLoggedIn, userName }) => {
+// Tambahkan default value array kosong pada cartItems
+const Navbar = ({ isLoggedIn, userName, cartItems = [] }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
@@ -10,6 +10,8 @@ const Navbar = ({ isLoggedIn, userName }) => {
     e.preventDefault();
     navigate(`/search?q=${searchQuery}`);
   };
+
+  const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <nav className="w-full font-sans">
@@ -48,14 +50,22 @@ const Navbar = ({ isLoggedIn, userName }) => {
           </form>
 
           <div className="flex gap-4 text-xl">
-            <span className="cursor-pointer">🛒</span>
+            {/* Tombol Keranjang */}
+            <Link to="/cart" className="relative cursor-pointer">
+              <span className="text-xl">🛒</span>
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </Link>
             <span className="cursor-pointer">💬</span>
           </div>
           
           {isLoggedIn ? (
-            <Link to="/profile" className="font-semibold text-ecotani-green hover:underline">
+            <div className="font-semibold text-ecotani-green">
               <p>Hai, {userName}</p>
-            </Link>
+            </div>
           ) : (
             <div className="flex gap-3">
               <Link to="/login" className="py-2 px-5 rounded-full border-2 border-ecotani-green text-ecotani-green font-semibold transition-colors hover:bg-ecotani-green hover:text-white">Masuk</Link>
