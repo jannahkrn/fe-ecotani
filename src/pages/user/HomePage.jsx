@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
+import ChatAI from '../../components/user/ChatAi'; // Import komponen ChatAI
 
 const HomePage = () => {
   // Untuk mengubah tampilan navbar menjadi "Hai, Alif", ubah nilai isLoggedIn menjadi true
   const isLoggedIn = false; 
+  // State untuk mengontrol visibilitas chat AI
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
 
   const products = [
     { name: 'Botol Plastik', price: 'Rp 5.000 / Kg' },
@@ -20,9 +27,15 @@ const HomePage = () => {
       <Navbar isLoggedIn={isLoggedIn} />
       
       {/* Zanu Mascot */}
-      <div className="fixed bottom-5 right-5 z-50 cursor-pointer transition-transform duration-300 hover:scale-110">
+      <div
+        className="fixed bottom-5 right-5 z-50 cursor-pointer transition-transform duration-300 hover:scale-110"
+        onClick={toggleChat} // Tambahkan onClick handler di sini
+      >
         <img src="/src/assets/zanu.png" alt="Zanu Mascot" className="w-20 h-auto" />
       </div>
+
+      {/* Tampilkan ChatAI jika isChatOpen bernilai true */}
+      {isChatOpen && <ChatAI onClose={toggleChat} />}
 
       <main className="px-12">
         {/* Hero Section */}
