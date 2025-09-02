@@ -14,6 +14,7 @@ import TrackingPage from "./pages/user/TrackingPage";
 import PaymentUploadPage from "./pages/user/PaymentUploadPage";
 import RatingAndReviewPage from "./pages/user/RatingAndReviewPage";
 import ProfilePage from "./pages/user/ProfilePage";
+import NotFoundPage from "./pages/NotFoundPage"; // ⬅️ import halaman 404
 import { AuthProvider } from "./context/AuthContext";
 
 function App() {
@@ -50,32 +51,22 @@ function App() {
 
   return (
     <AuthProvider>
-           {" "}
       <div className="App">
-               {" "}
         <Routes>
-                   {" "}
           <Route path="/" element={<HomePage cartItems={cartItems} />} />
-                   {" "}
-          <Route
-            path="/search"
-            element={<SearchPage cartItems={cartItems} />}
-          />
-                   {" "}
+          <Route path="/search" element={<SearchPage cartItems={cartItems} />} />
           <Route
             path="/products/:productName"
             element={
               <ProductDetailPage addToCart={addToCart} cartItems={cartItems} />
             }
           />
-                   {" "}
-          {/* Tambahkan rute baru untuk halaman detail produk penjual */}
-                   {" "}
+          {/* Halaman detail produk penjual */}
           <Route
             path="/seller/products/:productId"
             element={<SellerProductDetailPage cartItems={cartItems} />}
           />
-          {/* Rute untuk halaman edit produk */}
+          {/* Halaman edit produk (sementara placeholder) */}
           <Route
             path="/seller/products/edit/:productId"
             element={
@@ -84,36 +75,29 @@ function App() {
               </h1>
             }
           />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
-                   {" "}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route
             path="/seller/:sellerName"
             element={<SellerDetailPage cartItems={cartItems} />}
           />
-                   {" "}
           <Route
             path="/checkout"
             element={<CheckoutPage cartItems={cartItems} />}
           />
-                   {" "}
           <Route
             path="/tracking"
             element={<TrackingPage cartItems={cartItems} />}
           />
-                   {" "}
           {/* pastikan route ini sesuai dengan Link di PurchaseItem */}
-                   {" "}
           <Route
             path="/payment-upload"
             element={<PaymentUploadPage cartItems={cartItems} />}
           />
-                   {" "}
           <Route
             path="/review"
             element={<RatingAndReviewPage cartItems={cartItems} />}
           />
-                   {" "}
           <Route
             path="/cart"
             element={
@@ -123,17 +107,16 @@ function App() {
               />
             }
           />
-                   {" "}
           <Route
             path="/profile"
             element={<ProfilePage cartItems={cartItems} />}
           />
-                    <Route path="/must-login" element={<MustLoginPage />} />   
-             {" "}
+          <Route path="/must-login" element={<MustLoginPage />} />
+
+          {/* ⬇️ Tambahkan route paling akhir untuk NotFoundPage */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
-             {" "}
       </div>
-         {" "}
     </AuthProvider>
   );
 }
