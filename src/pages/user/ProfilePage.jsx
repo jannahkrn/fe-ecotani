@@ -27,6 +27,14 @@ const ProfilePage = ({ cartItems }) => {
     });
     const [uploadedImages, setUploadedImages] = useState([]);
 
+    // Load products from localStorage on initial render
+    useEffect(() => {
+        const storedProducts = localStorage.getItem('products');
+        if (storedProducts) {
+            setProducts(JSON.parse(storedProducts));
+        }
+    }, []);
+
     // Dummy data untuk profile
     const userProfile = {
         name: "Alif Dzaka Nurhakim",
@@ -123,16 +131,23 @@ const ProfilePage = ({ cartItems }) => {
 
     const handleSaveProduct = () => {
         const newProduct = {
-            id: products.length + 1,
-            title: productData.productTitle,
+            id: Date.now(), // Use a unique ID based on timestamp
+            productTitle: productData.productTitle,
+            condition: productData.condition,
             category: productData.category,
-            image: uploadedImages.length > 0 ? uploadedImages[0] : "/src/assets/detail-product.png", // Use first uploaded image or a placeholder
+            weight: productData.weight,
+            price: productData.price,
+            location: productData.location,
+            description: productData.description,
+            images: uploadedImages,
             seller: storeData.storeName,
-            stock: productData.weight,
-            price: productData.price
         };
-        setProducts(prevProducts => [...prevProducts, newProduct]);
-        setIsAddingProduct(false);
+
+        const updatedProducts = [...products, newProduct];
+        setProducts(updatedProducts);
+        localStorage.setItem('products', JSON.stringify(updatedProducts));
+
+        // Reset form states after successful save
         setProductData({
             productTitle: '',
             condition: '',
@@ -143,12 +158,13 @@ const ProfilePage = ({ cartItems }) => {
             description: '',
         });
         setUploadedImages([]);
+        setIsAddingProduct(false);
     };
 
     const handleImageUpload = (event) => {
         const files = Array.from(event.target.files);
         if (uploadedImages.length + files.length > 5) {
-            alert("Maksimal 5 foto dapat diunggah.");
+            console.log("Maksimal 5 foto dapat diunggah.");
             return;
         }
         const newImageUrls = files.map(file => URL.createObjectURL(file));
@@ -389,13 +405,13 @@ const ProfilePage = ({ cartItems }) => {
                             products.map(product => (
                                 <div key={product.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                                     <div className="flex items-center gap-4">
-                                        <img src={product.image} alt={product.title} className="w-20 h-20 object-cover rounded-md" />
+                                        <img src={product.images && product.images[0] ? product.images[0] : "/src/assets/detail-product.png"} alt={product.productTitle} className="w-20 h-20 object-cover rounded-md" />
                                         <div>
                                             <p className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs font-medium inline-block mb-1">{product.category}</p>
-                                            <p className="font-semibold text-gray-800">{product.title}</p>
+                                            <p className="font-semibold text-gray-800">{product.productTitle}</p>
                                             <p className="text-sm text-gray-600">Penjual: {product.seller}</p>
                                             <p className="text-sm text-gray-600">Stok Tersedia</p>
-                                            <p className="font-bold text-sm text-ecotani-green">Rp{product.price.toLocaleString('id-ID')} / {product.weight} gram</p>
+                                            <p className="font-bold text-sm text-ecotani-green">Rp{parseInt(product.price).toLocaleString('id-ID')} / {product.weight} gram</p>
                                         </div>
                                     </div>
                                     <button className="bg-ecotani-green text-white font-semibold py-2 px-4 rounded-full hover:bg-green-700 transition-colors">
