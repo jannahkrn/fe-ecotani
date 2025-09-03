@@ -1,3 +1,4 @@
+// src/pages/user/RatingAndReviewPage.jsx
 import React, { useState, useContext } from 'react';
 import Footer from '../../components/user/Footer';
 import AuthContext from '../../context/AuthContext';
@@ -9,13 +10,15 @@ const RatingAndReviewPage = () => {
     const [reviewText, setReviewText] = useState('');
     const [photoPreview, setPhotoPreview] = useState(null);
 
-    // Dummy product data
+    // Dummy product data (samakan dengan TrackingPage)
     const product = {
         name: "Botol Plastik",
-        category: "Plastik",
+        category: "Anorganik",
         seller: "Jannah Kurniawati",
         price: "Rp3.000",
         unit: "100 gram",
+        total: "Rp9.000",
+        quantity: 3,
         image: "/src/assets/detail-product.png"
     };
 
@@ -41,15 +44,14 @@ const RatingAndReviewPage = () => {
     };
 
     const handleSubmitReview = () => {
-        // Logika untuk mengirim review ke backend
         console.log("Mengirim Ulasan:", { rating, reviewText, photo: photoPreview });
-        // Mengganti alert dengan cara yang disarankan untuk lingkungan iframe
         alert("Ulasan Anda berhasil dikirim!");
     };
 
     return (
         <div className="font-sans bg-white min-h-screen flex flex-col">
             <div className="container mx-auto px-12 py-8 flex-grow">
+                {/* Header */}
                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
                     <img 
                         src="src/assets/logo.png"
@@ -62,6 +64,7 @@ const RatingAndReviewPage = () => {
                     </h1>
                 </div>
 
+                {/* Informasi */}
                 <div className="bg-white p-8 rounded-lg shadow-md mb-8">
                     <h2 className="text-xl font-bold text-gray-800 mb-4">Bagikan Pengalaman Anda</h2>
                     <p className="text-gray-600">
@@ -69,24 +72,29 @@ const RatingAndReviewPage = () => {
                     </p>
                 </div>
 
+                {/* Produk (SAMA dengan Tracking) */}
                 <div className="bg-white p-8 rounded-lg shadow-md mb-8">
                     <h2 className="text-xl font-bold text-gray-800 mb-4">Rating Produk</h2>
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex justify-between items-center">
                         <div className="flex items-center gap-4">
                             <img src={product.image} alt={product.name} className="w-20 h-20 object-cover rounded-lg" />
                             <div>
-                                <p className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs font-medium inline-block mb-1">{product.category}</p>
-                                <h3 className="font-semibold">{product.name}</h3>
+                                <p className="bg-[#43703a] text-white px-2 py-1 rounded-full text-xs font-medium inline-block mb-1">
+                                    {product.category}
+                                </p>
+                                <h3 className="font-semibold text-gray-800">{product.name}</h3>
                                 <p className="text-sm text-gray-600">Penjual: {product.seller}</p>
                                 <p className="text-sm text-gray-600">{product.price}/{product.unit}</p>
+                                <p className="text-sm text-gray-600">Jumlah: {product.quantity}</p>
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="font-semibold text-lg text-[#43703a]">Rp9.000</p>
+                            <p className="font-semibold text-lg text-[#43703a]">{product.total}</p>
                         </div>
                     </div>
                 </div>
 
+                {/* Rating & Review */}
                 <div className="bg-white p-8 rounded-lg shadow-md mb-8">
                     <h2 className="text-xl font-bold text-gray-800 mb-4">Rating Keseluruhan</h2>
                     <div className="flex items-start gap-4">
@@ -114,10 +122,10 @@ const RatingAndReviewPage = () => {
                     </div>
                 </div>
 
+                {/* Foto */}
                 <div className="bg-white p-8 rounded-lg shadow-md mb-8">
                     <h2 className="text-xl font-bold text-gray-800 mb-4">Tambahkan Foto (Opsional)</h2>
                     <div className="flex items-center gap-4">
-                        {/* Thumbnail Foto */}
                         {photoPreview ? (
                             <img src={photoPreview} alt="Review Preview" className="w-24 h-24 object-cover rounded-lg" />
                         ) : (
@@ -140,6 +148,7 @@ const RatingAndReviewPage = () => {
                     </div>
                 </div>
 
+                {/* Button Kirim */}
                 <div className="flex justify-end mt-8">
                     <button
                         onClick={handleSubmitReview}
