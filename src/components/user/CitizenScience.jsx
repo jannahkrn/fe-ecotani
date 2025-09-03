@@ -30,14 +30,17 @@ const CitizenScience = () => {
     switch (activeCitizenTab) {
       case 'Gambaran Umum':
         return (
-          <div>
-            <h3 className="text-xl font-bold mb-2">Gambaran Umum Proyek Citizen Science</h3>
-            <p className="text-gray-700 leading-relaxed">
-              Proyek Citizen Science Ecotani mengajak Anda untuk menjadi bagian dari solusi lingkungan. Dengan berpartisipasi, Anda akan membantu mengumpulkan data penting tentang jenis dan jumlah limbah yang ada di komunitas Anda. Data ini sangat berharga bagi para peneliti dan ahli lingkungan untuk memahami tren polusi, mengevaluasi dampak program daur ulang, dan merumuskan kebijakan yang lebih efektif.
+          <div className="p-4">
+            <h3 className="text-xl font-bold mb-2">Apa Itu Citizen Science?</h3>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              Citizen Science atau Sains Warga adalah praktik penelitian ilmiah yang melibatkan partisipasi masyarakat umum dalam pengumpulan, analisis, dan interpretasi data. Di Ecotani, kami mengajak Anda untuk berkontribusi dalam penelitian lingkungan yang berdampak pada kebijakan dan kesadaran masyarakat tentang isu-isu ekologi.
             </p>
-            <p className="text-gray-700 leading-relaxed mt-4">
-              Partisipasi Anda, sekecil apa pun, akan memberikan dampak besar. Anda bisa menginput data sampah dari rumah, mengamati lingkungan sekitar, atau membantu memverifikasi data yang dikumpulkan oleh pengguna lain. Setiap data yang Anda berikan akan berkontribusi pada bank data ilmiah yang lebih besar dan membuka jalan bagi penemuan baru dalam ilmu lingkungan.
-            </p>
+            <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <li>Pengumpulan data lingkungan secara kolaboratif</li>
+              <li>Edukasi dan peningkatan literasi sains</li>
+              <li>Kontribusi pada penelitian akademik</li>
+              <li>Pembangunan komunitas peduli lingkungan</li>
+            </ul>
           </div>
         );
       case 'Input Data Sampah':
@@ -99,7 +102,7 @@ const CitizenScience = () => {
               />
             </div>
             <div className="text-right">
-              <button 
+              <button
                 onClick={handleSaveData}
                 className="bg-ecotani-green text-white py-2 px-6 rounded-full font-semibold transition-colors hover:bg-green-700"
               >
@@ -141,17 +144,49 @@ const CitizenScience = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800">Citizen Science</h2>
-          <p className="text-gray-600">
-            Berpartisipasi dalam proyek-proyek penelitian lingkungan.
-          </p>
+    <div>
+      {/* Header Utama */}
+      <div className="text-center mb-8">
+        <h2 className="text-4xl font-black text-gray-800 mb-4">Berkontribusi Untuk Penelitian Lingkungan</h2>
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Bergabunglah dengan komunitas peneliti warga untuk mengumpulkan
+          data lingkungan, belajar tentang isu ekologi, dan berkontribusi
+          pada penelitian ilmiah yang berdampak.
+        </p>
+      </div>
+
+      {/* Tombol Aksi */}
+      <div className="flex justify-center gap-4 mb-8">
+        <button className="bg-ecotani-green text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-ecotani-green-dark transition-colors">
+          Mulai Berpartisipasi
+        </button>
+        <button className="bg-ecotani-brown text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-ecotani-brown-dark transition-colors">
+          Pelajari Lebih Lanjut
+        </button>
+      </div>
+
+      {/* Statistik */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8 text-center">
+        <div className="flex flex-col items-center">
+          <h3 className="text-3xl font-bold text-ecotani-green">15</h3>
+          <p className="text-gray-600">Proyek Aktif</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <h3 className="text-3xl font-bold text-ecotani-green">3,200+</h3>
+          <p className="text-gray-600">Peneliti Warga</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <h3 className="text-3xl font-bold text-ecotani-green">120</h3>
+          <p className="text-gray-600">Lokasi Penelitian</p>
+        </div>
+        <div className="flex flex-col items-center">
+          <h3 className="text-3xl font-bold text-ecotani-green">50,000+</h3>
+          <p className="text-gray-600">Data Terkumpul</p>
         </div>
       </div>
       
-      <div className="flex justify-center mt-5">
+      {/* Navigasi tab */}
+      <div className="flex justify-center gap-12 mb-4">
         {['Gambaran Umum', 'Input Data Sampah', 'Lihat Prediksi'].map((tab) => (
           <button
             key={tab}
@@ -159,18 +194,21 @@ const CitizenScience = () => {
               setActiveCitizenTab(tab);
               setShowConfirmation(false);
             }}
-            className={`px-5 pb-2 text-base font-semibold transition-colors ${
-              activeCitizenTab === tab
-                ? 'text-ecotani-green border-b-2 border-ecotani-green'
-                : 'text-gray-500 hover:text-ecotani-green'
-            }`}
+            className={`text-base font-semibold transition-all duration-300 py-2 px-6 rounded-full shadow-md
+              ${
+                activeCitizenTab === tab
+                  ? 'bg-ecotani-brown text-white'
+                  : 'bg-white text-gray-800'
+              }
+            `}
           >
             {tab}
           </button>
         ))}
       </div>
       
-      <div className="bg-white p-8 rounded-lg shadow-md mt-5 text-left">
+      {/* Konten sesuai tab yang aktif */}
+      <div>
         {renderCitizenScienceContent()}
       </div>
     </div>

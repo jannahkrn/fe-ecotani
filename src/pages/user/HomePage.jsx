@@ -202,7 +202,7 @@ const HomePage = ({ cartItems, addToCart }) => {
         <section className="mt-20 mb-16">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Produk <span className="text-green-600">Unggulan</span>
+              Produk <span className="text-[#43703A]">Unggulan</span>
             </h2>
             <p className="text-gray-600 text-lg">
               Temukan berbagai produk limbah berkualitas dengan harga terbaik
@@ -218,12 +218,6 @@ const HomePage = ({ cartItems, addToCart }) => {
                 <ProductCard product={product} addToCart={addToCart} />
               </div>
             ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <button className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-4 px-10 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
-              Lihat Semua Produk
-            </button>
           </div>
         </section>
 
