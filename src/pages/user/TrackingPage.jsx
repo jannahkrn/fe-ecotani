@@ -8,18 +8,18 @@ import AuthContext from '../../context/AuthContext';
 const TrackingPage = () => {
     const { isLoggedIn, userName } = useContext(AuthContext);
     const location = useLocation();
-    const navigate = useNavigate(); // Tambahkan hook useNavigate
+    const navigate = useNavigate();
     const { paymentMethod } = location.state || { paymentMethod: 'transfer' };
 
     const [isOrderReceived, setIsOrderReceived] = useState(false);
+    const [message, setMessage] = useState(''); // Tambahkan state untuk message
 
     const handleOrderReceived = () => {
         setIsOrderReceived(true);
-        alert("Terima kasih telah mengonfirmasi pesanan! Silakan berikan ulasan Anda.");
+        setMessage("Terima kasih telah mengonfirmasi pesanan! Silakan berikan ulasan Anda.");
     };
 
     const handleReviewClick = () => {
-        // Arahkan ke halaman review
         navigate('/review');
     };
 
@@ -52,11 +52,21 @@ const TrackingPage = () => {
     ];
 
     return (
-        <div className="font-sans bg-gray-100 min-h-screen">
-            
-            <main className="container mx-auto px-12 py-8">
-                <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-                    <h1 className="text-2xl font-bold text-ecotani-green mb-4">
+        <div className="font-sans bg-white min-h-screen flex flex-col">
+            <div className="container mx-auto px-12 py-8 flex-grow">
+                {message && (
+                    <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                        <span className="block sm:inline">{message}</span>
+                    </div>
+                )}
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
+                    <img 
+                        src="src/assets/logo.png"
+                        alt="Ecotani Logo" 
+                        className="h-8" 
+                    />
+                    <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
+                    <h1 className="text-2xl font-bold text-[#43703a]">
                         Lacak Pesanan
                     </h1>
                 </div>
@@ -71,13 +81,13 @@ const TrackingPage = () => {
                                 <>
                                     <p className="text-gray-600 mb-2">Pesanan Anda sedang menunggu konfirmasi pembayaran dari penjual.</p>
                                     <p className="text-gray-600 font-semibold mt-4">Nomor Pesanan</p>
-                                    <p className="text-ecotani-green text-lg font-bold">ECT-2025-00001</p>
+                                    <p className="text-[#43703a] text-lg font-bold">ECT-2025-00001</p>
                                 </>
                             ) : (
                                 <>
                                     <p className="text-gray-600 mb-2">Estimasi tiba: 05 September 2025</p>
                                     <p className="text-gray-600 font-semibold">Nomor Resi JNE</p>
-                                    <p className="text-ecotani-green text-lg font-bold">JNE 123456789</p>
+                                    <p className="text-[#43703a] text-lg font-bold">JNE 123456789</p>
                                 </>
                             )}
                         </div>
@@ -85,22 +95,31 @@ const TrackingPage = () => {
                         {/* Riwayat Tracking */}
                         <div className="bg-white p-8 rounded-lg shadow-md">
                             <h2 className="text-xl font-bold text-gray-800 mb-4">Riwayat Tracking</h2>
-                            <div className="border-l-2 border-gray-200 ml-4 pl-4 space-y-6">
+                            {/* Perubahan di sini: Pindahkan garis vertikal ke div yang lebih spesifik */}
+                            <div className="relative pl-6 space-y-6"> {/* Tambahkan padding kiri di sini */}
                                 {trackingHistory.map((track, index) => {
                                     const isInitialStatus = track.status === "Pesanan Diajukan";
                                     const bulletColorClass = 
                                         paymentMethod === 'transfer' && isInitialStatus
-                                            ? 'bg-green-500'
+                                            ? 'bg-[#43703a]' // Warna hijau Ecotani
                                             : paymentMethod === 'transfer' && !isInitialStatus
                                                 ? 'bg-gray-400'
-                                                : 'bg-green-500';
+                                                : 'bg-[#43703a]'; // Warna hijau Ecotani
 
                                     const isLastItem = index === trackingHistory.length - 1;
                                     
                                     return (
-                                        <div key={index} className="relative">
-                                            <div className={`absolute -left-5 top-0 w-4 h-4 rounded-full border-2 border-white ${bulletColorClass}`}></div>
-                                            <div className="flex justify-between items-end w-full">
+                                        <div key={index} className="relative pb-6 last:pb-0"> {/* Tambahkan padding bawah untuk jarak antar item, hilangkan di item terakhir */}
+                                            {/* Garis vertikal antara bulat, kecuali yang terakhir */}
+                                            {!isLastItem && (
+                                                <div className="absolute left-2.5 top-4 bottom-0 w-0.5 bg-gray-200"></div>
+                                            )}
+                                            {/* Bulat tracking */}
+                                            <div className="absolute left-0 top-0 w-5 h-5 rounded-full border-2 border-white z-10 flex items-center justify-center">
+                                                <div className={`w-3 h-3 rounded-full ${bulletColorClass}`}></div> {/* Bulat dalam yang lebih kecil */}
+                                            </div>
+
+                                            <div className="ml-6 flex justify-between items-start w-full"> {/* Geser konten ke kanan agar tidak bertabrakan dengan bulat */}
                                                 <div>
                                                     <h3 className="font-semibold text-gray-800">{track.status}</h3>
                                                     <p className="text-sm text-gray-500">{track.date}</p>
@@ -108,11 +127,11 @@ const TrackingPage = () => {
                                                 </div>
                                                 {paymentMethod === 'cod' && isLastItem && (
                                                     isOrderReceived ? (
-                                                        <p className="text-green-600 font-semibold text-right">Pesanan Diterima!</p>
+                                                        <p className="text-green-600 font-semibold text-right whitespace-nowrap">Pesanan Diterima!</p>
                                                     ) : (
                                                         <button
                                                             onClick={handleOrderReceived}
-                                                            className="bg-ecotani-green text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors"
+                                                            className="bg-[#43703a] text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors whitespace-nowrap"
                                                         >
                                                             Pesanan Diterima
                                                         </button>
@@ -180,18 +199,18 @@ const TrackingPage = () => {
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="font-semibold text-lg text-ecotani-green">Rp9.000</p>
+                            <p className="font-semibold text-lg text-[#43703a]">Rp9.000</p>
 
                             {/* Tombol Beri Ulasan dan Chat Penjual muncul di sini */}
                             {paymentMethod === 'cod' && isOrderReceived && (
                                 <div className="flex gap-2 mt-2">
                                     <button
-                                        onClick={handleReviewClick} // Tambahkan handler ini
+                                        onClick={handleReviewClick}
                                         className="flex-1 bg-gray-200 text-gray-800 py-2 px-6 rounded-full font-semibold hover:bg-gray-300 transition-colors"
                                     >
                                         Beri Ulasan
                                     </button>
-                                    <button className="flex-1 bg-ecotani-green text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors">
+                                    <button className="flex-1 bg-[#43703a] text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors">
                                         Chat Penjual
                                     </button>
                                 </div>
@@ -199,7 +218,7 @@ const TrackingPage = () => {
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
             
             <Footer />
         </div>
