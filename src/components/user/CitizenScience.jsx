@@ -66,7 +66,7 @@ const CitizenScience = () => {
       case 'Input Data Sampah':
         if (showConfirmation) {
           return (
-            <div className="p-4 flex flex-col items-center justify-center">
+            <div className="p-4 border border-gray-300 rounded-lg flex flex-col items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-24 h-24 text-ecotani-green">
                 <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" />
               </svg>
@@ -76,7 +76,7 @@ const CitizenScience = () => {
           );
         }
         return (
-          <div className="p-4">
+          <div className="p-4 border border-gray-300 rounded-lg">
             <h3 className="text-xl font-bold mb-4">Input Data Volume Sampah</h3>
             <div className="bg-green-100 border border-green-300 rounded-lg p-4 mb-6">
               <h4 className="font-semibold text-gray-800 mb-2">Data yang Akan Dikumpulkan</h4>
@@ -133,7 +133,7 @@ const CitizenScience = () => {
         );
       case 'Lihat Prediksi':
         return (
-          <div className="p-4">
+          <div className="p-4 border border-gray-300 rounded-lg">
             <div className="flex justify-between items-center mb-4">
               <div className="flex flex-col text-left">
                 <h3 className="text-2xl font-bold text-gray-800">Prediksi Volume Sampah</h3>
@@ -179,10 +179,10 @@ const CitizenScience = () => {
 
       {/* Tombol Aksi */}
       <div className="flex justify-center gap-4 mb-8">
-        <button className="bg-[#43703A] text-white font-bold py-3 px-8 rounded-full hover:bg-[#345a2e] transition-colors">
+        <button className="bg-[#43703A] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-[#345a2e] transition-colors">
           Mulai Berpartisipasi
         </button>
-        <button className="bg-[#47241C] text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-[#47241C] transition-colors">
+        <button className="bg-[#47241C] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-white hover:text-[#47241C] transition-colors">
           Pelajari Lebih Lanjut
         </button>
       </div>
@@ -216,11 +216,11 @@ const CitizenScience = () => {
               setActiveCitizenTab(tab);
               setShowConfirmation(false);
             }}
-            className={`text-base font-semibold transition-all duration-300 py-2 px-20 rounded-full shadow-md
+            className={`text-base font-semibold transition-all duration-300
               ${
                 activeCitizenTab === tab
-                  ? 'bg-[#47241C] text-white'
-                  : 'bg-white text-[#47241C]'
+                  ? 'bg-[#47241C] text-white py-2 px-20 rounded-full shadow-md'
+                  : 'text-[#47241C]'
               }
             `}
           >
