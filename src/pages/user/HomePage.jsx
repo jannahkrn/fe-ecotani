@@ -143,123 +143,123 @@ const HomePage = ({ cartItems, addToCart }) => {
     </div>
   </section>
 
-        {/* Statistics Section */}
-        <section className="mt-16 mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="text-center p-8" // Menghapus kelas 'bg-white' dan 'shadow-xl'
-              >
-                {/* Menghapus div untuk icon */}
-                <div className="text-5xl font-bold text-[#43703A] mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-xl text-gray-600 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-       
-        {/* Why Choose Ecotani Section */}
-        <section className="mt-16 mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Mengapa Memilih <span className="text-[#43703A]">Ecotani?</span>
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Platform terdepan untuk jual beli limbah dengan teknologi modern
-              dan komunitas yang peduli lingkungan
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {features.map((feature, index) => (
-              <div key={index} className="group relative">
-                <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-4 border border-gray-100">
-                  {/* Div ini mengatur posisi dan ukuran ikon */}
-                  {/* Gunakan 'size' dan 'strokeWidth' untuk mengatur ukuran dan ketebalan */}
-                  <div className="flex justify-center mb-2 text-[#43703A]">
-                    {React.cloneElement(feature.icon, {
-                      size: 48, // Memperbesar ukuran ikon
-                      strokeWidth: 2.5, // Menebalkan ikon
-                    })}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-800 text-center">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed text-center">
-                    {feature.description}
-                  </p>
-                </div>
+      {/* Statistics Section */}
+      <section className="mt-16 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          {stats.map((stat, index) => (
+            <div
+              key={index}
+              className="text-center p-8" // Menghapus kelas 'bg-white' dan 'shadow-xl'
+            >
+              {/* Menghapus div untuk icon */}
+              <div className="text-5xl font-bold text-[#43703A] mb-2">
+                {stat.number}
               </div>
-            ))}
-          </div>
-        </section>
+              <div className="text-xl text-gray-600 font-medium">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-        {/* Enhanced Produk Unggulan */}
-        <section className="mt-20 mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Produk <span className="text-[#43703A]">Unggulan</span>
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Temukan berbagai produk limbah berkualitas dengan harga terbaik
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {products.map((product) => (
-              <div
-                key={product.id}
-                className="transform hover:scale-105 transition-all duration-300"
-              >
-                <ProductCard product={product} addToCart={addToCart} />
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Enhanced Sections */}
-        <div className="space-y-16">
-          <div className="bg-white rounded-3xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
-            <CitizenScience />
-          </div>
-
-          <div className="bg-white rounded-3xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300">
-            <HelpCenter />
-          </div>
+      
+      {/* Why Choose Ecotani Section */}
+      <section className="mt-16 mb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+            Mengapa Memilih <span className="text-[#43703A]">Ecotani?</span>
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            Platform terdepan untuk jual beli limbah dengan teknologi modern
+            dan komunitas yang peduli lingkungan
+          </p>
         </div>
 
-        {/* Call to Action Section */}
-        <section className="mt-20 mb-16 text-center">
-          <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-3xl p-12 text-white relative overflow-hidden">
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-4 left-4 w-20 h-20 border-2 border-white rounded-full"></div>
-              <div className="absolute bottom-4 right-4 w-16 h-16 border-2 border-white rounded-full"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-white rounded-full"></div>
-            </div>
-            <div className="relative z-10">
-              <h3 className="text-3xl font-bold mb-4">
-                Siap Memulai Perjalanan Hijau Anda?
-              </h3>
-              <p className="text-xl mb-8 opacity-90">
-                Bergabunglah dengan ribuan pengguna lain dalam menciptakan masa
-                depan yang lebih berkelanjutan
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
-                  Daftar Sekarang
-                </button>
-                <button className="border-2 border-white text-white hover:bg-white hover:text-green-600 font-bold py-4 px-8 rounded-full transition-all duration-300">
-                  Pelajari Lebih Lanjut
-                </button>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {features.map((feature, index) => (
+            <div key={index} className="group relative">
+              <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-4 border border-gray-100">
+                {/* Div ini mengatur posisi dan ukuran ikon */}
+                {/* Gunakan 'size' dan 'strokeWidth' untuk mengatur ukuran dan ketebalan */}
+                <div className="flex justify-center mb-2 text-[#43703A]">
+                  {React.cloneElement(feature.icon, {
+                    size: 48, // Memperbesar ukuran ikon
+                    strokeWidth: 2.5, // Menebalkan ikon
+                  })}
+                </div>
+                <h3 className="text-xl font-bold text-gray-800 text-center">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed text-center">
+                  {feature.description}
+                </p>
               </div>
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Enhanced Produk Unggulan */}
+      <section className="mt-20 mb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+            Produk <span className="text-[#43703A]">Unggulan</span>
+          </h2>
+          <p className="text-gray-600 text-lg">
+            Temukan berbagai produk limbah berkualitas dengan harga terbaik
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="transform hover:scale-105 transition-all duration-300"
+            >
+              <ProductCard product={product} addToCart={addToCart} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Enhanced Sections */}
+      <div className="space-y-16">
+        <div>
+          <CitizenScience />
+        </div>
+
+        <div>
+          <HelpCenter />
+        </div>
+      </div>
+
+      {/* Call to Action Section */}
+      <section className="mt-20 mb-16 text-center">
+        <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-3xl p-12 text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-4 left-4 w-20 h-20 border-2 border-white rounded-full"></div>
+            <div className="absolute bottom-4 right-4 w-16 h-16 border-2 border-white rounded-full"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-white rounded-full"></div>
           </div>
-        </section>
-      </main>
+          <div className="relative z-10">
+            <h3 className="text-3xl font-bold mb-4">
+              Siap Memulai Perjalanan Hijau Anda?
+            </h3>
+            <p className="text-xl mb-8 opacity-90">
+              Bergabunglah dengan ribuan pengguna lain dalam menciptakan masa
+              depan yang lebih berkelanjutan
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+                Daftar Sekarang
+              </button>
+              <button className="border-2 border-white text-white hover:bg-white hover:text-green-600 font-bold py-4 px-8 rounded-full transition-all duration-300">
+                Pelajari Lebih Lanjut
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
       <Footer />
     </div>

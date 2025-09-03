@@ -34,7 +34,7 @@ const HelpCenter = () => {
               Pelajari cara menggunakan Ecotani dengan panduan lengkap kami
             </p>
             <div className="grid grid-cols-2 gap-5">
-              <div className="bg-white p-6 rounded-lg shadow-md border">
+              <div className="p-6 rounded-lg shadow-md bg-transparent">
                 <div className="flex justify-between items-center mb-2">
                   <h4 className="font-semibold text-gray-800">Masuk dan Daftar serta Mengatur Profile</h4>
                   <span className="text-sm text-gray-500">10 menit</span>
@@ -42,7 +42,7 @@ const HelpCenter = () => {
                 <p className="text-sm text-gray-600 mb-4">Tips membuat akun dan mengoptimalkan profile</p>
                 <button className="bg-ecotani-green text-white py-2 px-6 rounded-full font-semibold transition-colors hover:bg-green-700">Baca</button>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md border">
+              <div className="p-6 rounded-lg shadow-md bg-transparent">
                 <div className="flex justify-between items-center mb-2">
                   <h4 className="font-semibold text-gray-800">Panduan Lengkap Menjual Produk</h4>
                   <span className="text-sm text-gray-500">10 menit</span>
@@ -50,7 +50,7 @@ const HelpCenter = () => {
                 <p className="text-sm text-gray-600 mb-4">Tutorial step-by-step untuk menjual limbah di Ecotani</p>
                 <button className="bg-ecotani-green text-white py-2 px-6 rounded-full font-semibold transition-colors hover:bg-green-700">Baca</button>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md border">
+              <div className="p-6 rounded-lg shadow-md bg-transparent">
                 <div className="flex justify-between items-center mb-2">
                   <h4 className="font-semibold text-gray-800">Tips Membeli Limbah Berkualitas</h4>
                   <span className="text-sm text-gray-500">10 menit</span>
@@ -58,7 +58,7 @@ const HelpCenter = () => {
                 <p className="text-sm text-gray-600 mb-4">Cara memilih dan membeli limbah dengan kualitas terbaik</p>
                 <button className="bg-ecotani-green text-white py-2 px-6 rounded-full font-semibold transition-colors hover:bg-green-700">Baca</button>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md border">
+              <div className="p-6 rounded-lg shadow-md bg-transparent">
                 <div className="flex justify-between items-center mb-2">
                   <h4 className="font-semibold text-gray-800">Cara Bergabung Citizen Science</h4>
                   <span className="text-sm text-gray-500">10 menit</span>
@@ -77,7 +77,7 @@ const HelpCenter = () => {
               Pilih metode yang paling nyaman untuk mendapatkan bantuan
             </p>
             <div className="grid grid-cols-2 gap-5">
-              <div className="bg-white p-6 rounded-lg shadow-md border text-center">
+              <div className="p-6 rounded-lg shadow-md bg-transparent text-center">
                 <div className="flex justify-center items-center mb-2">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-ecotani-green" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M2.5 4A2.5 2.5 0 015 1.5h10A2.5 2.5 0 0117.5 4v12a2.5 2.5 0 01-2.5 2.5H5A2.5 2.5 0 012.5 16V4zm2.5 12h10V4H5v12zM5 4.5A.5.5 0 015.5 4h9a.5.5 0 01.5.5V16h-10V4.5z" clipRule="evenodd" />
@@ -90,7 +90,7 @@ const HelpCenter = () => {
                 <p className="text-sm font-semibold text-ecotani-green">Response Time: &lt;24 jam</p>
                 <button className="w-full py-2 px-6 rounded-full bg-ecotani-green text-white font-semibold transition-colors hover:bg-green-700 mt-4">Kirim Email</button>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md border text-center">
+              <div className="p-6 rounded-lg shadow-md bg-transparent text-center">
                 <div className="flex justify-center items-center mb-2">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-ecotani-green" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M2 3.5C2 2.671 2.671 2 3.5 2h13C17.329 2 18 2.671 18 3.5v13c0 .829-.671 1.5-1.5 1.5h-13C2.671 18 2 17.329 2 16.5v-13zM10 15c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5z" />
@@ -140,7 +140,7 @@ const HelpCenter = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md text-center">
+    <div className="text-center bg-transparent">
       <h2 className="text-3xl font-bold">Pusat Bantuan Ecotani</h2>
       <p className="text-gray-600 mt-2">Dapatkan jawaban untuk pertanyaan Anda, tutorial, dan dukungan dari tim kami.</p>
       <div className="flex justify-center mt-5">
@@ -158,7 +158,7 @@ const HelpCenter = () => {
           </button>
         ))}
       </div>
-      <div className="bg-white p-8 rounded-lg shadow-md mt-5 text-left">
+      <div className="p-8 mt-5 text-left bg-transparent">
         {renderFaqContent()}
       </div>
     </div>
