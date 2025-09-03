@@ -2,12 +2,14 @@ import React, { useState, useContext } from 'react';
 import Footer from '../../components/user/Footer';
 import AuthContext from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { UploadCloud } from 'lucide-react'; // Impor ikon dari Lucide React
 
 const PaymentUploadPage = () => {
     const navigate = useNavigate();
     const { isLoggedIn, userName } = useContext(AuthContext);
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
+    const [message, setMessage] = useState(''); // Tambahkan state untuk pesan
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -27,17 +29,29 @@ const PaymentUploadPage = () => {
         // formData.append('buktiPembayaran', selectedFile);
         // fetch('/api/upload-payment', { method: 'POST', body: formData });
 
-        // Arahkan ke halaman tracking atau konfirmasi setelah upload berhasil
-        alert('Bukti pembayaran berhasil diunggah!');
-        navigate('/tracking');
+        // Tampilkan pesan sukses dan arahkan ke halaman tracking
+        setMessage('Bukti pembayaran berhasil diunggah!');
+        setTimeout(() => {
+            navigate('/tracking');
+        }, 1500); // Tunggu 1.5 detik sebelum navigasi
     };
 
     return (
-        <div className="font-sans bg-gray-100 min-h-screen">
-            
-            <main className="container mx-auto px-12 py-8">
-                <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-                    <h1 className="text-2xl font-bold text-ecotani-green mb-4">
+        <div className="font-sans bg-white min-h-screen flex flex-col">
+            <div className="container mx-auto px-12 py-8 flex-grow">
+                {message && (
+                    <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                        <span className="block sm:inline">{message}</span>
+                    </div>
+                )}
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
+                    <img 
+                        src="src/assets/logo.png"
+                        alt="Ecotani Logo" 
+                        className="h-8" 
+                    />
+                    <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
+                    <h1 className="text-2xl font-bold text-[#43703a]">
                         Upload Bukti Pembayaran
                     </h1>
                 </div>
@@ -68,19 +82,20 @@ const PaymentUploadPage = () => {
                 <div className="bg-white p-8 rounded-lg shadow-md mb-8">
                     <h2 className="text-xl font-bold text-gray-800 mb-4">Form Bukti Transfer</h2>
                     <p className="text-gray-600 mb-6">
-                        Upload foto bukti transfer dari mobile banking atau struk ATM
+                        Unggah foto bukti transfer dari mobile banking atau struk ATM.
                     </p>
                     
-                    {/* Area upload file */}
+                    {/* Area unggah file */}
                     <div className="flex flex-col items-center justify-center p-12 border-2 border-dashed border-gray-300 rounded-lg">
                         {previewUrl ? (
                             <img src={previewUrl} alt="Preview Bukti Transfer" className="max-w-full max-h-64 object-contain mb-4" />
                         ) : (
                             <>
-                                <img src="/src/assets/upload-icon.png" alt="Upload Icon" className="w-16 h-16 mb-4" />
-                                <p className="text-lg font-semibold text-gray-700">Upload Bukti Transfer</p>
+                                {/* Menggunakan ikon Lucide */}
+                                <UploadCloud className="w-16 h-16 mb-4 text-gray-400" />
+                                <p className="text-lg font-semibold text-gray-700">Unggah Bukti Transfer</p>
                                 <p className="text-sm text-gray-500 mt-1 mb-4">
-                                    Klik tombol di bawah untuk upload foto bukti transfer
+                                    Klik tombol di bawah untuk mengunggah foto bukti transfer.
                                 </p>
                             </>
                         )}
@@ -95,7 +110,7 @@ const PaymentUploadPage = () => {
                             htmlFor="file-upload"
                             className="bg-gray-200 text-gray-800 font-semibold py-2 px-6 rounded-full cursor-pointer hover:bg-gray-300 transition-colors"
                         >
-                            {selectedFile ? 'Pilih File Lain' : 'Upload File'}
+                            {selectedFile ? 'Pilih File Lain' : 'Unggah File'}
                         </label>
                     </div>
 
@@ -103,7 +118,7 @@ const PaymentUploadPage = () => {
                     {selectedFile && (
                         <button
                             onClick={handleUpload}
-                            className="w-full py-3 mt-6 rounded-full bg-ecotani-green text-white font-semibold hover:bg-green-700 transition-colors"
+                            className="w-full py-3 mt-6 rounded-full bg-[#43703A] text-white font-semibold"
                         >
                             Kirim Bukti Pembayaran
                         </button>
@@ -128,7 +143,7 @@ const PaymentUploadPage = () => {
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
             
             <Footer />
         </div>
