@@ -5,6 +5,7 @@ import ChatAI from "../../components/user/ChatAi";
 import CitizenScience from "../../components/user/CitizenScience";
 import HelpCenter from "../../components/user/HelpCenter";
 import ProductCard from "../../components/user/ProductCard";
+import { RefreshCw, Leaf, Users, DollarSign } from "lucide-react";
 
 const HomePage = ({ cartItems, addToCart }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -64,35 +65,31 @@ const HomePage = ({ cartItems, addToCart }) => {
   ];
 
   const features = [
-    {
-      title: "Daur Ulang Mudah",
-      description:
-        "Platform yang memudahkan proses jual beli limbah untuk daur ulang",
-      icon: "🔄",
-      gradient: "from-green-400 to-green-600",
-    },
-    {
-      title: "Ramah Lingkungan",
-      description:
-        "Berkontribusi untuk lingkungan yang lebih bersih dan berkelanjutan",
-      icon: "🌱",
-      gradient: "from-emerald-400 to-emerald-600",
-    },
-    {
-      title: "Komunitas Aktif",
-      description:
-        "Bergabung dengan komunitas peduli lingkungan di seluruh Indonesia",
-      icon: "👥",
-      gradient: "from-teal-400 to-teal-600",
-    },
-    {
-      title: "Ekonomi Sirkular",
-      description:
-        "Mendukung ekonomi sirkular dengan mengoptimalkan nilai limbah",
-      icon: "💰",
-      gradient: "from-green-500 to-green-700",
-    },
-  ];
+  {
+    title: "Daur Ulang Mudah",
+    description:
+      "Platform yang memudahkan proses jual beli limbah untuk daur ulang",
+    icon: <RefreshCw size={24} />, // Menggunakan komponen Lucide
+  },
+  {
+    title: "Ramah Lingkungan",
+    description:
+      "Berkontribusi untuk lingkungan yang lebih bersih dan berkelanjutan",
+    icon: <Leaf size={24} />, // Menggunakan komponen Lucide
+  },
+  {
+    title: "Komunitas Aktif",
+    description:
+      "Bergabung dengan komunitas peduli lingkungan di seluruh Indonesia",
+    icon: <Users size={24} />, // Menggunakan komponen Lucide
+  },
+  {
+    title: "Ekonomi Sirkular",
+    description:
+      "Mendukung ekonomi sirkular dengan mengoptimalkan nilai limbah",
+    icon: <DollarSign size={24} />, // Menggunakan komponen Lucide
+  },
+];
 
   return (
     <div className="overflow-x-hidden relative font-sans bg-white min-h-screen flex flex-col">
@@ -164,6 +161,7 @@ const HomePage = ({ cartItems, addToCart }) => {
           </div>
         </section>
 
+       
         {/* Why Choose Ecotani Section */}
         <section className="mt-16 mb-16">
           <div className="text-center mb-12">
@@ -176,19 +174,22 @@ const HomePage = ({ cartItems, addToCart }) => {
             </p>
           </div>
 
-          {/* Mengubah tata letak menjadi 2 kolom di atas dan 2 di bawah */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {features.map((feature, index) => (
               <div key={index} className="group relative">
                 <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-4 border border-gray-100">
-                  {/* Menghapus div untuk gradasi dan background */}
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl mb-6">
-                    {feature.icon}
+                  {/* Div ini mengatur posisi dan ukuran ikon */}
+                  {/* Gunakan 'size' dan 'strokeWidth' untuk mengatur ukuran dan ketebalan */}
+                  <div className="flex justify-center mb-2 text-[#43703A]">
+                    {React.cloneElement(feature.icon, {
+                      size: 48, // Memperbesar ukuran ikon
+                      strokeWidth: 2.5, // Menebalkan ikon
+                    })}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-4">
+                  <h3 className="text-xl font-bold text-gray-800 text-center">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed text-center">
                     {feature.description}
                   </p>
                 </div>
