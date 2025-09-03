@@ -1,11 +1,8 @@
-// src/pages/user/CartPage.jsx
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Footer from '../../components/user/Footer';
 
-// Tambahkan isLoggedIn dan userName di props yang diterima
 const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
   // Fungsi untuk menghitung total harga
   const subtotal = cartItems.reduce(
@@ -19,19 +16,28 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
   };
 
   return (
-    <div className="font-sans">
-     
-
-      <main className="container mx-auto px-12 py-8 min-h-screen">
-        <h1 className="text-3xl font-bold text-center text-ecotani-green my-8">
-          Keranjang Belanja
-        </h1>
-
+    <div className="font-sans bg-gray-50 min-h-screen flex flex-col">
+      {/* Kontainer utama untuk konten halaman */}
+      <div className="container mx-auto px-12 py-8 flex-grow">
+        
+        {/* Card judul halaman */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
+          <img 
+            src="/src/assets/logo.png"
+            alt="Ecotani Logo" 
+            className="h-8" 
+          />
+          <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
+          <h1 className="text-2xl font-bold text-[#43703a]">
+            Keranjang Belanja
+          </h1>
+        </div>
+        
+        {/* Konten utama keranjang belanja */}
         {cartItems.length === 0 ? (
           <div className="text-center py-20">
-            {/* Pastikan path cartIcon sudah benar jika kamu menggunakannya */}
             <img
-              src="/src/assets/cart-icon.png" 
+              src="/src/assets/cart-icon.png"
               alt="Keranjang Kosong"
               className="mx-auto w-40 h-auto mb-6"
             />
@@ -43,93 +49,104 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
             </p>
             <Link
               to="/"
-              className="mt-4 inline-block bg-ecotani-green text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition-colors"
+              className="mt-4 inline-block bg-[#43703a] text-white py-3 px-8 rounded-full font-semibold hover:bg-[#365e32] transition-colors"
             >
               Mulai Belanja
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-3 gap-8">
-            {/* Kolom Kiri: Daftar Produk */}
-            <div className="col-span-2 space-y-4">
-              {cartItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white p-6 rounded-lg shadow-md flex items-center gap-6"
-                >
+          <div className="space-y-4">
+            {/* Daftar Produk */}
+            {cartItems.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex items-start gap-6 relative"
+              >
+                {/* Gambar produk dengan border biru */}
+                <div className="relative border-2 border-blue-500 rounded-lg p-1">
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-24 h-24 object-cover rounded-lg"
+                    className="w-32 h-32 object-cover rounded-md"
                   />
-                  <div className="flex-grow">
-                    <h2 className="text-xl font-bold text-gray-800">
-                      {item.name}
+                </div>
+                
+                <div className="flex-grow flex flex-col justify-between h-[136px]"> {/* Atur tinggi agar konten terbagi dengan baik */}
+                  <div>
+                    {/* Label "Plastik" */}
+                    <span className="bg-[#43703a] text-white text-xs font-medium px-2 py-1 rounded-sm w-fit mb-2 inline-block">
+                        Plastik
+                    </span>
+                    <h2 className="text-xl font-bold text-[#43703a] mt-1">
+                        {item.name}
                     </h2>
-                    <p className="text-ecotani-green font-semibold mt-1">
-                      Rp{item.price.toLocaleString('id-ID')}
+                    <p className="text-gray-500 text-sm mt-1">
+                      Penjual: Jannah K
                     </p>
-                    <div className="flex items-center gap-3 mt-3">
-                      <button
-                        onClick={() =>
-                          updateQuantity(item.id, item.quantity - 1)
-                        }
-                        className="w-8 h-8 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100"
-                      >
-                        -
-                      </button>
-                      <span className="font-semibold">{item.quantity}</span>
-                      <button
-                        onClick={() =>
-                          updateQuantity(item.id, item.quantity + 1)
-                        }
-                        className="w-8 h-8 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100"
-                      >
-                        +
-                      </button>
-                    </div>
+                    <p className="text-lg font-semibold mt-1 text-[#43703a]">
+                      Rp{item.price.toLocaleString('id-ID')}/100 gram
+                    </p>
                   </div>
-                  <div className="text-right">
-                    <p className="text-xl font-bold text-gray-800">
-                      Rp{(item.price * item.quantity).toLocaleString('id-ID')}
-                    </p>
+
+                  <div className="flex items-center gap-3">
+                    <span className="text-gray-600">Jumlah:</span>
                     <button
-                      onClick={() => removeItem(item.id)}
-                      className="text-red-500 mt-2 text-sm hover:underline"
+                      onClick={() =>
+                        updateQuantity(item.id, item.quantity - 1)
+                      }
+                      disabled={item.quantity <= 1}
+                      className="w-8 h-8 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Hapus
+                      -
+                    </button>
+                    <span className="font-semibold">{item.quantity}</span>
+                    <button
+                      onClick={() =>
+                        updateQuantity(item.id, item.quantity + 1)
+                      }
+                      className="w-8 h-8 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100"
+                    >
+                      +
                     </button>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* Kolom Kanan: Ringkasan Belanja */}
-            <div className="col-span-1 bg-gray-100 p-6 rounded-lg shadow-md h-fit">
-              <h2 className="text-2xl font-bold mb-4">Ringkasan Belanja</h2>
+                
+                {/* Container untuk Hapus dan Harga Total */}
+                <div className="flex-none flex flex-col justify-between items-end h-[136px]">
+                  <button
+                    onClick={() => removeItem(item.id)}
+                    className="text-red-500 text-sm hover:underline font-semibold"
+                  >
+                    Hapus
+                  </button>
+                  <p className="text-xl font-bold text-[#43703a]">
+                    Rp{(item.price * item.quantity).toLocaleString('id-ID')}
+                  </p>
+                </div>
+              </div>
+            ))}
+            
+            {/* Card subtotal dan checkout */}
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 h-fit">
               <div className="flex justify-between items-center mb-4 text-lg">
-                <span className="text-gray-600">Subtotal</span>
-                <span className="font-bold text-ecotani-green">
+                <span className="text-gray-600 font-semibold">Subtotal</span>
+                <span className="font-bold text-[#43703a] text-xl">
                   Rp{subtotal.toLocaleString('id-ID')}
                 </span>
               </div>
-              <div className="flex justify-between items-center mb-6 text-sm text-gray-500">
-                <span>Total Item</span>
-                <span>{cartItems.length}</span>
-              </div>
               
-              {/* PERUBAHAN DI SINI: Ganti <button> dengan <Link> */}
               <Link
                 to="/checkout"
-                className="w-full py-3 bg-ecotani-green text-white text-center font-semibold rounded-full transition-colors hover:bg-green-700"
+                className="px-89 py-3 bg-[#43703a] text-white text-center font-semibold rounded-sm transition-colors hover:bg-[#365e32]"
               >
                 Lanjut ke Pembayaran
               </Link>
             </div>
           </div>
         )}
-      </main>
-
+      </div>
+      
+      {/* Footer */}
       <Footer />
     </div>
   );
