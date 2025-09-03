@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { HashLink } from "react-router-hash-link"; // Import HashLink
 import AuthContext from "../../context/AuthContext";
 import { FaSearch, FaShoppingCart, FaComments, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import logo from "../../assets/logo.png";
@@ -41,10 +42,11 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
             </span>
           </Link>
           
-          {/* Navigation Links - Semua Hijau */}
+          {/* Navigation Links - Menggunakan HashLink */}
           <div className="hidden md:flex gap-6">
-            <Link 
-              to="/" 
+            <HashLink 
+              to="/#hero-section" // Link ke Hero Section
+              smooth // Aktifkan smooth scroll
               className="relative font-medium py-2 group transition-all duration-300 hover:no-underline"
               style={{ color: '#43703A' }}
               onMouseEnter={(e) => e.target.style.color = '#365a2e'}
@@ -55,10 +57,11 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
                 className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
                 style={{ backgroundColor: '#43703A' }}
               ></span>
-            </Link>
+            </HashLink>
             
-            <Link 
-              to="/about" 
+            <HashLink 
+              to="/#about-section" // Link ke Why Choose Ecotani
+              smooth
               className="relative font-medium py-2 group transition-all duration-300 hover:no-underline"
               style={{ color: '#43703A' }}
               onMouseEnter={(e) => e.target.style.color = '#365a2e'}
@@ -69,10 +72,11 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
                 className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
                 style={{ backgroundColor: '#43703A' }}
               ></span>
-            </Link>
+            </HashLink>
             
-            <Link 
-              to="/citizen-science" 
+            <HashLink 
+              to="/#citizen-science-section" // Link ke Citizen Science
+              smooth
               className="relative font-medium py-2 group transition-all duration-300 hover:no-underline"
               style={{ color: '#43703A' }}
               onMouseEnter={(e) => e.target.style.color = '#365a2e'}
@@ -83,10 +87,11 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
                 className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
                 style={{ backgroundColor: '#43703A' }}
               ></span>
-            </Link>
+            </HashLink>
             
-            <Link 
-              to="/help" 
+            <HashLink 
+              to="/#help-section" // Link ke Help
+              smooth
               className="relative font-medium py-2 group transition-all duration-300 hover:no-underline"
               style={{ color: '#43703A' }}
               onMouseEnter={(e) => e.target.style.color = '#365a2e'}
@@ -97,7 +102,7 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
                 className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
                 style={{ backgroundColor: '#43703A' }}
               ></span>
-            </Link>
+            </HashLink>
           </div>
         </div>
 

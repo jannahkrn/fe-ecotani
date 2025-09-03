@@ -117,7 +117,7 @@ const HomePage = ({ cartItems, addToCart }) => {
 
       <main className="px-4 sm:px-8 lg:px-12 flex-grow">
         {/* Hero Section dengan desain gambar dan teks */}
-        <section className="mt-6">
+        <section id="hero-section" className="mt-6">
           {/* Mengatur lebar dengan max-w-6xl */}
           <div className="w-full max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
             <div className="relative w-full h-80 md:h-[400px] lg:h-[450px]">
@@ -164,7 +164,7 @@ const HomePage = ({ cartItems, addToCart }) => {
         </section>
 
         {/* Why Choose Ecotani Section */}
-        <section className="mt-16 mb-16">
+        <section id="about-section" className="mt-16 mb-16">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
               Mengapa Memilih <span className="text-[#43703A]">Ecotani?</span>
@@ -224,11 +224,11 @@ const HomePage = ({ cartItems, addToCart }) => {
 
         {/* Enhanced Sections */}
         <div className="space-y-16">
-          <div>
+          <div id="citizen-science-section">
             <CitizenScience />
           </div>
 
-          <div>
+          <div id="help-section">
             <HelpCenter />
           </div>
         </div>
