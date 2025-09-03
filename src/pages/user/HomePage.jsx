@@ -1,24 +1,27 @@
 // HomePage.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../../components/user/Footer";
 import ChatAI from "../../components/user/ChatAi";
 import CitizenScience from "../../components/user/CitizenScience";
 import HelpCenter from "../../components/user/HelpCenter";
 import ProductCard from "../../components/user/ProductCard";
+import PreferensiModal from "../../components/user/PreferensiModal";
 import { RefreshCw, Leaf, Users, DollarSign } from "lucide-react";
 
-const HomePage = ({ cartItems, addToCart }) => {
+const HomePage = ({ cartItems, addToCart, user }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const toggleChat = () => {
-    setIsChatOpen(!isChatOpen);
-  };
+  const [isPreferensiOpen, setIsPreferensiOpen] = useState(false);
+  const [userPreferences, setUserPreferences] = useState([]);
+  const [displayProducts, setDisplayProducts] = useState([]);
 
-  // ⚡ Produk disamakan strukturnya dengan SearchPage
+  const toggleChat = () => setIsChatOpen(!isChatOpen);
+
   const products = [
     {
       id: 1,
       image: "/src/assets/product-placeholder.png",
       name: "Botol Plastik",
+      category: "Plastik",
       price: "Rp3.000/g",
       priceValue: 3000,
       seller: "Jannah K",
@@ -30,6 +33,7 @@ const HomePage = ({ cartItems, addToCart }) => {
       id: 2,
       image: "/src/assets/product-placeholder.png",
       name: "Kardus Bekas",
+      category: "Kertas",
       price: "Rp1.500/kg",
       priceValue: 1500,
       seller: "Jannah K",
@@ -41,6 +45,7 @@ const HomePage = ({ cartItems, addToCart }) => {
       id: 3,
       image: "/src/assets/product-placeholder.png",
       name: "Minyak Jelantah",
+      category: "Organik",
       price: "Rp5.000/L",
       priceValue: 5000,
       seller: "Budi S",
@@ -83,6 +88,43 @@ const HomePage = ({ cartItems, addToCart }) => {
     },
   ];
 
+  // 🔹 Ambil preferensi dari localStorage per user saat user login
+  useEffect(() => {
+    if (user) {
+      const saved = localStorage.getItem(`userPreferences_${user.id}`);
+      const prefs = saved ? JSON.parse(saved) : [];
+      setUserPreferences(prefs);
+
+      if (!prefs.length) {
+        setIsPreferensiOpen(true);
+      }
+    } else {
+      // Logout → kosongkan preferensi
+      setUserPreferences([]);
+    }
+  }, [user]);
+
+  // 🔹 Update displayProducts sesuai preferensi
+  useEffect(() => {
+    if (user && userPreferences.length > 0) {
+      const recommended = products.filter((p) =>
+        userPreferences.includes(p.category)
+      );
+      setDisplayProducts(recommended.length ? recommended : products);
+    } else {
+      setDisplayProducts(products);
+    }
+  }, [user, userPreferences]);
+
+  // 🔹 Simpan preferensi ke localStorage per user
+  const handleSavePreferences = (prefs) => {
+    setUserPreferences(prefs);
+    if (user) {
+      localStorage.setItem(`userPreferences_${user.id}`, JSON.stringify(prefs));
+    }
+    setIsPreferensiOpen(false);
+  };
+
   return (
     <div className="overflow-x-hidden relative font-sans bg-white min-h-screen flex flex-col">
       {/* Floating Chat Button */}
@@ -100,6 +142,13 @@ const HomePage = ({ cartItems, addToCart }) => {
       </div>
 
       {isChatOpen && <ChatAI onClose={toggleChat} />}
+
+      {isPreferensiOpen && (
+        <PreferensiModal
+          onClose={() => setIsPreferensiOpen(false)}
+          onSave={handleSavePreferences}
+        />
+      )}
 
       <main className="px-4 sm:px-8 lg:px-12 flex-grow">
         {/* Hero Section */}
@@ -176,20 +225,21 @@ const HomePage = ({ cartItems, addToCart }) => {
           </div>
         </section>
 
-        {/* Produk Unggulan */}
+        {/* Produk Unggulan / Rekomendasi */}
         <section className="mt-20 mb-16">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Produk <span className="text-[#43703A]">Unggulan</span>
+              {user && userPreferences.length > 0
+                ? "Rekomendasi Produk Untuk Anda"
+                : "Produk Unggulan"}
             </h2>
             <p className="text-gray-600 text-lg">
               Temukan berbagai produk limbah berkualitas dengan harga terbaik
             </p>
           </div>
 
-          {/* ✅ Pakai ProductCard yang sama dengan SearchPage */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {products.map((product) => (
+            {displayProducts.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
