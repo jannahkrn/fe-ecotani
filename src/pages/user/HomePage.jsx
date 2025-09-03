@@ -165,7 +165,7 @@ const HomePage = ({ cartItems, addToCart, user }) => {
                   <div className="relative text-6xl md:text-8xl font-black mb-4">
                     <span className="text-[#FFED28]">ECOTANI</span>
                   </div>
-                  <p className="text-lg md:text-4xl">
+                  <p className="text-lg md:text-3xl">
                     Platform e-commerce untuk jual beli limbah secara mudah,
                     aman dan ramah lingkungan.
                   </p>
