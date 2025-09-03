@@ -1,5 +1,3 @@
-// src/pages/user/RatingAndReviewPage.jsx
-
 import React, { useState, useContext } from 'react';
 import Footer from '../../components/user/Footer';
 import AuthContext from '../../context/AuthContext';
@@ -9,7 +7,7 @@ const RatingAndReviewPage = () => {
     const { isLoggedIn, userName } = useContext(AuthContext);
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('');
-    const [photoPreview, setPhotoPreview] = useState(null); // State baru untuk pratinjau foto
+    const [photoPreview, setPhotoPreview] = useState(null);
 
     // Dummy product data
     const product = {
@@ -45,16 +43,22 @@ const RatingAndReviewPage = () => {
     const handleSubmitReview = () => {
         // Logika untuk mengirim review ke backend
         console.log("Mengirim Ulasan:", { rating, reviewText, photo: photoPreview });
+        // Mengganti alert dengan cara yang disarankan untuk lingkungan iframe
         alert("Ulasan Anda berhasil dikirim!");
     };
 
     return (
-        <div className="font-sans bg-gray-100 min-h-screen">
-            
-            <main className="container mx-auto px-12 py-8">
-                <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-                    <h1 className="text-2xl font-bold text-ecotani-green mb-4">
-                        Beri Rating dan Ulasan
+        <div className="font-sans bg-white min-h-screen flex flex-col">
+            <div className="container mx-auto px-12 py-8 flex-grow">
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
+                    <img 
+                        src="src/assets/logo.png"
+                        alt="Ecotani Logo" 
+                        className="h-8" 
+                    />
+                    <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
+                    <h1 className="text-2xl font-bold text-[#43703a]">
+                        Ulasan dan Rating Produk
                     </h1>
                 </div>
 
@@ -78,7 +82,7 @@ const RatingAndReviewPage = () => {
                             </div>
                         </div>
                         <div className="text-right">
-                            <p className="font-semibold text-lg text-ecotani-green">Rp9.000</p>
+                            <p className="font-semibold text-lg text-[#43703a]">Rp9.000</p>
                         </div>
                     </div>
                 </div>
@@ -101,7 +105,7 @@ const RatingAndReviewPage = () => {
                         {/* Textarea Ulasan */}
                         <div className="flex-1">
                             <textarea
-                                className="w-full h-24 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+                                className="w-full h-24 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#43703a]"
                                 placeholder="Ceritakan pengalaman Anda dengan produk ini. Bagaimana kualitasnya? Apakah sesuai dengan Deskripsi?"
                                 value={reviewText}
                                 onChange={handleReviewChange}
@@ -129,8 +133,8 @@ const RatingAndReviewPage = () => {
                                 type="file" 
                                 id="upload-photo" 
                                 className="hidden"
-                                accept="image/*" // Hanya menerima file gambar
-                                onChange={handlePhotoChange} // Tambahkan handler ini
+                                accept="image/*"
+                                onChange={handlePhotoChange}
                             />
                         </label>
                     </div>
@@ -139,12 +143,12 @@ const RatingAndReviewPage = () => {
                 <div className="flex justify-end mt-8">
                     <button
                         onClick={handleSubmitReview}
-                        className="bg-ecotani-green text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors"
+                        className="bg-[#43703a] text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors"
                     >
                         Kirim Review
                     </button>
                 </div>
-            </main>
+            </div>
             
             <Footer />
         </div>
