@@ -152,4 +152,6 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
   );
 };
 
+
+
 export default CartPage;
