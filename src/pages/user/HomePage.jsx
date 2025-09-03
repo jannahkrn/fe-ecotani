@@ -1,4 +1,3 @@
-// HomePage.jsx
 import React, { useState } from "react";
 import Footer from "../../components/user/Footer";
 import ChatAI from "../../components/user/ChatAi";
@@ -95,21 +94,15 @@ const HomePage = ({ cartItems, addToCart }) => {
     <div className="overflow-x-hidden relative font-sans bg-white min-h-screen flex flex-col">
       {/* Floating Chat Button with Animation */}
       <div
-        className="fixed bottom-6 right-6 z-50 cursor-pointer transition-all duration-300 hover:scale-110 hover:rotate-12 drop-shadow-2xl"
+        className="fixed bottom-6 right-6 z-50 cursor-pointer transition-all duration-300"
         onClick={toggleChat}
       >
         <div className="relative">
-          <div className="absolute -inset-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full blur opacity-75 animate-pulse"></div>
           <img
             src="/src/assets/zanu.png"
             alt="Zanu Mascot"
-            className="relative w-20 h-auto rounded-full border-4 border-white shadow-xl"
+            className="relative w-50 h-auto rounded-full"
           />
-          {!isChatOpen && (
-            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center animate-bounce">
-              💬
-            </div>
-          )}
         </div>
       </div>
 
