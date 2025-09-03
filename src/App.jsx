@@ -68,7 +68,7 @@ function App() {
       <div className="App">
         <Navbar cartItems={cartItems} hasNewChat={hasNewChat} />
         <Routes>
-          <Route path="/" element={<HomePage cartItems={cartItems} />} />
+          <Route path="/" element={<HomePage cartItems={cartItems} addToCart={addToCart} />} />
           <Route path="/search" element={<SearchPage addToCart={addToCart} />} />
           <Route path="/products/:productName" element={<ProductDetailPage addToCart={addToCart} cartItems={cartItems} />} />
           <Route path="/seller/products/:productId" element={<SellerProductDetailPage cartItems={cartItems} addToCart={addToCart} />} />

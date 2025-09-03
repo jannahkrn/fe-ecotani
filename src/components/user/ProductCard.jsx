@@ -1,12 +1,12 @@
 // ProductCard.jsx
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product, addToCart }) => {
   const navigate = useNavigate();
 
   const handleAddToCart = (e) => {
-    e.stopPropagation(); // mencegah klik card ikut trigger navigate
+    e.stopPropagation();
     if (addToCart) {
       addToCart({
         id: product.id,
@@ -18,47 +18,86 @@ const ProductCard = ({ product, addToCart }) => {
     }
   };
 
-  const handleBuyNow = () => {
+  const handleBuyNow = (e) => {
+    e.stopPropagation();
     navigate(`/products/${encodeURIComponent(product.name)}`);
   };
 
   return (
-    <div
-      className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center transition-transform duration-200 hover:scale-105 cursor-pointer"
-      onClick={handleBuyNow} // klik card → ke detail
-    >
-      <div className="w-full h-40 bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center mb-4">
-        <img src={product.image} alt={product.name} className="h-full w-auto object-cover" />
-      </div>
-      <h3 className="font-semibold text-lg">{product.name}</h3>
-      <p className="text-ecotani-green font-bold text-lg">{product.price}</p>
-      <div className="flex items-center text-sm text-gray-500 mt-1">
-        {product.rating && (
-          <>
-            <span className="text-yellow-400">★</span>
-            <span className="ml-1 mr-2">{product.rating}</span>
-          </>
+    <div className="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col border">
+      {/* Gambar Produk */}
+      <div
+        className="w-full h-48 bg-gray-100 flex items-center justify-center cursor-pointer"
+        onClick={handleBuyNow}
+      >
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <span className="text-gray-400">No Image</span>
         )}
-        {product.sales && <span>{product.sales}+ terjual</span>}
       </div>
-      {product.seller && <p className="text-sm text-gray-500 mt-1">Penjual: {product.seller}</p>}
-      {product.location && <p className="text-sm text-gray-500">Lokasi: {product.location}</p>}
 
-      <div className="w-full flex gap-2 mt-3">
-        {addToCart && (
-          <button
-            onClick={handleAddToCart}
-            className="flex-1 py-2 rounded-full border border-ecotani-green text-ecotani-green text-sm font-semibold hover:bg-ecotani-green hover:text-white transition-colors"
-          >
-            Tambah Keranjang
-          </button>
-        )}
-        <button
+      {/* Detail Produk */}
+      <div className="p-4 flex flex-col flex-1">
+        {/* Nama + Rating */}
+        <div
+          className="flex justify-between items-start cursor-pointer"
           onClick={handleBuyNow}
-          className="flex-1 py-2 rounded-full bg-ecotani-green text-white text-sm font-semibold hover:bg-green-700 transition-colors"
         >
-          Beli Sekarang
-        </button>
+          <h3 className="font-semibold text-lg text-black">
+            {product.name}
+          </h3>
+          <div className="text-right text-sm">
+            {product.rating && (
+              <div className="flex items-center text-[#43703A] font-medium">
+                <span className="mr-1">★</span>
+                {product.rating}
+              </div>
+            )}
+            {product.sales && (
+              <p className="text-black font-semibold">
+                {product.sales}+ terjual
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Harga */}
+        <p className="text-[#43703A] font-bold text-lg mt-1">
+          {product.price}
+        </p>
+
+        {/* Penjual & Lokasi */}
+        {product.seller && (
+          <p className="text-sm text-gray-500 mt-2">
+            Penjual: <span className="font-medium">{product.seller}</span>
+          </p>
+        )}
+        {product.location && (
+          <p className="text-sm text-gray-500">Lokasi: {product.location}</p>
+        )}
+
+        {/* Tombol Aksi */}
+        <div className="flex gap-2 mt-4">
+          {addToCart && (
+            <button
+              onClick={handleAddToCart}
+              className="flex-1 py-2 rounded-sm bg-[#43703A] text-white text-sm font-semibold hover:bg-green-800 transition"
+            >
+              Tambah Keranjang
+            </button>
+          )}
+          <button
+            onClick={handleBuyNow}
+            className="flex-1 py-2 rounded-sm bg-[#47241C] text-white text-sm font-semibold hover:bg-[#2e1611] transition"
+          >
+            Beli Sekarang
+          </button>
+        </div>
       </div>
     </div>
   );
