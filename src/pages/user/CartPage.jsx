@@ -75,7 +75,7 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
                   <div>
                     {/* Label "Plastik" */}
                     <span className="bg-[#43703a] text-white text-xs font-medium px-2 py-1 rounded-sm w-fit mb-2 inline-block">
-                        Plastik
+                        Anorganik
                     </span>
                     <h2 className="text-xl font-bold text-[#43703a] mt-1">
                         {item.name}
