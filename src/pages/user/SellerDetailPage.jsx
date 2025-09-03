@@ -1,9 +1,6 @@
-// src/pages/user/SellerDetailPage.jsx
-
 import React from 'react';
-import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
-import ProductCard from '../../components/user/ProductCard'; // Impor komponen ProductCard Anda
+import ProductCard from '../../components/user/ProductCard';
 
 // Data dummy untuk penjual
 const sellerData = {
@@ -17,39 +14,36 @@ const sellerData = {
   description: 'Produsen kompos organik terpercaya dengan pengalaman lebih dari 10 tahun. Kami berkomitmen menyediakan produk berkualitas tinggi untuk mendukung pertanian berkelanjutan.',
   products: [
     {
-      id: 1,
+      id: 1, // Pastikan ID ada dan unik
       name: 'Botol Plastik',
       price: 'Rp3.000/g',
-      image: '/src/assets/product-placeholder.png', // Ganti dengan gambar produk yang sesuai
+      image: '/src/assets/product-placeholder.png', 
       rating: 5.0,
       sales: '10+',
       seller: 'Jannah Kurniawati',
       location: 'Klaten, Jawa Tengah'
     },
     {
-      id: 2,
-      name: 'Botol Plastik', // Diasumsikan ada produk lain, meskipun gambarnya sama
-      price: 'Rp3.000/g',
+      id: 2, // Pastikan ID ada dan unik
+      name: 'Botol Kaca',
+      price: 'Rp5.000/g',
       image: '/src/assets/product-placeholder.png',
       rating: 5.0,
       sales: '10+',
       seller: 'Jannah Kurniawati',
       location: 'Klaten, Jawa Tengah'
     },
-    // Tambahkan produk lain jika diperlukan
   ],
 };
 
 const SellerDetailPage = ({ isLoggedIn, userName, cartItems }) => {
   return (
     <div className="font-sans bg-gray-50 min-h-screen flex flex-col">
-      <Navbar isLoggedIn={isLoggedIn} userName={userName} cartItems={cartItems} />
-
       <main className="container mx-auto px-12 py-8 flex-grow">
+        {/* ... (bagian profil penjual) */}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <div className="flex items-start gap-6">
             <div className="w-24 h-24 rounded-full bg-gray-200 flex-shrink-0">
-              {/* Ini adalah placeholder untuk foto profil penjual */}
               <img src="/src/assets/seller-photo-placeholder.png" alt={sellerData.name} className="w-full h-full rounded-full object-cover" />
             </div>
             <div>
@@ -62,7 +56,6 @@ const SellerDetailPage = ({ isLoggedIn, userName, cartItems }) => {
               </div>
             </div>
           </div>
-
           <div className="mt-6 border-b border-gray-200 pb-6">
             <div className="flex items-center gap-8">
               <div className="text-center">
@@ -83,7 +76,6 @@ const SellerDetailPage = ({ isLoggedIn, userName, cartItems }) => {
               </div>
             </div>
           </div>
-          
           <div className="mt-6">
             <h2 className="text-lg font-bold text-gray-800 mb-2">Tentang</h2>
             <p className="text-gray-700 text-sm">{sellerData.description}</p>
@@ -97,13 +89,7 @@ const SellerDetailPage = ({ isLoggedIn, userName, cartItems }) => {
             {sellerData.products.map(product => (
               <ProductCard
                 key={product.id}
-                image={product.image}
-                name={product.name}
-                price={product.price}
-                rating={product.rating}
-                sales={product.sales}
-                seller={product.seller}
-                location={product.location}
+                product={product} // Mengirimkan seluruh objek produk
               />
             ))}
           </div>

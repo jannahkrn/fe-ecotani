@@ -1,134 +1,88 @@
-// src/components/user/Navbar.jsx
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
-import { FaShoppingCart, FaUserCircle, FaComments } from "react-icons/fa";
+import { FaShoppingCart, FaUserCircle, FaComments, FaSignOutAlt } from "react-icons/fa";
 
-const Navbar = ({ cartItems = [], hasNewChat = true }) => {
-  const { isLoggedIn, userName } = useContext(AuthContext);
+const Navbar = ({ cartItems = [], hasNewChat = true }) => { 
+  const { isLoggedIn, userName, handleLogout } = useContext(AuthContext); 
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  const totalItemsInCart = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
-
-  const handleSearch = (e) => {
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (searchQuery.trim() !== "") {
+    if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
   };
-
+  
   return (
     <nav className="bg-white shadow-md py-4 font-sans">
-      <div className="container mx-auto px-12 flex justify-between items-center">
-        {/* Logo dan Navigasi Kiri */}
-        <div className="flex items-center space-x-8">
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/src/assets/logo.png" alt="Ecotani Logo" className="h-8" />
-            <span className="text-xl font-bold text-ecotani-green">ECOTANI</span>
-          </Link>
-          <div className="hidden md:flex items-center space-x-6">
-            <Link
-              to="/"
-              className="text-gray-600 hover:text-ecotani-green transition-colors font-medium"
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="text-gray-600 hover:text-ecotani-green transition-colors font-medium"
-            >
-              About
-            </Link>
-            <Link
-              to="/citizen-science"
-              className="text-gray-600 hover:text-ecotani-green transition-colors font-medium"
-            >
-              Citizen Science
-            </Link>
-            <Link
-              to="/help"
-              className="text-gray-600 hover:text-ecotani-green transition-colors font-medium"
-            >
-              Help
-            </Link>
+      <div className="container mx-auto flex items-center justify-between px-4">
+        {/* Logo dan Tautan Navigasi */}
+        <div className="flex items-center gap-6">
+          <Link to="/" className="text-2xl font-bold text-gray-800">ECOTANI</Link>
+          <div className="hidden md:flex gap-4">
+            <Link to="/" className="text-gray-600 hover:text-green-600 transition-colors font-medium">Beranda</Link>
+            <Link to="/about" className="text-gray-600 hover:text-green-600 transition-colors font-medium">Tentang</Link>
+            <Link to="/citizen-science" className="text-gray-600 hover:text-green-600 transition-colors font-medium">Sains Warga</Link>
+            <Link to="/help" className="text-gray-600 hover:text-green-600 transition-colors font-medium">Bantuan</Link>
           </div>
         </div>
 
-        {/* Search, Cart, Chat, dan User */}
-        <div className="flex items-center gap-6">
-          {/* Form Search */}
-          <form onSubmit={handleSearch} className="relative">
+        {/* Formulir Pencarian dan Ikon */}
+        <div className="flex items-center gap-4">
+          <form onSubmit={handleSearchSubmit} className="flex-grow">
             <input
               type="text"
-              placeholder="Cari..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-gray-100 rounded-full py-2 px-4 w-64 focus:outline-none focus:ring-2 focus:ring-ecotani-green transition-all"
+              placeholder="Cari..."
+              className="px-4 py-2 border rounded-full w-full max-w-xs focus:outline-none focus:ring-2 focus:ring-green-500"
             />
-            <button type="submit">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
           </form>
 
-          {/* Cart */}
-          <Link
-            to="/cart"
-            className="relative text-gray-600 hover:text-ecotani-green transition-colors"
-          >
-            <FaShoppingCart className="h-6 w-6" />
-            {totalItemsInCart > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {totalItemsInCart}
-              </span>
-            )}
-          </Link>
-
-          {/* Chat */}
-          <Link
-            to="/chat"
-            className="relative text-gray-600 hover:text-ecotani-green transition-colors"
-          >
-            <FaComments className="h-6 w-6" />
-            {hasNewChat && (
-              <span className="absolute -top-1 -right-1 bg-red-500 h-3 w-3 rounded-full"></span>
-            )}
-          </Link>
-
-          {/* User */}
-          {isLoggedIn ? (
-            <Link
-              to="/profile"
-              className="flex items-center gap-2 text-gray-600 hover:text-ecotani-green transition-colors"
-            >
-              <FaUserCircle className="h-6 w-6" />
-              <span className="font-semibold hidden sm:inline">
-                Hai, {userName}
-              </span>
+          {/* Ikon */}
+          <div className="flex items-center gap-4">
+            <Link to="/cart" className="relative text-gray-600 hover:text-green-600 transition-colors">
+              <FaShoppingCart className="h-6 w-6" />
+              {cartItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                  {cartItems.length}
+                </span>
+              )}
             </Link>
-          ) : (
-            <Link
-              to="/login"
-              className="flex items-center gap-2 text-gray-600 hover:text-ecotani-green transition-colors"
-            >
-              <FaUserCircle className="h-6 w-6" />
-              <span className="font-semibold hidden sm:inline">Masuk</span>
+
+            <Link to="/chat" className="relative text-gray-600 hover:text-green-600 transition-colors">
+              <FaComments className="h-6 w-6" />
+              {hasNewChat && (
+                <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full animate-ping-once"></span>
+              )}
             </Link>
-          )}
+
+            {isLoggedIn ? (
+              <div className="flex items-center gap-2">
+                <Link to="/profile" className="text-gray-600 hover:text-green-600 transition-colors">
+                  <FaUserCircle className="h-6 w-6" />
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-gray-600 hover:text-red-500 transition-colors"
+                  aria-label="Logout"
+                >
+                  <FaSignOutAlt className="h-6 w-6" />
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link to="/login" className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors font-medium">
+                  Masuk
+                </Link>
+                <Link to="/register" className="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition-colors font-medium">
+                  Daftar
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

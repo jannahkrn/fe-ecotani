@@ -1,4 +1,3 @@
-// src/context/AuthContext.js
 import React, { createContext, useState, useEffect } from 'react';
 
 // Buat Context. Ini adalah "kotak" tempat data akan disimpan.
@@ -29,6 +28,8 @@ export const AuthProvider = ({ children }) => {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserName('');
+    // Hapus token atau data pengguna lainnya dari localStorage saat logout
+    localStorage.removeItem('userToken');
   };
 
   // Kumpulan data dan fungsi yang akan tersedia di seluruh aplikasi
@@ -37,6 +38,8 @@ export const AuthProvider = ({ children }) => {
     userName,
     handleLogin,
     handleLogout,
+    setIsLoggedIn,
+    setUserName,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

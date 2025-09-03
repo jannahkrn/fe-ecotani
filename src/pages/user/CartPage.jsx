@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../../components/user/Navbar';
+
 import Footer from '../../components/user/Footer';
 
 // Tambahkan isLoggedIn dan userName di props yang diterima
@@ -20,8 +20,7 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
 
   return (
     <div className="font-sans">
-      {/* Teruskan props isLoggedIn dan userName ke Navbar */}
-      <Navbar cartItems={cartItems} isLoggedIn={isLoggedIn} userName={userName} />
+     
 
       <main className="container mx-auto px-12 py-8 min-h-screen">
         <h1 className="text-3xl font-bold text-center text-ecotani-green my-8">

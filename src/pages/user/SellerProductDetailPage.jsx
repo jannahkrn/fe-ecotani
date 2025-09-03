@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
 
 const SellerProductDetailPage = ({ cartItems }) => {
@@ -20,7 +19,6 @@ const SellerProductDetailPage = ({ cartItems }) => {
     if (!product) {
         return (
             <div className="font-sans bg-gray-100 min-h-screen flex flex-col">
-                <Navbar cartItems={cartItems} />
                 <main className="container mx-auto px-12 py-8 flex-grow">
                     <p className="text-center text-xl text-gray-700">Produk tidak ditemukan.</p>
                 </main>
@@ -33,7 +31,6 @@ const SellerProductDetailPage = ({ cartItems }) => {
 
     return (
         <div className="font-sans bg-gray-100 min-h-screen flex flex-col">
-            <Navbar cartItems={cartItems} />
             <main className="container mx-auto px-12 py-8 flex-grow">
                 <div className="bg-white p-8 rounded-lg shadow-md mb-8">
                     <div className="flex justify-between items-center mb-6">

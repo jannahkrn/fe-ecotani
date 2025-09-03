@@ -2,7 +2,6 @@
 
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
 import AuthContext from '../../context/AuthContext'; // Import AuthContext
 
@@ -29,7 +28,7 @@ const CheckoutPage = ({ cartItems }) => {
 
     return (
         <div className="font-sans">
-            <Navbar isLoggedIn={isLoggedIn} userName={userName} cartItems={cartItems} />
+           
             <main className="container mx-auto px-12 py-8">
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Checkout Produk</h1>
 

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
 import AuthContext from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +34,6 @@ const PaymentUploadPage = () => {
 
     return (
         <div className="font-sans bg-gray-100 min-h-screen">
-            <Navbar isLoggedIn={isLoggedIn} userName={userName} />
             
             <main className="container mx-auto px-12 py-8">
                 <div className="bg-white p-6 rounded-lg shadow-md mb-8">

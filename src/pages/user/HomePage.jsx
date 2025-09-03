@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
 import ChatAI from '../../components/user/ChatAi';
 import CitizenScience from '../../components/user/CitizenScience';
@@ -62,9 +61,7 @@ const HomePage = ({ isLoggedIn, userName, cartItems }) => {
 
   return (
     <div className="overflow-x-hidden relative font-sans bg-gray-100 min-h-screen flex flex-col">
-      {/* Meneruskan fungsi handleLogout sebagai prop ke komponen Navbar */}
-      <Navbar isLoggedIn={isLoggedIn} userName={userName} cartItems={cartItems} onLogout={handleLogout} />
-
+      
       <div
         className="fixed bottom-5 right-5 z-50 cursor-pointer transition-transform duration-300 hover:scale-110"
         onClick={toggleChat}

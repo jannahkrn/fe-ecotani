@@ -15,116 +15,80 @@ import PaymentUploadPage from "./pages/user/PaymentUploadPage";
 import RatingAndReviewPage from "./pages/user/RatingAndReviewPage";
 import ProfilePage from "./pages/user/ProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
-import ChatPage from "./pages/user/ChatPage"; // ⬅️ Tambahkan Chat
-import { AuthProvider } from "./context/AuthContext";
+import ChatPage from "./pages/user/ChatPage";
 import Navbar from "./components/user/Navbar";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
-  const [cartItems, setCartItems] = useState([]);
-  const [hasNewChat, setHasNewChat] = useState(true); // contoh notifikasi chat
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const localData = localStorage.getItem("cartItems");
+      return localData ? JSON.parse(localData) : [];
+    } catch (error) {
+      console.error("Failed to parse cart items from localStorage:", error);
+      return [];
+    }
+  });
 
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
+  const [hasNewChat, setHasNewChat] = useState(true);
 
-  const addToCart = (product) => {
-    const existingItem = cartItems.find((item) => item.id === product.id);
-    if (existingItem) {
-      setCartItems(
-        cartItems.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + product.quantity }
-            : item
-        )
-      );
-    } else {
-      setCartItems([...cartItems, product]);
-    }
-  };
+  // Menyimpan data keranjang belanja ke localStorage setiap kali 'cartItems' berubah
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
-  const updateCartItemQuantity = (productId, newQuantity) => {
-    setCartItems(
-      cartItems
-        .map((item) =>
-          item.id === productId ? { ...item, quantity: newQuantity } : item
-        )
-        .filter((item) => item.quantity > 0)
-    );
-  };
+  const addToCart = (product) => {
+    const existingItemIndex = cartItems.findIndex((item) => item.id === product.id);
 
-  return (
-    <AuthProvider>
-      <div className="App">
-        {/* Navbar tampil di semua halaman */}
-        <Navbar cartItems={cartItems} hasNewChat={hasNewChat} />
+    if (existingItemIndex > -1) {
+      // Jika produk sudah ada di keranjang, perbarui jumlahnya
+      const updatedCartItems = [...cartItems];
+      updatedCartItems[existingItemIndex] = {
+        ...updatedCartItems[existingItemIndex],
+        quantity: updatedCartItems[existingItemIndex].quantity + (product.quantity || 1),
+      };
+      setCartItems(updatedCartItems);
+    } else {
+      // Jika produk belum ada, tambahkan ke keranjang
+      setCartItems([...cartItems, { ...product, quantity: product.quantity || 1 }]);
+    }
+  };
 
-        <Routes>
-          <Route path="/" element={<HomePage cartItems={cartItems} />} />
-          <Route path="/search" element={<SearchPage cartItems={cartItems} />} />
-          <Route
-            path="/products/:productName"
-            element={
-              <ProductDetailPage addToCart={addToCart} cartItems={cartItems} />
-            }
-          />
-          {/* Halaman detail produk penjual */}
-          <Route
-            path="/seller/products/:productId"
-            element={<SellerProductDetailPage cartItems={cartItems} />}
-          />
-          {/* Halaman edit produk */}
-          <Route
-            path="/seller/products/edit/:productId"
-            element={
-              <h1 className="text-center text-4xl mt-20">
-                Halaman Edit Produk (Belum ada)
-              </h1>
-            }
-          />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route
-            path="/seller/:sellerName"
-            element={<SellerDetailPage cartItems={cartItems} />}
-          />
-          <Route
-            path="/checkout"
-            element={<CheckoutPage cartItems={cartItems} />}
-          />
-          <Route
-            path="/tracking"
-            element={<TrackingPage cartItems={cartItems} />}
-          />
-          <Route
-            path="/payment-upload"
-            element={<PaymentUploadPage cartItems={cartItems} />}
-          />
-          <Route
-            path="/review"
-            element={<RatingAndReviewPage cartItems={cartItems} />}
-          />
-          <Route
-            path="/cart"
-            element={
-              <CartPage
-                cartItems={cartItems}
-                updateQuantity={updateCartItemQuantity}
-              />
-            }
-          />
-          <Route
-            path="/profile"
-            element={<ProfilePage cartItems={cartItems} />}
-          />
-          <Route path="/must-login" element={<MustLoginPage />} />
-          <Route path="/chat" element={<ChatPage />} /> {/* ⬅️ route chat */}
+  const updateCartItemQuantity = (productId, newQuantity) => {
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems
+        .map((item) => (item.id === productId ? { ...item, quantity: newQuantity } : item))
+        .filter((item) => item.quantity > 0);
+      return updatedItems;
+    });
+  };
 
-          {/* Route fallback */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </div>
-    </AuthProvider>
-  );
+  return (
+    <AuthProvider>
+      <div className="App">
+        <Navbar cartItems={cartItems} hasNewChat={hasNewChat} />
+        <Routes>
+          <Route path="/" element={<HomePage cartItems={cartItems} />} />
+          <Route path="/search" element={<SearchPage addToCart={addToCart} />} />
+          <Route path="/products/:productName" element={<ProductDetailPage addToCart={addToCart} cartItems={cartItems} />} />
+          <Route path="/seller/products/:productId" element={<SellerProductDetailPage cartItems={cartItems} addToCart={addToCart} />} />
+          <Route path="/seller/products/edit/:productId" element={<h1 className="text-center text-4xl mt-20">Halaman Edit Produk (Belum ada)</h1>} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/seller/:sellerName" element={<SellerDetailPage cartItems={cartItems} />} />
+          <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} />
+          <Route path="/tracking" element={<TrackingPage cartItems={cartItems} />} />
+          <Route path="/payment-upload" element={<PaymentUploadPage cartItems={cartItems} />} />
+          <Route path="/review" element={<RatingAndReviewPage cartItems={cartItems} />} />
+          <Route path="/cart" element={<CartPage cartItems={cartItems} updateQuantity={updateCartItemQuantity} />} />
+          <Route path="/profile" element={<ProfilePage cartItems={cartItems} />} />
+          <Route path="/must-login" element={<MustLoginPage />} />
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </div>
+    </AuthProvider>
+  );
 }
 
 export default App;

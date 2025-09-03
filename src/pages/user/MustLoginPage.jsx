@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/user/Footer';
-import Navbar from '../../components/user/Navbar';
 import zanuSad from '../../assets/zanu-sad.png'; // Ganti dengan path ke gambar ZANU yang sedih
 
 const MustLoginPage = () => {
   return (
     <div className="font-sans">
-      <Navbar isLoggedIn={false} userName="" cartItems={[]} />
 
       {/* Main content area with controlled spacing */}
       <main className="flex justify-center items-center py-20 px-4">

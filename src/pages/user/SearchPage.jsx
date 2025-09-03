@@ -1,90 +1,113 @@
-import React from 'react';
-import { useSearchParams } from 'react-router-dom'; // Import useSearchParams
-import Navbar from '../../components/user/Navbar';
+// SearchPage.jsx
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Footer from '../../components/user/Footer';
 import ProductCard from '../../components/user/ProductCard';
 
-const SearchPage = () => {
+const SearchPage = ({ addToCart }) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q');
+  const [searchResults, setSearchResults] = useState([]);
 
-  const products = [
-    // Data produk yang sudah kamu miliki
+  const allProducts = [
     {
+      id: 1,
       image: '/src/assets/product-placeholder.png',
       name: 'Botol Plastik',
       price: 'Rp3.000/g',
+      priceValue: 3000,
       seller: 'Jannah K',
       location: 'Klaten, Jawa Tengah',
       rating: 5.0,
       sales: 10,
     },
     {
+      id: 2,
       image: '/src/assets/product-placeholder.png',
-      name: 'Botol Plastik',
-      price: 'Rp3.000/g',
+      name: 'Kardus Bekas',
+      price: 'Rp1.500/kg',
+      priceValue: 1500,
       seller: 'Jannah K',
       location: 'Klaten, Jawa Tengah',
-      rating: 5.0,
-      sales: 10,
+      rating: 4.8,
+      sales: 25,
     },
-    // Tambahkan produk lain di sini
+    {
+      id: 3,
+      image: '/src/assets/product-placeholder.png',
+      name: 'Minyak Jelantah',
+      price: 'Rp5.000/L',
+      priceValue: 5000,
+      seller: 'Budi S',
+      location: 'Yogyakarta, DI Yogyakarta',
+      rating: 4.5,
+      sales: 30,
+    },
+    {
+      id: 4,
+      image: '/src/assets/product-placeholder.png',
+      name: 'Kain Perca',
+      price: 'Rp10.000/kg',
+      priceValue: 10000,
+      seller: 'Siti R',
+      location: 'Bandung, Jawa Barat',
+      rating: 4.9,
+      sales: 15,
+    },
+    // bisa tambah produk dummy lain
   ];
+
+  useEffect(() => {
+    const filtered = allProducts.filter(
+      (p) => query && p.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(filtered);
+  }, [query]);
 
   return (
     <div className="font-sans">
-      <Navbar />
-      <main className="container mx-auto px-12 mt-8">
-        <h1 className="text-2xl font-bold mb-6">Hasil Pencarian untuk "{query}"</h1>
-        <div className="flex gap-8">
-          {/* Sidebar Filter */}
-          <div className="w-1/4">
-            <h2 className="text-xl font-bold mb-4">FILTER</h2>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="font-semibold text-gray-800 mb-2">Kategori</h3>
-              <div className="space-y-1 text-sm text-gray-700">
-                <label className="block"><input type="checkbox" className="mr-2" /> Organik</label>
-                <label className="block"><input type="checkbox" className="mr-2" /> Anorganik</label>
-                <label className="block"><input type="checkbox" className="mr-2" /> B3</label>
-                <label className="block"><input type="checkbox" className="mr-2" /> Kayu/serbuk gergaji</label>
-              </div>
-
-              <h3 className="font-semibold text-gray-800 mt-4 mb-2">Kondisi Limbah</h3>
-              <div className="space-y-1 text-sm text-gray-700">
-                <label className="block"><input type="checkbox" className="mr-2" /> Basah</label>
-                <label className="block"><input type="checkbox" className="mr-2" /> Kering</label>
-              </div>
-
-              <h3 className="font-semibold text-gray-800 mt-4 mb-2">Lokasi</h3>
-              <div className="space-y-1 text-sm text-gray-700">
-                <label className="block"><input type="checkbox" className="mr-2" /> Maluku</label>
-                <label className="block"><input type="checkbox" className="mr-2" /> Jawa</label>
-                <label className="block"><input type="checkbox" className="mr-2" /> Sumatera</label>
-                <label className="block"><input type="checkbox" className="mr-2" /> Kalimantan</label>
-                <label className="block"><input type="checkbox" className="mr-2" /> Sulawesi</label>
-                <label className="block"><input type="checkbox" className="mr-2" /> Bali & Nusa Tenggara</label>
-                <label className="block"><input type="checkbox" className="mr-2" /> Papua</label>
-              </div>
+      <main className="container mx-auto px-12 mt-8 flex gap-8">
+        {/* Sidebar Filter */}
+        <div className="w-1/4">
+          <h2 className="text-xl font-bold mb-4">FILTER</h2>
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h3 className="font-semibold text-gray-800 mb-2">Kategori</h3>
+            <div className="space-y-1 text-sm text-gray-700">
+              <label className="block"><input type="checkbox" className="mr-2" /> Organik</label>
+              <label className="block"><input type="checkbox" className="mr-2" /> Anorganik</label>
+              <label className="block"><input type="checkbox" className="mr-2" /> B3</label>
+              <label className="block"><input type="checkbox" className="mr-2" /> Kayu/serbuk gergaji</label>
+            </div>
+            <h3 className="font-semibold text-gray-800 mt-4 mb-2">Kondisi Limbah</h3>
+            <div className="space-y-1 text-sm text-gray-700">
+              <label className="block"><input type="checkbox" className="mr-2" /> Basah</label>
+              <label className="block"><input type="checkbox" className="mr-2" /> Kering</label>
+            </div>
+            <h3 className="font-semibold text-gray-800 mt-4 mb-2">Lokasi</h3>
+            <div className="space-y-1 text-sm text-gray-700">
+              <label className="block"><input type="checkbox" className="mr-2" /> Maluku</label>
+              <label className="block"><input type="checkbox" className="mr-2" /> Jawa</label>
+              <label className="block"><input type="checkbox" className="mr-2" /> Sumatera</label>
+              <label className="block"><input type="checkbox" className="mr-2" /> Kalimantan</label>
+              <label className="block"><input type="checkbox" className="mr-2" /> Sulawesi</label>
+              <label className="block"><input type="checkbox" className="mr-2" /> Bali & Nusa Tenggara</label>
+              <label className="block"><input type="checkbox" className="mr-2" /> Papua</label>
             </div>
           </div>
+        </div>
 
-          {/* Product Grid */}
-          <div className="flex-grow">
+        {/* Product Grid */}
+        <div className="flex-grow">
+          <h1 className="text-2xl font-bold mb-6">Hasil Pencarian untuk "{query}"</h1>
+          {searchResults.length > 0 ? (
             <div className="grid grid-cols-3 gap-8">
-              {products.map((product, index) => (
-                <ProductCard
-                  key={index}
-                  image={product.image}
-                  name={product.name}
-                  price={product.price}
-                  seller={product.seller}
-                  location={product.location}
-                  rating={product.rating}
-                  sales={product.sales}
-                />
+              {searchResults.map((product) => (
+                <ProductCard key={product.id} product={product} addToCart={addToCart} />
               ))}
             </div>
-          </div>
+          ) : (
+            <p className="text-gray-500">Tidak ada produk yang cocok dengan pencarian Anda.</p>
+          )}
         </div>
       </main>
       <Footer />

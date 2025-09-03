@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/user/Navbar';
 import Footer from '../../components/user/Footer';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -586,7 +585,6 @@ const ProfilePage = ({ cartItems }) => {
 
     return (
         <div className="font-sans bg-gray-100 min-h-screen">
-            <Navbar cartItems={cartItems} />
 
             <main className="container mx-auto px-12 py-8">
                 <div className="bg-white p-8 rounded-lg shadow-md mb-8">
