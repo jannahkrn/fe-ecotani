@@ -2,14 +2,14 @@ import React, { useState, useContext } from 'react';
 import Footer from '../../components/user/Footer';
 import AuthContext from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { UploadCloud } from 'lucide-react';
+import { UploadCloud, CheckCircle } from 'lucide-react'; // Impor ikon UploadCloud dan CheckCircle
 
 const PaymentUploadPage = () => {
     const navigate = useNavigate();
     const { isLoggedIn, userName } = useContext(AuthContext);
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState('');
-    const [isUploaded, setIsUploaded] = useState(false); // State baru untuk mengontrol tampilan
+    const [isUploaded, setIsUploaded] = useState(false);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -24,13 +24,10 @@ const PaymentUploadPage = () => {
 
     const handleUpload = () => {
         // Logika untuk mengirim file ke server bisa ditambahkan di sini.
-
-        // Setelah berhasil diunggah, perbarui state isUploaded
         setIsUploaded(true);
     };
 
     const handleTrackOrderClick = () => {
-        // Arahkan ke halaman tracking dan kirim state untuk metode pembayaran 'transfer'
         navigate('/tracking', { state: { paymentMethod: 'transfer' } });
     };
 
@@ -51,22 +48,55 @@ const PaymentUploadPage = () => {
 
                 {/* Tampilkan konfirmasi jika isUploaded true */}
                 {isUploaded ? (
-                    <div className="bg-white p-8 rounded-lg shadow-md flex flex-col items-center justify-center text-center">
-                        <img 
-                            src="/src/assets/Transfer Berhasil- Sudah Login.png" 
-                            alt="Transfer Berhasil" 
-                            className="max-w-full h-auto" 
-                        />
+                    <div className="flex flex-col items-center justify-center text-center space-y-4">
+                        <CheckCircle size={100} className="text-[#43703a]" /> {/* Ikon centang dari Lucide */}
+                        <h2 className="text-3xl font-bold text-gray-800">
+                            Bukti Transfer Berhasil Dikirim
+                        </h2>
+                        <p className="text-gray-600 mb-6 w-1/2">
+                            Terima kasih! Bukti transfer Anda telah berhasil dikirim dan sedang dalam proses verifikasi.
+                        </p>
+
+                        <div className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-md mb-8 border-gray-200 border">
+                            <h3 className="text-xl font-bold text-gray-800 mb-4">Ringkasan Pesanan</h3>
+                            <div className="grid grid-cols-2 gap-4 text-gray-700 text-left">
+                                <p className="font-semibold">Nomor Pesanan</p>
+                                <p>ECT-2025-00001</p>
+                                <p className="font-semibold">Metode Pembayaran</p>
+                                <p>Transfer Bank</p>
+                                <p className="font-semibold">Status</p>
+                                <p className="text-[#43703a] font-semibold">Menunggu Verifikasi Penjual</p>
+                                <p className="font-semibold">Estimasi Verifikasi</p>
+                                <p>1 X 24 jam</p>
+                            </div>
+                        </div>
+
+                        <div className="text-left w-full max-w-2xl bg-white p-8 rounded-lg shadow-md mb-8 border-gray-200 border">
+                            <h3 className="text-xl font-bold text-gray-800 mb-4">Langkah Selanjutnya</h3>
+                            <p className="font-semibold text-gray-800">Verifikasi Pembayaran</p>
+                            <p className="text-sm text-gray-600 mb-4">
+                                Tim kami akan memverifikasi bukti transfer dalam 1x24 jam (hari kerja).
+                            </p>
+                            <p className="font-semibold text-gray-800">Konfirmasi & Pemrosesan</p>
+                            <p className="text-sm text-gray-600 mb-4">
+                                Setelah pembayaran dikonfirmasi, pesanan akan langsung diproses dan penjual akan menyiapkan produk untuk pengiriman.
+                            </p>
+                            <p className="font-semibold text-gray-800">Pengiriman</p>
+                            <p className="text-sm text-gray-600">
+                                Produk akan dikirim sesuai metode pengiriman yang dipilih. Anda akan mendapat nomor resi untuk tracking.
+                            </p>
+                        </div>
+                        
                         <button
                             onClick={handleTrackOrderClick}
-                            className="w-full py-3 mt-6 rounded-full bg-[#43703A] text-white font-semibold"
+                            className="w-full max-w-sm py-3 mt-6 rounded-full bg-[#43703A] text-white font-semibold hover:bg-green-700 transition-colors"
                         >
                             Lacak Pesanan
                         </button>
                     </div>
                 ) : (
                     <>
-                        {/* Tampilkan form upload jika belum diunggah */}
+                        {/* Tampilan form upload yang lama */}
                         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
                             <h2 className="text-xl font-bold text-gray-800 mb-4">Informasi Pembayaran</h2>
                             <p className="text-gray-600 mb-6">
