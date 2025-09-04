@@ -122,11 +122,11 @@ const TrackingPage = () => {
                         </div>
                         {paymentMethod === 'cod' && isLastItem && (
                           isOrderReceived ? (
-                            <p className="text-green-600 font-semibold text-right whitespace-nowrap mt-10">Pesanan Diterima!</p>
+                            <p className="text-[#43703a] font-semibold text-right whitespace-nowrap mt-10">Pesanan Diterima!</p>
                           ) : (
                             <button
                               onClick={handleOrderReceived}
-                              className="bg-[#43703a] text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors whitespace-nowrap"
+                              className="bg-[#43703a] text-white py-2 px-6 rounded-full font-semibold hover:bg-[#345a2e] transition-colors whitespace-nowrap"
                             >
                               Pesanan Diterima
                             </button>
@@ -223,7 +223,7 @@ const TrackingPage = () => {
                   >
                     Beri Ulasan
                   </button>
-                  <button className="bg-[#43703a] text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors">
+                  <button className="bg-[#43703a] text-white py-2 px-6 rounded-full font-semibold hover:bg-[#345a2e] transition-colors">
                     Chat Penjual
                   </button>
                 </div>
