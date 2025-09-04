@@ -89,7 +89,7 @@ const PaymentUploadPage = () => {
                         
                         <button
                             onClick={handleTrackOrderClick}
-                            className="w-full max-w-sm py-3 mt-6 rounded-full bg-[#43703A] text-white font-semibold hover:bg-green-700 transition-colors"
+                            className="w-full max-w-sm py-3 mt-6 rounded-full bg-[#43703A] text-white font-semibold hover:bg-[#345a2e] transition-colors"
                         >
                             Lacak Pesanan
                         </button>
