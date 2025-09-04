@@ -179,10 +179,16 @@ const CitizenScience = () => {
 
       {/* Tombol Aksi */}
       <div className="flex justify-center gap-4 mb-8">
-        <button className="bg-[#43703A] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-[#345a2e] transition-colors">
+        <button
+          onClick={() => setActiveCitizenTab('Input Data Sampah')}
+          className="bg-[#43703A] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-[#345a2e] transition-colors"
+        >
           Mulai Berpartisipasi
         </button>
-        <button className="bg-[#47241C] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-[#592013] transition-colors">
+        <button
+          onClick={() => setActiveCitizenTab('Gambaran Umum')}
+          className="bg-[#47241C] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-[#592013] transition-colors"
+        >
           Pelajari Lebih Lanjut
         </button>
       </div>
