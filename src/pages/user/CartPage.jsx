@@ -35,9 +35,9 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
         
         {/* Konten utama keranjang belanja */}
         {cartItems.length === 0 ? (
-          <div className="text-center py-20">
+          <div className="text-center py-1">
             <img
-              src="/src/assets/cart-icon.png"
+              src="/src/assets/zanu-sad.png"
               alt="Keranjang Kosong"
               className="mx-auto w-40 h-auto mb-6"
             />
