@@ -133,8 +133,8 @@ const ProductDetailPage = ({ addToCart, cartItems }) => {
         <div className="grid grid-cols-2 gap-6 mb-8">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">Plastik</span>
-              <span className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">Kondisi Baru</span>
+              <span className="bg-[#43703A] text-white font-bold py-1 px-3 rounded-sm text-xs font-medium">Anorganik</span>
+              <span className="bg-White text-[#43703A] font-bold py-1 px-3 rounded-sm text-xs font-medium">Kondisi Baru</span>
             </div>
             <h1 className="text-3xl font-bold text-gray-800">{product.name}</h1>
             <div className="flex items-center gap-4 mt-2 mb-4">
@@ -146,8 +146,8 @@ const ProductDetailPage = ({ addToCart, cartItems }) => {
               <div className="w-px h-4 bg-gray-300"></div>
               <p className="text-gray-700 font-semibold">{product.soldCount} terjual</p>
             </div>
-            <p className="text-ecotani-green text-3xl font-bold">Rp{product.price.toLocaleString("id-ID")}</p>
-            <div className="mt-4 text-sm text-gray-600 space-y-2">
+            <p className="text-[#43703A] text-4xl font-bold">Rp{product.price.toLocaleString("id-ID")}</p>
+            <div className="mt-2 text-sm text-gray-600 space-y-1">
               <p>Berat: {product.weight}</p>
               <p>Stok: {product.stock}</p>
               <p>Lokasi: {product.location}</p>
@@ -155,43 +155,57 @@ const ProductDetailPage = ({ addToCart, cartItems }) => {
             </div>
           </div>
 
+          {/* Atur Jumlah Untuk Melakukan Pesanan - dengan gambar produk */}
           <div className="bg-gray-100 p-6 rounded-lg">
             <h3 className="text-xl font-bold mb-4">Atur Jumlah Untuk Melakukan Pesanan</h3>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={decreaseQuantity}
-                  className="bg-white border border-gray-300 w-8 h-8 rounded-full text-gray-700 hover:bg-gray-200"
-                >
-                  -
-                </button>
-                <span className="font-semibold text-lg">{quantity}</span>
-                <button
-                  onClick={increaseQuantity}
-                  className="bg-white border border-gray-300 w-8 h-8 rounded-full text-gray-700 hover:bg-gray-200"
-                >
-                  +
-                </button>
+            <div className="flex items-start gap-4"> {/* Menggunakan items-start untuk aligment gambar */}
+              <div className="w-1/3 flex-shrink-0">
+                {/* Gambar produk di sini */}
+                <img
+                  src="https://placehold.co/150x150/E5E7EB/24292e?text=Botol+Plastik" // Placeholder gambar
+                  alt="Botol Plastik"
+                  className="w-full h-auto rounded-lg shadow-md"
+                />
               </div>
-              <div>
-                <p className="text-gray-500">
-                  Subtotal:{" "}
-                  <span className="text-gray-800 font-semibold">
-                    Rp{(product.price * quantity).toLocaleString("id-ID")}
-                  </span>
-                </p>
+              <div className="flex-grow">
+                <p className="text-xl font-semibold mb-2">{product.name}</p>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={decreaseQuantity}
+                      className="bg-white border border-gray-300 w-8 h-8 rounded-sm text-gray-700 hover:bg-gray-200"
+                    >
+                      -
+                    </button>
+                    <span className="font-semibold text-lg">{quantity}</span>
+                    <button
+                      onClick={increaseQuantity}
+                      className="bg-white border border-gray-300 w-8 h-8 rounded-sm text-gray-700 hover:bg-gray-200"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-gray-500">
+                    Subtotal:{" "}
+                    <span className="text-gray-800 font-semibold">
+                      Rp{(product.price * quantity).toLocaleString("id-ID")}
+                    </span>
+                  </p>
+                </div>
               </div>
             </div>
             <div className="flex gap-4 mt-4">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 py-3 px-6 rounded-full border border-ecotani-green text-ecotani-green font-semibold hover:bg-ecotani-green hover:text-white transition-colors"
+                className="py-3 px-6 rounded-sm bg-[#43703A] text-white font-semibold hover:bg-[#345a2e] transition-colors"
               >
                 Masukkan Keranjang
               </button>
               <button
                 onClick={handleProceedToCheckout}
-                className="flex-1 py-3 px-6 rounded-full bg-ecotani-green text-white font-semibold hover:bg-green-700 transition-colors"
+                className="py-3 px-6 rounded-sm bg-[#47241C] text-white font-semibold hover:bg-[#592013] transition-colors"
               >
                 Beli Sekarang
               </button>
