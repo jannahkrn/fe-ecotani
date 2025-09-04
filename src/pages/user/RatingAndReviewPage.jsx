@@ -152,7 +152,7 @@ const RatingAndReviewPage = () => {
                 <div className="flex justify-end mt-8">
                     <button
                         onClick={handleSubmitReview}
-                        className="bg-[#43703a] text-white py-2 px-6 rounded-full font-semibold hover:bg-green-700 transition-colors"
+                        className="bg-[#43703a] text-white py-2 px-6 rounded-full font-semibold hover:bg-[#345a2e] transition-colors"
                     >
                         Kirim Review
                     </button>
