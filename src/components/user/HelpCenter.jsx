@@ -124,7 +124,7 @@ const HelpCenter = () => {
                   <p className="text-sm text-gray-600">Kirim email untuk pertanyaan detail.</p>
                   <p className="text-sm text-gray-500 mt-2">Senin - Jum'at</p>
                   <p className="text-sm font-semibold text-ecotani-green">Response Time: &lt;24 jam</p>
-                  <button className="w-full py-2 px-6 rounded-full bg-ecotani-green text-white font-semibold transition-colors hover:bg-green-700 mt-4">Kirim Email</button>
+                  <button className="w-full py-2 px-6 rounded-full bg-[#43703A] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-[#345a2e] transition-colors mt-4">Kirim Email</button>
                 </div>
                 <div className="p-6 rounded-lg shadow-md bg-transparent text-center">
                   <div className="flex justify-center items-center mb-2">
@@ -134,7 +134,7 @@ const HelpCenter = () => {
                   <p className="text-sm text-gray-600">Hubungi hotline customer service</p>
                   <p className="text-sm text-gray-500 mt-2">08:00 - 17:00</p>
                   <p className="text-sm font-semibold text-ecotani-green">Response Time: Langsung</p>
-                  <button className="w-full py-2 px-6 rounded-full bg-ecotani-green text-white font-semibold transition-colors hover:bg-green-700 mt-4">Hubungi Sekarang</button>
+                  <button className="w-full py-2 px-6 rounded-full bg-[#43703A] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-[#345a2e] transition-colors mt-4">Hubungi Sekarang</button>
                 </div>
               </div>
             </div>
