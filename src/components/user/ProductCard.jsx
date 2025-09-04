@@ -86,14 +86,14 @@ const ProductCard = ({ product, addToCart }) => {
           {addToCart && (
             <button
               onClick={handleAddToCart}
-              className="flex-1 py-2 rounded-sm bg-[#43703A] text-white text-sm font-semibold hover:bg-green-800 transition"
+              className="flex-1 py-2 rounded-sm bg-[#43703A] text-white text-sm font-semibold hover:bg-[#345a2e] transition-colors"
             >
               Tambah Keranjang
             </button>
           )}
           <button
             onClick={handleBuyNow}
-            className="flex-1 py-2 rounded-sm bg-[#47241C] text-white text-sm font-semibold hover:bg-[#2e1611] transition"
+            className="flex-1 py-2 rounded-sm bg-[#47241C] text-white text-sm font-semibold hover:bg-[#592013] transition-colors"
           >
             Beli Sekarang
           </button>
