@@ -182,7 +182,7 @@ const CitizenScience = () => {
         <button className="bg-[#43703A] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-[#345a2e] transition-colors">
           Mulai Berpartisipasi
         </button>
-        <button className="bg-[#47241C] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-white hover:text-[#47241C] transition-colors">
+        <button className="bg-[#47241C] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-[#592013] transition-colors">
           Pelajari Lebih Lanjut
         </button>
       </div>
