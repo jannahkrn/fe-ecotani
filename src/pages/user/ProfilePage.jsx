@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Footer from '../../components/user/Footer';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { Trash2 } from 'lucide-react';
 
 const ProfilePage = ({ cartItems }) => {
     const [activeTab, setActiveTab] = useState('profile');
@@ -26,7 +27,7 @@ const ProfilePage = ({ cartItems }) => {
     });
     const [uploadedImages, setUploadedImages] = useState([]);
 
-    // Load products from localStorage on initial render
+    // Load products dari localStorage saat render pertama
     useEffect(() => {
         const storedProducts = localStorage.getItem('products');
         if (storedProducts) {
@@ -45,7 +46,7 @@ const ProfilePage = ({ cartItems }) => {
         buyerRating: 4.9,
     };
 
-    // Dummy data untuk Riwayat Pembelian
+    // Dummy data untuk riwayat pembelian
     const purchaseHistory = [
         {
             id: 1,
@@ -115,6 +116,19 @@ const ProfilePage = ({ cartItems }) => {
         setIsCreatingStore(false);
     };
 
+    const handleDeleteStore = () => {
+        if (window.confirm("Apakah Anda yakin ingin menghapus toko beserta semua produk?")) {
+            setHasStore(false);
+            setProducts([]);
+            setStoreData({
+                storeName: '',
+                operationalHours: '',
+                storeDescription: ''
+            });
+            localStorage.removeItem('products');
+        }
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         if (isCreatingStore) {
@@ -130,7 +144,7 @@ const ProfilePage = ({ cartItems }) => {
 
     const handleSaveProduct = () => {
         const newProduct = {
-            id: Date.now(), // Use a unique ID based on timestamp
+            id: Date.now(),
             productTitle: productData.productTitle,
             condition: productData.condition,
             category: productData.category,
@@ -146,7 +160,6 @@ const ProfilePage = ({ cartItems }) => {
         setProducts(updatedProducts);
         localStorage.setItem('products', JSON.stringify(updatedProducts));
 
-        // Reset form states after successful save
         setProductData({
             productTitle: '',
             condition: '',
@@ -160,6 +173,14 @@ const ProfilePage = ({ cartItems }) => {
         setIsAddingProduct(false);
     };
 
+    const handleDeleteProduct = (id) => {
+        if (window.confirm("Apakah Anda yakin ingin menghapus produk ini?")) {
+            const updatedProducts = products.filter(product => product.id !== id);
+            setProducts(updatedProducts);
+            localStorage.setItem('products', JSON.stringify(updatedProducts));
+        }
+    };
+
     const handleImageUpload = (event) => {
         const files = Array.from(event.target.files);
         if (uploadedImages.length + files.length > 5) {
@@ -169,7 +190,7 @@ const ProfilePage = ({ cartItems }) => {
         const newImageUrls = files.map(file => URL.createObjectURL(file));
         setUploadedImages(prevImages => [...prevImages, ...newImageUrls]);
     };
-    
+
     const handleRemoveImage = (index) => {
         setUploadedImages(prevImages => prevImages.filter((_, i) => i !== index));
     };
@@ -217,7 +238,7 @@ const ProfilePage = ({ cartItems }) => {
                     <div className="flex justify-end">
                         <button
                             onClick={handleSaveStore}
-                            className="bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors"
+                            className="bg-[#43703A] text-white font-bold py-1 px-4 rounded shadow-lg hover:bg-[#345a2e] transition-colors"
                         >
                             Simpan
                         </button>
@@ -373,7 +394,16 @@ const ProfilePage = ({ cartItems }) => {
             return (
                 <div className="space-y-6">
                     <div className="bg-white p-6 rounded-lg shadow-md space-y-6">
-                        <h2 className="text-xl font-bold text-gray-800">Informasi Toko</h2>
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-xl font-bold text-gray-800">Informasi Toko</h2>
+                            <button
+                                onClick={handleDeleteStore}
+                                className="flex items-center gap-2 bg-red-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hover:bg-red-700 transition-colors"
+                            >
+                                <Trash2 className="w-5 h-5" />
+                                Hapus Toko
+                            </button>
+                        </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
                             <div className="flex flex-col">
                                 <p className="font-semibold text-gray-600">Nama Toko</p>
@@ -395,7 +425,7 @@ const ProfilePage = ({ cartItems }) => {
                             <h2 className="text-xl font-bold text-gray-800">Daftar Produk</h2>
                             <button
                                 onClick={handleAddProductClick}
-                                className="bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors"
+                                className="bg-[#43703A] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#345a2e] transition-colors"
                             >
                                 Tambah Produk
                             </button>
@@ -413,9 +443,18 @@ const ProfilePage = ({ cartItems }) => {
                                             <p className="font-bold text-sm text-ecotani-green">Rp{parseInt(product.price).toLocaleString('id-ID')} / {product.weight} gram</p>
                                         </div>
                                     </div>
-                                    <Link to={`/seller/products/${product.id}`} className="bg-ecotani-green text-white font-semibold py-2 px-4 rounded-full hover:bg-green-700 transition-colors">
-                                        Detail Produk
-                                    </Link>
+                                    <div className="flex items-center gap-2">
+                                        <Link to={`/seller/products/${product.id}`} className="bg-[#43703A] text-white font-bold py-2 px-4 rounded-full shadow-lg hover:bg-[#345a2e] transition-colors">
+                                            Detail Produk
+                                        </Link>
+                                        <button
+                                            onClick={() => handleDeleteProduct(product.id)}
+                                            className="flex items-center gap-1 bg-red-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hover:bg-red-700 transition-colors"
+                                        >
+                                            <Trash2 className="w-5 h-5" />
+                                            Hapus
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         ) : (
@@ -441,7 +480,7 @@ const ProfilePage = ({ cartItems }) => {
                 </p>
                 <button
                     onClick={handleCreateStore}
-                    className="bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors"
+                    className="bg-[#43703A] text-white font-bold py-3 px-8 rounded shadow-lg hover:bg-[#345a2e] transition-colors"
                 >
                     Buat Toko
                 </button>
@@ -508,7 +547,7 @@ const ProfilePage = ({ cartItems }) => {
                                     case 'completed':
                                         return (
                                             <div className="flex justify-end gap-2 mt-2">
-                                                <Link to="/review" className="text-sm font-semibold text-white bg-ecotani-green px-4 py-2 rounded-full hover:bg-green-700 transition-colors">
+                                                <Link to="/review" className="bg-[#43703A] text-white font-bold py-1 px-5 rounded shadow-lg hover:bg-[#345a2e] transition-colors">
                                                     Rating Sekarang
                                                 </Link>
                                             </div>
@@ -585,7 +624,6 @@ const ProfilePage = ({ cartItems }) => {
 
     return (
         <div className="font-sans bg-gray-100 min-h-screen">
-
             <main className="container mx-auto px-12 py-8">
                 <div className="bg-white p-8 rounded-lg shadow-md mb-8">
                     <div className="flex items-center gap-6 mb-8">
@@ -658,7 +696,6 @@ const ProfilePage = ({ cartItems }) => {
                     {renderTabContent()}
                 </div>
             </main>
-
             <Footer />
         </div>
     );
