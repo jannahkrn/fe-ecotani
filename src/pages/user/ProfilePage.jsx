@@ -12,7 +12,9 @@ const ProfilePage = ({ cartItems }) => {
     const [storeData, setStoreData] = useState({
         storeName: 'Alif Store',
         operationalHours: '09:00 - 21:00 WIB',
-        storeDescription: 'Toko online terpercaya menjual gadget, aksesoris teknologi, dan fashion dengan kualitas terbaik. Melayani pengiriman ke seluruh Indonesia.'
+        storeDescription: 'Toko online terpercaya menjual gadget, aksesoris teknologi, dan fashion dengan kualitas terbaik. Melayani pengiriman ke seluruh Indonesia.',
+        paymentMethod: 'Transfer BCA',
+        accountNumber: '1234567890',
     });
 
     const [products, setProducts] = useState([]);
@@ -123,7 +125,9 @@ const ProfilePage = ({ cartItems }) => {
             setStoreData({
                 storeName: '',
                 operationalHours: '',
-                storeDescription: ''
+                storeDescription: '',
+                paymentMethod: '',
+                accountNumber: ''
             });
             localStorage.removeItem('products');
         }
@@ -132,15 +136,13 @@ const ProfilePage = ({ cartItems }) => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         if (isCreatingStore) {
-            setStoreData(prevData => ({ ...prevData, [name]: value }));
+            setStoreData(prev => ({ ...prev, [name]: value }));
         } else if (isAddingProduct) {
-            setProductData(prevData => ({ ...prevData, [name]: value }));
+            setProductData(prev => ({ ...prev, [name]: value }));
         }
     };
 
-    const handleAddProductClick = () => {
-        setIsAddingProduct(true);
-    };
+    const handleAddProductClick = () => setIsAddingProduct(true);
 
     const handleSaveProduct = () => {
         const newProduct = {
@@ -175,7 +177,7 @@ const ProfilePage = ({ cartItems }) => {
 
     const handleDeleteProduct = (id) => {
         if (window.confirm("Apakah Anda yakin ingin menghapus produk ini?")) {
-            const updatedProducts = products.filter(product => product.id !== id);
+            const updatedProducts = products.filter(p => p.id !== id);
             setProducts(updatedProducts);
             localStorage.setItem('products', JSON.stringify(updatedProducts));
         }
@@ -188,11 +190,10 @@ const ProfilePage = ({ cartItems }) => {
             return;
         }
         const newImageUrls = files.map(file => URL.createObjectURL(file));
-        setUploadedImages(prevImages => [...prevImages, ...newImageUrls]);
+        setUploadedImages(prev => [...prev, ...newImageUrls]);
     };
-
     const handleRemoveImage = (index) => {
-        setUploadedImages(prevImages => prevImages.filter((_, i) => i !== index));
+        setUploadedImages(prev => prev.filter((_, i) => i !== index));
     };
 
     const renderSellerProfileContent = () => {
@@ -203,43 +204,38 @@ const ProfilePage = ({ cartItems }) => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
                         <div className="flex flex-col">
                             <label className="text-sm font-semibold text-gray-600 mb-2">Nama Toko</label>
-                            <input
-                                type="text"
-                                name="storeName"
-                                value={storeData.storeName}
-                                onChange={handleInputChange}
-                                placeholder="Nama Toko"
-                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
-                            />
+                            <input type="text" name="storeName" value={storeData.storeName}
+                                onChange={handleInputChange} placeholder="Nama Toko"
+                                className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-ecotani-green" />
                         </div>
                         <div className="flex flex-col">
                             <label className="text-sm font-semibold text-gray-600 mb-2">Jam Operasional</label>
-                            <input
-                                type="text"
-                                name="operationalHours"
-                                value={storeData.operationalHours}
-                                onChange={handleInputChange}
-                                placeholder="Jam Operasional Toko. Contoh: 09:00 - 21:00 WIB"
-                                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
-                            />
+                            <input type="text" name="operationalHours" value={storeData.operationalHours}
+                                onChange={handleInputChange} placeholder="09:00 - 21:00 WIB"
+                                className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-ecotani-green" />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-sm font-semibold text-gray-600 mb-2">Metode Pembayaran</label>
+                            <input type="text" name="paymentMethod" value={storeData.paymentMethod}
+                                onChange={handleInputChange} placeholder="Transfer BCA, BRI, OVO, DANA"
+                                className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-ecotani-green" />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-sm font-semibold text-gray-600 mb-2">Nomor Rekening / No. E-Wallet</label>
+                            <input type="text" name="accountNumber" value={storeData.accountNumber}
+                                onChange={handleInputChange} placeholder="1234567890"
+                                className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-ecotani-green" />
                         </div>
                     </div>
                     <div className="flex flex-col">
                         <label className="text-sm font-semibold text-gray-600 mb-2">Deskripsi Toko</label>
-                        <textarea
-                            name="storeDescription"
-                            value={storeData.storeDescription}
-                            onChange={handleInputChange}
-                            placeholder="Deskripsi Toko"
-                            rows="4"
-                            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ecotani-green"
-                        />
+                        <textarea name="storeDescription" value={storeData.storeDescription}
+                            onChange={handleInputChange} rows="4" placeholder="Deskripsi Toko"
+                            className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-ecotani-green" />
                     </div>
                     <div className="flex justify-end">
-                        <button
-                            onClick={handleSaveStore}
-                            className="bg-[#43703A] text-white font-bold py-1 px-4 rounded shadow-lg hover:bg-[#345a2e] transition-colors"
-                        >
+                        <button onClick={handleSaveStore}
+                            className="bg-[#43703A] text-white font-bold py-1 px-4 rounded shadow-lg hover:bg-[#345a2e]">
                             Simpan
                         </button>
                     </div>
@@ -390,18 +386,14 @@ const ProfilePage = ({ cartItems }) => {
         }
 
         if (hasStore) {
-            // Tampilan saat toko sudah dibuat
             return (
                 <div className="space-y-6">
                     <div className="bg-white p-6 rounded-lg shadow-md space-y-6">
                         <div className="flex justify-between items-center">
                             <h2 className="text-xl font-bold text-gray-800">Informasi Toko</h2>
-                            <button
-                                onClick={handleDeleteStore}
-                                className="flex items-center gap-2 bg-red-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hover:bg-red-700 transition-colors"
-                            >
-                                <Trash2 className="w-5 h-5" />
-                                Hapus Toko
+                            <button onClick={handleDeleteStore}
+                                className="flex items-center gap-2 bg-red-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hover:bg-red-700">
+                                <Trash2 className="w-5 h-5" /> Hapus Toko
                             </button>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
@@ -412,6 +404,14 @@ const ProfilePage = ({ cartItems }) => {
                             <div className="flex flex-col">
                                 <p className="font-semibold text-gray-600">Jam Operasional</p>
                                 <p className="text-gray-800">{storeData.operationalHours}</p>
+                            </div>
+                            <div className="flex flex-col">
+                                <p className="font-semibold text-gray-600">Metode Pembayaran</p>
+                                <p className="text-gray-800">{storeData.paymentMethod}</p>
+                            </div>
+                            <div className="flex flex-col">
+                                <p className="font-semibold text-gray-600">Nomor Rekening / No. E-Wallet</p>
+                                <p className="text-gray-800">{storeData.accountNumber}</p>
                             </div>
                         </div>
                         <div className="flex flex-col">
@@ -616,7 +616,7 @@ const ProfilePage = ({ cartItems }) => {
             case 'seller-profile':
                 return renderSellerProfileContent();
             case 'sales-history':
-                return <p>Ini adalah halaman Riwayat Penjualan.</p>;
+                return <p>Riwayat Penjualan</p>;
             default:
                 return null;
         }
@@ -625,6 +625,7 @@ const ProfilePage = ({ cartItems }) => {
     return (
         <div className="font-sans bg-gray-100 min-h-screen">
             <main className="container mx-auto px-12 py-8">
+                {/* Header Profile */}
                 <div className="bg-white p-8 rounded-lg shadow-md mb-8">
                     <div className="flex items-center gap-6 mb-8">
                         <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
@@ -692,7 +693,6 @@ const ProfilePage = ({ cartItems }) => {
                             Riwayat Penjualan
                         </button>
                     </div>
-
                     {renderTabContent()}
                 </div>
             </main>
