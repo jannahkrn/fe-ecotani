@@ -33,6 +33,8 @@ const ProfilePage = ({ cartItems }) => {
     address: "",
   });
 
+const [isAddingAddress, setIsAddingAddress] = useState(false);
+
   // ✅ Dummy data untuk profile
   const userProfile = {
     name: "Alif Dzaka Nurhakim",
@@ -45,50 +47,39 @@ const ProfilePage = ({ cartItems }) => {
   };
 
   // === HANDLERS Alamat ===
-  const handleEditAddress = (id) => {
-    const addr = addresses.find((a) => a.id === id);
-    if (addr) {
-      setEditingAddress(addr);
-      setNewAddress(addr);
-    }
-  };
+const handleSaveAddress = () => {
+  if (!newAddress.name || !newAddress.phone || !newAddress.address) return;
 
-  const handleSaveAddress = () => {
-    if (editingAddress) {
-      // update alamat lama
-      setAddresses((prev) =>
-        prev.map((a) =>
-          a.id === editingAddress.id ? { ...a, ...newAddress } : a
-        )
-      );
-      setEditingAddress(null);
-    } else {
-      // tambah alamat baru
-      const newAddr = {
-        id: Date.now(),
-        ...newAddress,
-      };
-      setAddresses((prev) => [...prev, newAddr]);
-    }
-    setNewAddress({ name: "", phone: "", address: "" });
-  };
+  if (editingAddress) {
+    // update alamat lama
+    setAddresses((prev) =>
+      prev.map((a) => (a.id === editingAddress.id ? { ...a, ...newAddress } : a))
+    );
+  } else {
+    // tambah alamat baru
+    setAddresses((prev) => [...prev, { id: Date.now(), ...newAddress }]);
+  }
 
-  const handleCancelEdit = () => {
-    setEditingAddress(null);
-    setNewAddress({ name: "", phone: "", address: "" });
-  };
+  // reset form
+  setEditingAddress(null);
+  setIsAddingAddress(false);
+  setNewAddress({ name: "", phone: "", address: "" });
+};
 
-  const handleAddAddress = () => {
-    if (!newAddress.name || !newAddress.phone || !newAddress.detail) return;
+const handleEditAddress = (id) => {
+  const addr = addresses.find((a) => a.id === id);
+  if (addr) {
+    setEditingAddress(addr);
+    setNewAddress(addr);
+    setIsAddingAddress(true);
+  }
+};
 
-    const newAddr = {
-      id: Date.now(),
-      ...newAddress,
-    };
-
-    setAddresses((prev) => [...prev, newAddr]);
-    setNewAddress({ id: null, name: "", phone: "", detail: "" });
-  };
+const handleCancelAddress = () => {
+  setEditingAddress(null);
+  setIsAddingAddress(false);
+  setNewAddress({ name: "", phone: "", address: "" });
+};
 
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState({
@@ -708,63 +699,55 @@ const ProfilePage = ({ cartItems }) => {
             </div>
 
             {/* Form Tambah / Edit Alamat */}
-            {(editingAddress ||
-              newAddress.name ||
-              newAddress.phone ||
-              newAddress.address) && (
-              <div className="bg-white border rounded-lg p-4 mb-4">
-                <h3 className="font-bold text-gray-800 mb-2">
-                  {editingAddress ? "Ubah Alamat" : "Tambah Alamat"}
-                </h3>
-                <input
-                  type="text"
-                  placeholder="Nama Penerima"
-                  className="w-full border p-2 mb-2 rounded"
-                  value={newAddress.name}
-                  onChange={(e) =>
-                    setNewAddress((prev) => ({ ...prev, name: e.target.value }))
-                  }
-                />
-                <input
-                  type="text"
-                  placeholder="Nomor Telepon"
-                  className="w-full border p-2 mb-2 rounded"
-                  value={newAddress.phone}
-                  onChange={(e) =>
-                    setNewAddress((prev) => ({
-                      ...prev,
-                      phone: e.target.value,
-                    }))
-                  }
-                />
-                <textarea
-                  placeholder="Alamat Lengkap"
-                  className="w-full border p-2 mb-2 rounded"
-                  rows="3"
-                  value={newAddress.address}
-                  onChange={(e) =>
-                    setNewAddress((prev) => ({
-                      ...prev,
-                      address: e.target.value,
-                    }))
-                  }
-                />
-                <div className="flex gap-2">
-                  <button
-                    onClick={handleSaveAddress}
-                    className="bg-[#43703A] text-white font-semibold px-4 py-2 rounded hover:bg-[#345a2e]"
-                  >
-                    Simpan
-                  </button>
-                  <button
-                    onClick={handleCancelEdit}
-                    className="bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded hover:bg-gray-400"
-                  >
-                    Batal
-                  </button>
-                </div>
-              </div>
-            )}
+{(editingAddress || isAddingAddress) && (
+  <div className="bg-white border rounded-lg p-4 mb-6">
+    <h3 className="font-bold text-gray-800">
+      {editingAddress ? "Ubah Alamat" : "Tambah Alamat"}
+    </h3>
+    <input
+      type="text"
+      placeholder="Nama Penerima"
+      className="w-full border p-2 mb-3 rounded"
+      value={newAddress.name}
+      onChange={(e) =>
+        setNewAddress((prev) => ({ ...prev, name: e.target.value }))
+      }
+    />
+    <input
+      type="text"
+      placeholder="Nomor Telepon"
+      className="w-full border p-2 mb-3 rounded"
+      value={newAddress.phone}
+      onChange={(e) =>
+        setNewAddress((prev) => ({ ...prev, phone: e.target.value }))
+      }
+    />
+    <textarea
+      placeholder="Alamat Lengkap"
+      className="w-full border p-2 mb-3 rounded"
+      rows="3"
+      value={newAddress.address}
+      onChange={(e) =>
+        setNewAddress((prev) => ({ ...prev, address: e.target.value }))
+      }
+    />
+    <div className="flex gap-2">
+      <button
+        onClick={handleSaveAddress}
+        className="bg-[#43703A] text-white font-semibold px-4 py-2 rounded hover:bg-[#345a2e]"
+      >
+        Simpan
+      </button>
+      <button
+        onClick={handleCancelAddress}
+        className="bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded hover:bg-gray-400"
+      >
+        Batal
+      </button>
+    </div>
+  </div>
+)}
+
 
             {/* Daftar Alamat */}
             {addresses.map((addr) => (
@@ -789,21 +772,12 @@ const ProfilePage = ({ cartItems }) => {
 
             {/* Tombol tambah alamat */}
             <button
-              onClick={() =>
-                setAddresses((prev) => [
-                  ...prev,
-                  {
-                    id: Date.now(),
-                    name: "Nama Baru",
-                    phone: "No HP",
-                    address: "Alamat Baru",
-                  },
-                ])
-              }
-              className="bg-[#43703A] text-white px-4 py-2 rounded"
-            >
-              Tambah Alamat
-            </button>
+  onClick={() => setIsAddingAddress(true)}
+  className="bg-[#43703A] text-white px-4 py-2 rounded mb-4"
+>
+  Tambah Alamat
+</button>
+
           </div>
         );
       case "purchase-history":
