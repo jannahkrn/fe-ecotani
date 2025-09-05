@@ -380,7 +380,7 @@ const ProfilePage = ({ cartItems }) => {
                     <div className="flex justify-end mt-8">
                         <button
                             onClick={handleSaveProduct}
-                            className="bg-ecotani-green text-white font-semibold py-2 px-6 rounded-full hover:bg-green-700 transition-colors"
+                            className="bg-[#43703A] text-white font-bold py-2 px-4 rounded shadow-lg hover:bg-[#345a2e] transition-colors"
                         >
                             Tambahkan Limbah
                         </button>
