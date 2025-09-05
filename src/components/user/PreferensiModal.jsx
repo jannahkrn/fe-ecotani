@@ -29,7 +29,7 @@ const PreferensiModal = ({ onClose, onSave }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-25 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl p-8 max-w-lg w-full text-center shadow-lg">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
           Preferensi Anda
