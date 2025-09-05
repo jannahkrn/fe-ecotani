@@ -3,6 +3,7 @@ import Footer from "../../components/user/Footer";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
+import SalesHistorySection from "../../components/user/SalesHistorySection";
 
 const ProfilePage = ({ cartItems }) => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -909,7 +910,7 @@ const ProfilePage = ({ cartItems }) => {
       case "seller-profile":
         return renderSellerProfileContent();
       case "sales-history":
-        return <p>Riwayat Penjualan</p>;
+  return <SalesHistorySection />;
       default:
         return null;
     }
@@ -991,15 +992,15 @@ const ProfilePage = ({ cartItems }) => {
               Profil Penjual
             </button>
             <button
-              onClick={() => setActiveTab("sales-history")}
-              className={`py-2 px-4 -mb-px font-semibold focus:outline-none transition-colors duration-200 ${
-                activeTab === "sales-history"
-                  ? "border-b-2 border-ecotani-green text-ecotani-green"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              Riwayat Penjualan
-            </button>
+  onClick={() => setActiveTab("sales-history")}
+  className={`py-2 px-4 -mb-px font-semibold focus:outline-none transition-colors duration-200 ${
+    activeTab === "sales-history"
+      ? "border-b-2 border-ecotani-green text-ecotani-green"
+      : "text-gray-500 hover:text-gray-700"
+  }`}
+>
+  Riwayat Penjualan
+</button>
           </div>
           {renderTabContent()}
         </div>
