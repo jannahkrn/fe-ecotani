@@ -623,7 +623,7 @@ const ProfilePage = ({ cartItems }) => {
     };
 
     return (
-  <div className="font-sans bg-gray-100 min-h-screen flex flex-col">
+  <div className="font-sans bg-white min-h-screen flex flex-col">
     <main className="container mx-auto px-12 py-8 flex-grow">
       
       {/* ✅ Tambahan header Profile */}
