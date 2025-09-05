@@ -1,3 +1,4 @@
+// src/pages/user/SellerDetailPage.jsx
 import React from 'react';
 import Footer from '../../components/user/Footer';
 import ProductCard from '../../components/user/ProductCard';
@@ -9,88 +10,99 @@ const sellerData = {
   rating: 4.8,
   reviewCount: 203,
   soldCount: 33,
-  responseTime: '< 1 jam',
+  responseTime: '<1 jam',
   responseRate: '98%',
-  description: 'Produsen kompos organik terpercaya dengan pengalaman lebih dari 10 tahun. Kami berkomitmen menyediakan produk berkualitas tinggi untuk mendukung pertanian berkelanjutan.',
+  description:
+    'Produsen kompos organik terpercaya dengan pengalaman lebih dari 10 tahun. Kami berkomitmen menyediakan produk berkualitas tinggi untuk mendukung pertanian berkelanjutan.',
   products: [
     {
-      id: 1, // Pastikan ID ada dan unik
+      id: 1,
       name: 'Botol Plastik',
       price: 'Rp3.000/g',
-      image: '/src/assets/product-placeholder.png', 
+      image: '/src/assets/product-placeholder.png',
       rating: 5.0,
       sales: '10+',
       seller: 'Jannah Kurniawati',
-      location: 'Klaten, Jawa Tengah'
+      location: 'Klaten, Jawa Tengah',
     },
     {
-      id: 2, // Pastikan ID ada dan unik
+      id: 2,
       name: 'Botol Kaca',
       price: 'Rp5.000/g',
       image: '/src/assets/product-placeholder.png',
       rating: 5.0,
       sales: '10+',
       seller: 'Jannah Kurniawati',
-      location: 'Klaten, Jawa Tengah'
+      location: 'Klaten, Jawa Tengah',
     },
   ],
 };
 
-const SellerDetailPage = ({ isLoggedIn, userName, cartItems }) => {
+const SellerDetailPage = () => {
   return (
-    <div className="font-sans bg-gray-50 min-h-screen flex flex-col">
-      <main className="container mx-auto px-12 py-8 flex-grow">
-        {/* ... (bagian profil penjual) */}
+    <div className="font-sans bg-white min-h-screen flex flex-col">
+      <main className="container mx-auto px-6 md:px-12 py-8 flex-grow">
+        {/* Profil Penjual */}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-          <div className="flex items-start gap-6">
-            <div className="w-24 h-24 rounded-full bg-gray-200 flex-shrink-0">
-              <img src="/src/assets/seller-photo-placeholder.png" alt={sellerData.name} className="w-full h-full rounded-full object-cover" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-800">{sellerData.name}</h1>
-              <p className="text-gray-500 text-sm mt-1">{sellerData.location}</p>
-              <div className="flex gap-2 mt-4">
-                <button className="py-2 px-6 rounded-full border border-ecotani-green text-ecotani-green font-semibold text-sm hover:bg-ecotani-green hover:text-white transition-colors">
-                  Kirim Pesan
-                </button>
+          <div className="flex flex-wrap items-start gap-8">
+            {/* Kiri: Foto + Nama + Lokasi + Tombol */}
+            <div className="flex flex-col text-left text-center w-48">
+              <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
+                <img
+                  src="/src/assets/seller-photo-placeholder.png"
+                  alt={sellerData.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
+              <h1 className="text-xl font-bold text-gray-800 mt-3">
+                {sellerData.name}
+              </h1>
+              <p className="text-gray-500 text-sm">{sellerData.location}</p>
+              <button className="mt-4 py-2 px-6 rounded-sm bg-[#43703A] text-white font-semibold text-sm hover:bg-[#345a2e] transition-colors">
+                Kirim Pesan
+              </button>
             </div>
-          </div>
-          <div className="mt-6 border-b border-gray-200 pb-6">
-            <div className="flex items-center gap-8">
+
+            {/* Kanan: Statistik */}
+            <div className="flex flex-1 flex-wrap items-center justify-start gap-8">
               <div className="text-center">
-                <p className="text-3xl font-bold text-gray-800">{sellerData.rating}</p>
-                <p className="text-sm text-gray-500 mt-1">{sellerData.reviewCount} Ulasan</p>
+                <p className="text-3xl font-bold text-[#43703a]">{sellerData.rating}</p>
+                <p className="text-sm text-gray-500 mt-1">
+                  {sellerData.reviewCount} Ulasan
+                </p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-bold text-gray-800">{sellerData.soldCount}</p>
+                <p className="text-3xl font-bold text-[#43703a]">{sellerData.soldCount}</p>
                 <p className="text-sm text-gray-500 mt-1">Penjualan</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-bold text-gray-800">{sellerData.responseTime}</p>
+                <p className="text-3xl font-bold text-[#43703a]">
+                  {sellerData.responseTime}
+                </p>
                 <p className="text-sm text-gray-500 mt-1">Waktu Respon</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-bold text-gray-800">{sellerData.responseRate}</p>
+                <p className="text-3xl font-bold text-[#43703a]">
+                  {sellerData.responseRate}
+                </p>
                 <p className="text-sm text-gray-500 mt-1">Tingkat Response</p>
               </div>
             </div>
           </div>
-          <div className="mt-6">
+
+          {/* Tentang */}
+          <div className="mt-6 border-t border-gray-200 pt-6">
             <h2 className="text-lg font-bold text-gray-800 mb-2">Tentang</h2>
             <p className="text-gray-700 text-sm">{sellerData.description}</p>
           </div>
         </div>
 
-        {/* Bagian Produk Toko */}
+        {/* Produk Toko */}
         <div className="bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-xl font-bold text-gray-800 mb-4">Produk Toko</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            {sellerData.products.map(product => (
-              <ProductCard
-                key={product.id}
-                product={product} // Mengirimkan seluruh objek produk
-              />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {sellerData.products.map((product) => (
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>
