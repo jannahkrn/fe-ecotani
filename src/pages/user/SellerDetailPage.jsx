@@ -1,51 +1,84 @@
 // src/pages/user/SellerDetailPage.jsx
-import React from 'react';
-import Footer from '../../components/user/Footer';
-import ProductCard from '../../components/user/ProductCard';
+import React, { useState } from "react";
+import Footer from "../../components/user/Footer";
+import ProductCard from "../../components/user/ProductCard";
 
-// Data dummy untuk penjual
 const sellerData = {
-  name: 'Jannah Kurniawati',
-  location: 'Klaten, Jawa Tengah',
+  name: "Jannah Kurniawati",
+  location: "Klaten, Jawa Tengah",
   rating: 4.8,
   reviewCount: 203,
   soldCount: 33,
-  responseTime: '<1 jam',
-  responseRate: '98%',
+  responseTime: "<1 jam",
+  responseRate: "98%",
   description:
-    'Produsen kompos organik terpercaya dengan pengalaman lebih dari 10 tahun. Kami berkomitmen menyediakan produk berkualitas tinggi untuk mendukung pertanian berkelanjutan.',
+    "Produsen kompos organik terpercaya dengan pengalaman lebih dari 10 tahun. Kami berkomitmen menyediakan produk berkualitas tinggi untuk mendukung pertanian berkelanjutan.",
   products: [
     {
       id: 1,
-      name: 'Botol Plastik',
-      price: 'Rp3.000/g',
-      image: '/src/assets/product-placeholder.png',
+      name: "Botol Plastik",
+      price: "Rp3.000/g",
+      image: "/src/assets/product-placeholder.png",
       rating: 5.0,
-      sales: '10+',
-      seller: 'Jannah Kurniawati',
-      location: 'Klaten, Jawa Tengah',
+      sales: "10+",
+      seller: "Jannah Kurniawati",
+      location: "Klaten, Jawa Tengah",
     },
     {
       id: 2,
-      name: 'Botol Kaca',
-      price: 'Rp5.000/g',
-      image: '/src/assets/product-placeholder.png',
+      name: "Botol Kaca",
+      price: "Rp5.000/g",
+      image: "/src/assets/product-placeholder.png",
       rating: 5.0,
-      sales: '10+',
-      seller: 'Jannah Kurniawati',
-      location: 'Klaten, Jawa Tengah',
+      sales: "10+",
+      seller: "Jannah Kurniawati",
+      location: "Klaten, Jawa Tengah",
     },
   ],
 };
 
 const SellerDetailPage = () => {
+  const [cart, setCart] = useState([]);
+  const [message, setMessage] = useState(""); // ✅ untuk alert
+
+  const addToCart = (item) => {
+    setCart((prev) => [...prev, item]);
+    setMessage(`${item.name} berhasil ditambahkan ke keranjang!`);
+
+    // otomatis hilang setelah 3 detik
+    setTimeout(() => setMessage(""), 3000);
+  };
+
   return (
     <div className="font-sans bg-white min-h-screen flex flex-col">
-      <main className="container mx-auto px-6 md:px-12 py-8 flex-grow">
+      <div className="container mx-auto px-12 py-8 flex-grow">
+        {/* ✅ Alert pesan */}
+        {message && (
+          <div
+            className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+            role="alert"
+          >
+            <span className="block sm:inline">{message}</span>
+          </div>
+        )}
+
+        {/* ✅ Header Lihat Toko (tidak dihapus) */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
+          <img
+            src="/src/assets/logo.png"
+            alt="Ecotani Logo"
+            className="h-8"
+          />
+          <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
+          <h1 className="text-2xl font-bold text-[#43703a]">
+            Lihat Toko
+          </h1>
+        </div>
+
         {/* Profil Penjual */}
         <div className="bg-white p-8 rounded-lg shadow-md mb-8">
           <div className="flex flex-wrap items-start gap-8">
-            {/* Kiri: Foto + Nama + Lokasi + Tombol */}
+            {/* Kiri */}
             <div className="flex flex-col text-left text-center w-48">
               <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
                 <img
@@ -66,13 +99,17 @@ const SellerDetailPage = () => {
             {/* Kanan: Statistik */}
             <div className="flex flex-1 flex-wrap items-center justify-start gap-8">
               <div className="text-center">
-                <p className="text-3xl font-bold text-[#43703a]">{sellerData.rating}</p>
+                <p className="text-3xl font-bold text-[#43703a]">
+                  {sellerData.rating}
+                </p>
                 <p className="text-sm text-gray-500 mt-1">
                   {sellerData.reviewCount} Ulasan
                 </p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-bold text-[#43703a]">{sellerData.soldCount}</p>
+                <p className="text-3xl font-bold text-[#43703a]">
+                  {sellerData.soldCount}
+                </p>
                 <p className="text-sm text-gray-500 mt-1">Penjualan</p>
               </div>
               <div className="text-center">
@@ -102,11 +139,15 @@ const SellerDetailPage = () => {
           <h2 className="text-xl font-bold text-gray-800 mb-4">Produk Toko</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {sellerData.products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                addToCart={addToCart}
+              />
             ))}
           </div>
         </div>
-      </main>
+      </div>
 
       <Footer />
     </div>
