@@ -425,7 +425,7 @@ const ProfilePage = ({ cartItems }) => {
                             <h2 className="text-xl font-bold text-gray-800">Daftar Produk</h2>
                             <button
                                 onClick={handleAddProductClick}
-                                className="bg-[#43703A] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#345a2e] transition-colors"
+                                className="bg-[#43703A] text-white font-bold py-2 px-4 rounded-full shadow-lg hover:bg-[#345a2e] transition-colors"
                             >
                                 Tambah Produk
                             </button>
@@ -623,82 +623,102 @@ const ProfilePage = ({ cartItems }) => {
     };
 
     return (
-        <div className="font-sans bg-gray-100 min-h-screen">
-            <main className="container mx-auto px-12 py-8">
-                {/* Header Profile */}
-                <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-                    <div className="flex items-center gap-6 mb-8">
-                        <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
-                            <FaUserCircle className="text-7xl text-gray-400" />
-                        </div>
-                        <div>
-                            <h1 className="text-2xl font-bold text-gray-800">{userProfile.name}</h1>
-                            <p className="text-gray-600">{userProfile.email}</p>
-                            <p className="text-gray-500">{userProfile.location}</p>
-                        </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="bg-ecotani-green text-white p-4 rounded-lg text-center">
-                            <p className="text-3xl font-bold">{userProfile.sales}</p>
-                            <p>Penjualan</p>
-                        </div>
-                        <div className="bg-ecotani-green text-white p-4 rounded-lg text-center">
-                            <p className="text-3xl font-bold">{userProfile.purchases}</p>
-                            <p>Pembelian</p>
-                        </div>
-                        <div className="bg-ecotani-green text-white p-4 rounded-lg text-center">
-                            <p className="text-3xl font-bold">{userProfile.sellerRating}</p>
-                            <p>Rating Penjual</p>
-                        </div>
-                        <div className="bg-ecotani-green text-white p-4 rounded-lg text-center">
-                            <p className="text-3xl font-bold">{userProfile.buyerRating}</p>
-                            <p>Rating Pembeli</p>
-                        </div>
-                    </div>
-                </div>
+  <div className="font-sans bg-gray-100 min-h-screen flex flex-col">
+    <main className="container mx-auto px-12 py-8 flex-grow">
+      
+      {/* ✅ Tambahan header Profile */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
+        <img 
+          src="src/assets/logo.png"
+          alt="Ecotani Logo" 
+          className="h-8" 
+        />
+        <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
+        <h1 className="text-2xl font-bold text-[#43703a]">Profile</h1>
+      </div>
 
-                <div className="bg-white p-8 rounded-lg shadow-md">
-                    <div className="flex border-b border-gray-200 mb-6">
-                        <button
-                            onClick={() => setActiveTab('profile')}
-                            className={`py-2 px-4 -mb-px font-semibold focus:outline-none transition-colors duration-200 ${
-                                activeTab === 'profile' ? 'border-b-2 border-ecotani-green text-ecotani-green' : 'text-gray-500 hover:text-gray-700'
-                            }`}
-                        >
-                            Profil Pribadi
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('purchase-history')}
-                            className={`py-2 px-4 -mb-px font-semibold focus:outline-none transition-colors duration-200 ${
-                                activeTab === 'purchase-history' ? 'border-b-2 border-ecotani-green text-ecotani-green' : 'text-gray-500 hover:text-gray-700'
-                            }`}
-                        >
-                            Riwayat Pembelian
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('seller-profile')}
-                            className={`py-2 px-4 -mb-px font-semibold focus:outline-none transition-colors duration-200 ${
-                                activeTab === 'seller-profile' ? 'border-b-2 border-ecotani-green text-ecotani-green' : 'text-gray-500 hover:text-gray-700'
-                            }`}
-                        >
-                            Profil Penjual
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('sales-history')}
-                            className={`py-2 px-4 -mb-px font-semibold focus:outline-none transition-colors duration-200 ${
-                                activeTab === 'sales-history' ? 'border-b-2 border-ecotani-green text-ecotani-green' : 'text-gray-500 hover:text-gray-700'
-                            }`}
-                        >
-                            Riwayat Penjualan
-                        </button>
-                    </div>
-                    {renderTabContent()}
-                </div>
-            </main>
-            <Footer />
+      {/* ✅ Header Profil User */}
+      <div className="bg-white p-8 rounded-lg shadow-md mb-8 flex items-center">
+        <div className="w-28 h-28 bg-gray-200 rounded-full flex items-center justify-center mr-6">
+          <FaUserCircle className="text-7xl text-gray-400" />
         </div>
-    );
+        <div className="flex-1">
+          <h1 className="text-2xl font-bold text-[#43703A]">{userProfile.name}</h1>
+          <p className="text-gray-600">{userProfile.email}</p>
+          <p className="text-gray-500 mb-4">{userProfile.location}</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-[#43703A] text-white p-4 rounded-lg text-center">
+              <p className="text-2xl font-bold">{userProfile.sales}</p>
+              <p className="text-sm">Penjualan</p>
+            </div>
+            <div className="bg-[#43703A] text-white p-4 rounded-lg text-center">
+              <p className="text-2xl font-bold">{userProfile.purchases}</p>
+              <p className="text-sm">Pembelian</p>
+            </div>
+            <div className="bg-[#43703A] text-white p-4 rounded-lg text-center">
+              <p className="text-2xl font-bold">{userProfile.sellerRating}</p>
+              <p className="text-sm">Rating Penjual</p>
+            </div>
+            <div className="bg-[#43703A] text-white p-4 rounded-lg text-center">
+              <p className="text-2xl font-bold">{userProfile.buyerRating}</p>
+              <p className="text-sm">Rating Pembeli</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ✅ Tab navigasi */}
+      <div className="bg-white p-8 rounded-lg shadow-md">
+        <div className="flex border-b border-gray-200 mb-6">
+          <button
+            onClick={() => setActiveTab('profile')}
+            className={`py-2 px-4 -mb-px font-semibold focus:outline-none transition-colors duration-200 ${
+              activeTab === 'profile'
+                ? 'border-b-2 border-ecotani-green text-ecotani-green'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Profil Pribadi
+          </button>
+          <button
+            onClick={() => setActiveTab('purchase-history')}
+            className={`py-2 px-4 -mb-px font-semibold focus:outline-none transition-colors duration-200 ${
+              activeTab === 'purchase-history'
+                ? 'border-b-2 border-ecotani-green text-ecotani-green'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Riwayat Pembelian
+          </button>
+          <button
+            onClick={() => setActiveTab('seller-profile')}
+            className={`py-2 px-4 -mb-px font-semibold focus:outline-none transition-colors duration-200 ${
+              activeTab === 'seller-profile'
+                ? 'border-b-2 border-ecotani-green text-ecotani-green'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Profil Penjual
+          </button>
+          <button
+            onClick={() => setActiveTab('sales-history')}
+            className={`py-2 px-4 -mb-px font-semibold focus:outline-none transition-colors duration-200 ${
+              activeTab === 'sales-history'
+                ? 'border-b-2 border-ecotani-green text-ecotani-green'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Riwayat Penjualan
+          </button>
+        </div>
+        {renderTabContent()}
+      </div>
+
+    </main>
+    <Footer />
+  </div>
+);
+
 };
 
 export default ProfilePage;
