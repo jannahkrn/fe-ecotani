@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 const CitizenScience = () => {
   const [activeCitizenTab, setActiveCitizenTab] = useState('Gambaran Umum');
@@ -191,6 +192,10 @@ const CitizenScience = () => {
           </div>
         );
       case 'Lihat Prediksi':
+        const data = [
+          { name: 'Minggu Ini', 'Volume Sampah': 314.5, color: '#43703A' },
+          { name: 'Prediksi Minggu Depan', 'Volume Sampah': 345.7, color: '#47241C' },
+        ];
         return (
           <div className="p-4 border border-gray-300 rounded-lg">
             <div className="flex justify-between items-center mb-4">
@@ -203,7 +208,6 @@ const CitizenScience = () => {
                 MENINGKAT
               </span>
             </div>
-
             <div className="flex justify-around items-center mt-8">
               <div className="text-center">
                 <h4 className="text-5xl font-bold text-gray-800">314.5 kg</h4>
@@ -214,6 +218,20 @@ const CitizenScience = () => {
                 <h4 className="text-5xl font-bold text-ecotani-green">345.7 kg</h4>
                 <p className="text-gray-600 mt-1">Prediksi Minggu Depan</p>
               </div>
+            </div>
+            <div className="mt-8 bg-white p-4 rounded-lg shadow">
+              <h4 className="text-lg font-semibold text-gray-800 mb-4">Perbandingan Minggu Ini vs Prediksi</h4>
+              <ResponsiveContainer width="100%" height={250}>
+                {/* Menghilangkan layout="vertical" untuk membuat grafik tegak lurus */}
+                <BarChart data={data}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  {/* Memisahkan Bar untuk setiap data point */}
+                  <Bar dataKey="Volume Sampah" fill="#43703A" />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </div>
         );
