@@ -6,6 +6,7 @@ const CitizenScience = () => {
   const [formData, setFormData] = useState({
     wasteName: '',
     location: '',
+    depo: '',
     weight: '',
   });
 
@@ -22,6 +23,7 @@ const CitizenScience = () => {
     setFormData({
       wasteName: '',
       location: '',
+      depo: '',
       weight: '',
     });
   };
@@ -46,7 +48,7 @@ const CitizenScience = () => {
             <div className="space-y-4">
               <div>
                 <h4 className="font-semibold text-gray-800">1. Daftar dan Input Limbah</h4>
-                <p className="text-gray-600">Buat akun dan input limbah untuk menambahkan data limbah Jabodetabekjur.</p>
+                <p className="text-gray-600">Buat akun dan input limbah untuk menambahkan data limbah Tanjung Pinang.</p>
               </div>
               <div>
                 <h4 className="font-semibold text-gray-800">2. Input Limbah</h4>
@@ -58,7 +60,7 @@ const CitizenScience = () => {
               </div>
               <div>
                 <h4 className="font-semibold text-gray-800">4. Dapatkan Prediksi</h4>
-                <p className="text-gray-600">Anda bisa melihat prediksi sehari-hari sampah di Jabodetabekjur, lalu input data limbah dan lihat prediksi.</p>
+                <p className="text-gray-600">Anda bisa melihat prediksi sehari-hari sampah di Tanjung Pinang, lalu input data limbah dan lihat prediksi.</p>
               </div>
             </div>
           </div>
@@ -81,45 +83,102 @@ const CitizenScience = () => {
             <div className="bg-green-100 border border-green-300 rounded-lg p-4 mb-6">
               <h4 className="font-semibold text-gray-800 mb-2">Data yang Akan Dikumpulkan</h4>
               <ul className="list-disc list-inside text-gray-700">
-                <li>Nama limbah</li>
-                <li>Lokasi pengamatan: Jakarta Pusat, Menteng, Gambir, Tanah Abang, dan lain-lain</li>
-                <li>Berat sampah dalam kilogram</li>
+                <li>Kategori limbah</li>
+                <li>Lokasi pengamatan: Kepulauan Riau, Kota Tanjung Pinang</li>
+                <li>Depo sampah (TPS)</li>
+                <li>Berat sampah dalam rentang kilogram</li>
               </ul>
             </div>
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1" htmlFor="wasteName">Nama Limbah</label>
-                <input
-                  type="text"
+                <label className="block text-sm font-semibold text-gray-700 mb-1" htmlFor="wasteName">
+                  Kategori Limbah
+                </label>
+                <select
                   id="wasteName"
-                  placeholder="Nama Limbah"
                   value={formData.wasteName}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-ecotani-green"
-                />
+                >
+                  <option value="">-- Pilih Kategori Limbah --</option>
+                  <option value="Organik">Organik</option>
+                  <option value="Anorganik">Anorganik</option>
+                  <option value="B3">B3 (Bahan Berbahaya & Beracun)</option>
+                  <option value="Elektronik">Elektronik</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1" htmlFor="location">Lokasi Pengamatan</label>
-                <input
-                  type="text"
+                <label className="block text-sm font-semibold text-gray-700 mb-1" htmlFor="location">
+                  Lokasi Pengamatan
+                </label>
+                <select
                   id="location"
-                  placeholder="Lokasi Pengamatan"
                   value={formData.location}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-ecotani-green"
-                />
+                >
+                  <option value="">-- Pilih Lokasi --</option>
+                  <option value="Tanjung Pinang">Kepulauan Riau, Kota Tanjung Pinang</option>
+                </select>
               </div>
             </div>
+
+            {/* Depo TPS */}
             <div className="mb-6">
-              <label className="block text-sm font-semibold text-gray-700 mb-1" htmlFor="weight">Berat Sampah (kg)</label>
-              <input
-                type="number"
+              <label className="block text-sm font-semibold text-gray-700 mb-1" htmlFor="depo">
+                Depo Sampah (TPS)
+              </label>
+              <select
+                id="depo"
+                value={formData.depo}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-ecotani-green"
+              >
+                <option value="">-- Pilih Depo Sampah --</option>
+                <option value="TPS Depan SMAN 5">TPS Depan SMAN 5</option>
+                <option value="TPS JL. H Agus Salim">TPS JL. H Agus Salim</option>
+                <option value="TPS Jl. H. Agus Salim">TPS Jl. H. Agus Salim</option>
+                <option value="TPS Jl. Sulaiman Abdullah">TPS Jl. Sulaiman Abdullah</option>
+                <option value="TPS JL. Kesehatan">TPS JL. Kesehatan</option>
+                <option value="TPS JL. Yos Sudarso">TPS JL. Yos Sudarso</option>
+                <option value="TPS Jl. Kamboja">TPS Jl. Kamboja</option>
+                <option value="TPS JL.Diponegoro">TPS JL.Diponegoro</option>
+                <option value="TPS JL. Gudang Minyak">TPS JL. Gudang Minyak</option>
+                <option value="TPS JL. Yos Sudarso">TPS JL. Yos Sudarso</option>
+                <option value="TPS Jl. Rawasari">TPS Jl. Rawasari</option>
+                <option value="TPS JL. WR Supratman">TPS JL. WR Supratman</option>
+                <option value="TPS JL. Bintan Center">TPS JL. Bintan Center</option>
+                <option value="TPS Jl. Abadi">TPS Jl. Abadi</option>
+                <option value="TPS Taman persihatian">TPS Taman persihatian</option>
+                <option value="TPS Kantor Walikota">TPS Kantor Walikota</option>
+                <option value="TPS Jl. Brigjen Katamso">TPS Jl. Brigjen Katamso</option>
+                <option value="TPS Pembakaran Mayat">TPS Pembakaran Mayat</option>
+                <option value="TPS Depan SMPN 6">TPS Depan SMPN 6</option>
+                <option value="TPS Jembatan Batu 8 Atas">TPS Jembatan Batu 8 Atas</option>
+                <option value="TPS Jl. Seijang">TPS Jl. Seijang</option>
+              </select>
+            </div>
+
+            {/* Berat sampah */}
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-1" htmlFor="weight">
+                Berat Sampah (kg)
+              </label>
+              <select
                 id="weight"
-                placeholder="Berat Sampah (kg)"
                 value={formData.weight}
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-ecotani-green"
-              />
+              >
+                <option value="">-- Pilih Berat Sampah --</option>
+                <option value="0-1">0 kg - 1 kg</option>
+                <option value="1-2">1 kg - 2 kg</option>
+                <option value="2-3">2 kg - 3 kg</option>
+                <option value="3-4">3 kg - 4 kg</option>
+                <option value="4-5">4 kg - 5 kg</option>
+                <option value=">5">Lebih dari 5 kg</option>
+              </select>
             </div>
             <div className="text-right">
               <button
@@ -137,7 +196,7 @@ const CitizenScience = () => {
             <div className="flex justify-between items-center mb-4">
               <div className="flex flex-col text-left">
                 <h3 className="text-2xl font-bold text-gray-800">Prediksi Volume Sampah</h3>
-                <p className="text-gray-600 text-sm">Prediksi volume sampah area Jabodetabekjur</p>
+                <p className="text-gray-600 text-sm">Prediksi volume sampah area Tanjung Pinang</p>
                 <p className="text-gray-400 text-xs">1.245 data points</p>
               </div>
               <span className="bg-red-500 text-white text-xs font-semibold px-4 py-1 rounded-full">
