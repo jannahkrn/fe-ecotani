@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { HashLink } from "react-router-hash-link"; // Import HashLink
+import { HashLink } from "react-router-hash-link"; 
 import AuthContext from "../../context/AuthContext";
 import { FaSearch, FaShoppingCart, FaComments, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import logo from "../../assets/logo.png";
@@ -18,18 +18,16 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
   };
   
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-100 py-3 font-sans">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white shadow-sm border-b border-gray-100 py-3 font-sans">
       <div className="container mx-auto flex items-center justify-between px-6">
         {/* Logo dan Tautan Navigasi */}
         <div className="flex items-center gap-8">
-          {/* Logo - Diperbesar */}
           <Link to="/" className="flex items-center cursor-pointer">
             <img 
               src={logo} 
               alt="ECOTANI Logo" 
               className="h-5 w-auto object-contain"
               onError={(e) => {
-                // Fallback jika logo tidak bisa dimuat
                 e.target.style.display = 'none';
                 e.target.nextSibling.style.display = 'inline';
               }}
@@ -42,73 +40,52 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
             </span>
           </Link>
           
-          {/* Navigation Links - Menggunakan HashLink */}
+          {/* Navigation Links */}
           <div className="hidden md:flex gap-6">
             <HashLink 
-              to="/#hero-section" // Link ke Hero Section
-              smooth // Aktifkan smooth scroll
+              to="/#hero-section"
+              smooth
               className="relative font-medium py-2 group transition-all duration-300 hover:no-underline"
               style={{ color: '#43703A' }}
-              onMouseEnter={(e) => e.target.style.color = '#365a2e'}
-              onMouseLeave={(e) => e.target.style.color = '#43703A'}
             >
               Home
-              <span 
-                className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
-                style={{ backgroundColor: '#43703A' }}
-              ></span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full" style={{ backgroundColor: '#43703A' }}></span>
             </HashLink>
             
             <HashLink 
-              to="/#about-section" // Link ke Why Choose Ecotani
+              to="/#about-section"
               smooth
               className="relative font-medium py-2 group transition-all duration-300 hover:no-underline"
               style={{ color: '#43703A' }}
-              onMouseEnter={(e) => e.target.style.color = '#365a2e'}
-              onMouseLeave={(e) => e.target.style.color = '#43703A'}
             >
               About
-              <span 
-                className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
-                style={{ backgroundColor: '#43703A' }}
-              ></span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full" style={{ backgroundColor: '#43703A' }}></span>
             </HashLink>
             
             <HashLink 
-              to="/#citizen-science-section" // Link ke Citizen Science
+              to="/#citizen-science-section"
               smooth
               className="relative font-medium py-2 group transition-all duration-300 hover:no-underline"
               style={{ color: '#43703A' }}
-              onMouseEnter={(e) => e.target.style.color = '#365a2e'}
-              onMouseLeave={(e) => e.target.style.color = '#43703A'}
             >
               Citizen Science
-              <span 
-                className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
-                style={{ backgroundColor: '#43703A' }}
-              ></span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full" style={{ backgroundColor: '#43703A' }}></span>
             </HashLink>
             
             <HashLink 
-              to="/#help-section" // Link ke Help
+              to="/#help-section"
               smooth
               className="relative font-medium py-2 group transition-all duration-300 hover:no-underline"
               style={{ color: '#43703A' }}
-              onMouseEnter={(e) => e.target.style.color = '#365a2e'}
-              onMouseLeave={(e) => e.target.style.color = '#43703A'}
             >
               Help
-              <span 
-                className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
-                style={{ backgroundColor: '#43703A' }}
-              ></span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full" style={{ backgroundColor: '#43703A' }}></span>
             </HashLink>
           </div>
         </div>
 
         {/* Search Bar dan Icons */}
         <div className="flex items-center gap-4">
-          {/* Search Bar */}
           <form onSubmit={handleSearchSubmit} className="relative">
             <input
               type="text"
@@ -124,15 +101,11 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
             />
           </form>
 
-          {/* Icons - Semua Hijau */}
           <div className="flex items-center gap-3">
-            {/* Shopping Cart */}
             <Link 
               to="/cart"
               className="relative transition-colors duration-200 p-2 hover:no-underline"
               style={{ color: '#43703A' }}
-              onMouseEnter={(e) => e.target.style.color = '#365a2e'}
-              onMouseLeave={(e) => e.target.style.color = '#43703A'}
             >
               <FaShoppingCart className="h-5 w-5" />
               {cartItems.length > 0 && (
@@ -142,13 +115,10 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
               )}
             </Link>
 
-            {/* Chat */}
             <Link 
               to="/chat"
               className="relative transition-colors duration-200 p-2 hover:no-underline"
               style={{ color: '#43703A' }}
-              onMouseEnter={(e) => e.target.style.color = '#365a2e'}
-              onMouseLeave={(e) => e.target.style.color = '#43703A'}
             >
               <FaComments className="h-5 w-5" />
               {hasNewChat && (
@@ -156,7 +126,6 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
               )}
             </Link>
 
-            {/* Login/Profile Section */}
             {isLoggedIn ? (
               <div className="flex items-center gap-2">
                 <Link 
@@ -180,36 +149,14 @@ const Navbar = ({ cartItems = [], hasNewChat = true }) => {
                 <Link 
                   to="/login"
                   className="px-4 py-2 rounded-full font-medium transition-all duration-200 hover:no-underline"
-                  style={{ 
-                    backgroundColor: '#43703A',
-                    color: '#FFED28' // Tulisan kuning di background hijau
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = '#365a2e';
-                    e.target.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = '#43703A';
-                    e.target.style.transform = 'translateY(0)';
-                  }}
+                  style={{ backgroundColor: '#43703A', color: '#FFED28' }}
                 >
                   Masuk
                 </Link>
                 <Link 
                   to="/register"
                   className="px-4 py-2 rounded-full font-medium transition-all duration-200 hover:no-underline"
-                  style={{ 
-                    backgroundColor: '#FFED28',
-                    color: '#43703A' // Tulisan hijau di background kuning
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = '#f0d900';
-                    e.target.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = '#FFED28';
-                    e.target.style.transform = 'translateY(0)';
-                  }}
+                  style={{ backgroundColor: '#FFED28', color: '#43703A' }}
                 >
                   Daftar
                 </Link>

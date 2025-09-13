@@ -152,7 +152,7 @@ const HomePage = ({ cartItems, addToCart, user }) => {
 
       <main className="px-4 sm:px-8 lg:px-12 flex-grow">
         {/* Hero Section */}
-        <section id="hero-section" className="mt-6">
+        <section id="hero-section" className="mt-6 scroll-mt-20">
           <div className="w-full max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
             <div className="relative w-full h-80 md:h-[400px] lg:h-[450px]">
               <img
@@ -192,7 +192,7 @@ const HomePage = ({ cartItems, addToCart, user }) => {
         </section>
 
         {/* Why Choose Ecotani Section */}
-        <section id="about-section" className="mt-16 mb-16">
+        <section id="about-section" className="mt-16 mb-16 scroll-mt-20">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
               Mengapa Memilih <span className="text-[#43703A]">Ecotani?</span>
@@ -251,14 +251,14 @@ const HomePage = ({ cartItems, addToCart, user }) => {
 
         {/* Enhanced Sections */}
         <div className="space-y-16">
-          <div id="citizen-science-section">
-            <CitizenScience />
-          </div>
+    <div id="citizen-science-section" className="scroll-mt-20">
+      <CitizenScience />
+    </div>
 
-          <div id="help-section">
-            <HelpCenter />
-          </div>
-        </div>
+          <div id="help-section" className="scroll-mt-20">
+      <HelpCenter />
+    </div>
+  </div>
 
         {/* CTA Section */}
         <section className="my-8 text-center max-w-6xl mx-auto">
