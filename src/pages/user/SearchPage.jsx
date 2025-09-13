@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Footer from '../../components/user/Footer';
 import ProductCard from '../../components/user/ProductCard';
+import botolImg from "../../assets/botol.jpg";
 
 const SearchPage = ({ addToCart }) => {
   const [searchParams] = useSearchParams();
@@ -12,7 +13,7 @@ const SearchPage = ({ addToCart }) => {
   const allProducts = [
     {
       id: 1,
-      image: '/src/assets/product-placeholder.png',
+      image: botolImg,
       name: 'Botol Plastik',
       price: 'Rp3.000/g',
       priceValue: 3000,
@@ -21,40 +22,6 @@ const SearchPage = ({ addToCart }) => {
       rating: 5.0,
       sales: 10,
     },
-    {
-      id: 2,
-      image: '/src/assets/product-placeholder.png',
-      name: 'Kardus Bekas',
-      price: 'Rp1.500/kg',
-      priceValue: 1500,
-      seller: 'Jannah K',
-      location: 'Klaten, Jawa Tengah',
-      rating: 4.8,
-      sales: 25,
-    },
-    {
-      id: 3,
-      image: '/src/assets/product-placeholder.png',
-      name: 'Minyak Jelantah',
-      price: 'Rp5.000/L',
-      priceValue: 5000,
-      seller: 'Budi S',
-      location: 'Yogyakarta, DI Yogyakarta',
-      rating: 4.5,
-      sales: 30,
-    },
-    {
-      id: 4,
-      image: '/src/assets/product-placeholder.png',
-      name: 'Kain Perca',
-      price: 'Rp10.000/kg',
-      priceValue: 10000,
-      seller: 'Siti R',
-      location: 'Bandung, Jawa Barat',
-      rating: 4.9,
-      sales: 15,
-    },
-    // bisa tambah produk dummy lain
   ];
 
   useEffect(() => {
