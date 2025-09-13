@@ -4,13 +4,17 @@ import Footer from '../../components/user/Footer';
 import AuthContext from '../../context/AuthContext';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 
+// ✅ Import asset
+import logoImg from "../../assets/logo.png";
+import botolImg from "../../assets/botol.jpg";
+
 const RatingAndReviewPage = () => {
     const { isLoggedIn, userName } = useContext(AuthContext);
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('');
     const [photoPreview, setPhotoPreview] = useState(null);
 
-    // Dummy product data (samakan dengan TrackingPage)
+    // Dummy product data (sama dengan TrackingPage)
     const product = {
         name: "Botol Plastik",
         category: "Anorganik",
@@ -19,7 +23,7 @@ const RatingAndReviewPage = () => {
         unit: "100 gram",
         total: "Rp9.000",
         quantity: 3,
-        image: "/src/assets/detail-product.png"
+        image: botolImg // ✅ pakai import gambar
     };
 
     const handleRatingClick = (selectedRating) => {
@@ -54,7 +58,7 @@ const RatingAndReviewPage = () => {
                 {/* Header */}
                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
                     <img 
-                        src="src/assets/logo.png"
+                        src={logoImg}
                         alt="Ecotani Logo" 
                         className="h-8" 
                     />
