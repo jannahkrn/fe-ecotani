@@ -1,6 +1,7 @@
 // ProductCard.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import botolImg from "../../assets/botol.jpg";
 
 const ProductCard = ({ product, addToCart }) => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const ProductCard = ({ product, addToCart }) => {
         name: product.name,
         price: product.priceValue || product.price,
         quantity: 1,
-        image: product.image,
+        image: product.image || botolImg, // ✅ fallback ke botol
       });
     }
   };
@@ -30,15 +31,11 @@ const ProductCard = ({ product, addToCart }) => {
         className="w-full h-48 bg-gray-100 flex items-center justify-center cursor-pointer"
         onClick={handleBuyNow}
       >
-        {product.image ? (
-          <img
-            src={product.image}
-            alt={product.name}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <span className="text-gray-400">No Image</span>
-        )}
+        <img
+          src={product.image || botolImg} // ✅ pakai botol jika product.image kosong
+          alt={product.name || "Produk"}
+          className="h-full w-full object-cover"
+        />
       </div>
 
       {/* Detail Produk */}
