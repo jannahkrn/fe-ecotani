@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import botolImg from "../../assets/botol.jpg";
 
 const SalesHistorySection = () => {
   const [showPopup, setShowPopup] = useState(null); // "verifikasi", "resi", "rating"
@@ -80,11 +81,11 @@ const SalesHistorySection = () => {
             className="flex items-start border rounded-lg p-4 bg-white shadow-md"
           >
             {/* Gambar Produk */}
-            <img
-              src="https://placehold.co/140x140/E5E7EB/24292e?text=Botol+Plastik"
-              alt={order.product}
-              className="w-32 h-32 object-cover rounded-lg"
-            />
+            <img 
+                                              src={botolImg} 
+                                              alt="Botol Plastik" 
+                                              className="w-32 h-32 object-cover rounded-md" 
+                                            />
 
             {/* Detail Pesanan */}
             <div className="ml-4 flex-1">
