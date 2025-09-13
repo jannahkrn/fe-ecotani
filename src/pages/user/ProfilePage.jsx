@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../../components/user/Footer";
+import logoImg from "../../assets/logo.png";
+import botolImg from "../../assets/botol.jpg";
 import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
@@ -110,7 +112,7 @@ const ProfilePage = ({ cartItems }) => {
       id: 1,
       productName: "Botol Plastik",
       productCategory: "Plastik",
-      productImage: "/src/assets/detail-product.png",
+      productImage: botolImg,
       sellerName: "Jannah K",
       price: 9000,
       paymentMethod: "Transfer",
@@ -123,7 +125,7 @@ const ProfilePage = ({ cartItems }) => {
       id: 2,
       productName: "Botol Plastik",
       productCategory: "Plastik",
-      productImage: "/src/assets/detail-product.png",
+      productImage: botolImg,
       sellerName: "Jannah K",
       price: 9000,
       paymentMethod: "Transfer",
@@ -134,7 +136,7 @@ const ProfilePage = ({ cartItems }) => {
       id: 3,
       productName: "Botol Plastik",
       productCategory: "Plastik",
-      productImage: "/src/assets/detail-product.png",
+      productImage: botolImg,
       sellerName: "Jannah K",
       price: 9000,
       paymentMethod: "COD",
@@ -145,7 +147,7 @@ const ProfilePage = ({ cartItems }) => {
       id: 4,
       productName: "Botol Plastik",
       productCategory: "Plastik",
-      productImage: "/src/assets/detail-product.png",
+      productImage: botolImg,
       sellerName: "Jannah K",
       price: 9000,
       paymentMethod: "Transfer",
@@ -156,7 +158,7 @@ const ProfilePage = ({ cartItems }) => {
       id: 5,
       productName: "Botol Plastik",
       productCategory: "Plastik",
-      productImage: "/src/assets/detail-product.png",
+      productImage: botolImg,
       sellerName: "Jannah K",
       price: 9000,
       paymentMethod: "Transfer",
@@ -921,7 +923,11 @@ const ProfilePage = ({ cartItems }) => {
       <main className="container mx-auto px-12 py-8 flex-grow">
         {/* ✅ Tambahan header Profile */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
-          <img src="src/assets/logo.png" alt="Ecotani Logo" className="h-8" />
+           <img 
+                      src={logoImg}
+                      alt="Ecotani Logo" 
+                      className="h-8" 
+                    />
           <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
           <h1 className="text-2xl font-bold text-[#43703a]">Profile</h1>
         </div>
