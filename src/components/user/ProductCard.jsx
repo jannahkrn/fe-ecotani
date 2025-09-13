@@ -14,7 +14,7 @@ const ProductCard = ({ product, addToCart }) => {
         name: product.name,
         price: product.priceValue || product.price,
         quantity: 1,
-        image: product.image || botolImg, // ✅ fallback ke botol
+        image: product.image && product.image.trim() !== "" ? product.image : botolImg,
       });
     }
   };

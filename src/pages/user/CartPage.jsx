@@ -62,10 +62,11 @@ const CartPage = ({ cartItems, updateQuantity }) => {
                 {/* Gambar produk */}
                 <div className="relative border-2 border-blue-500 rounded-lg p-1">
                   <img
-                    src={item.image || botolImg} // fallback botol kalau kosong
-                    alt={item.name}
-                    className="w-32 h-32 object-cover rounded-md"
-                  />
+  src={item.image && item.image.trim() !== "" ? item.image : botolImg}
+  alt={item.name}
+  className="w-32 h-32 object-cover rounded-md"
+/>
+
                 </div>
 
                 {/* Detail produk */}
