@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from "../../assets/logo.png"; // ✅ Import logo
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -16,8 +17,9 @@ const RegisterPage = () => {
       <div className="flex flex-col items-center justify-center w-full max-w-2xl">
         <div className="text-center mb-8">
           <div className="flex justify-center items-center mb-2">
-            <img src="/src/assets/logo.png" alt="Ecotani Logo" className="h-10" />
-          </div>
+                      {/* ✅ Ganti src jadi pakai import */}
+                      <img src={logo} alt="Ecotani Logo" className="h-10" />
+                    </div>
           <p className="text-sm text-gray-600">Platform Jual Beli Limbah</p>
         </div>
 
