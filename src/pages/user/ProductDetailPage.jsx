@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import botolImg from "../../assets/botol.jpg";
 import Footer from "../../components/user/Footer";
 
 const allProducts = {
@@ -48,13 +49,13 @@ const ProductDetailPage = ({ addToCart, cartItems }) => {
 
   // State untuk foto utama + thumbnails
   const [selectedImage, setSelectedImage] = useState(
-    "https://placehold.co/600x400/E5E7EB/24292e?text=Product+Image"
+    botolImg
   );
 
   const thumbnails = [
-    "https://placehold.co/200x200/E5E7EB/24292e?text=Thumbnail+1",
-    "https://placehold.co/200x200/E5E7EB/24292e?text=Thumbnail+2",
-    "https://placehold.co/200x200/E5E7EB/24292e?text=Thumbnail+3",
+    botolImg,
+    botolImg,
+    botolImg,
   ];
 
   if (!product) {
@@ -154,7 +155,7 @@ const ProductDetailPage = ({ addToCart, cartItems }) => {
               <div className="w-1/3 flex-shrink-0">
                 {/* Gambar produk di sini */}
                 <img
-                  src="https://placehold.co/150x150/E5E7EB/24292e?text=Botol+Plastik" // Placeholder gambar
+                  src={botolImg}
                   alt="Botol Plastik"
                   className="w-full h-auto rounded-lg shadow-md"
                 />

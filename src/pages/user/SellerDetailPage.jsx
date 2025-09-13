@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import Footer from "../../components/user/Footer";
 import ProductCard from "../../components/user/ProductCard";
+import logoImg from "../../assets/logo.png";
+import botolImg from "../../assets/botol.jpg";
 
 const sellerData = {
   name: "Jannah Kurniawati",
@@ -65,7 +67,7 @@ const SellerDetailPage = () => {
         {/* ✅ Header Lihat Toko (tidak dihapus) */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
           <img
-            src="/src/assets/logo.png"
+            src={logoImg}
             alt="Ecotani Logo"
             className="h-8"
           />
