@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/user/Footer';
 import logoImg from "../../assets/logo.png";
+import botolImg from "../../assets/botol.jpg";
 
 const CheckoutPage = ({ cartItems }) => {
   const navigate = useNavigate();
@@ -127,11 +128,11 @@ const CheckoutPage = ({ cartItems }) => {
               >
                 {/* Gambar produk */}
                 <div className="relative border-2 border-blue-500 rounded-lg p-1">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-32 h-32 object-cover rounded-md"
-                  />
+                  <img 
+                                  src={botolImg} 
+                                  alt="Botol Plastik" 
+                                  className="w-32 h-32 object-cover rounded-md" 
+                                />
                 </div>
 
                 <div className="flex-grow flex flex-col justify-between h-[136px]">

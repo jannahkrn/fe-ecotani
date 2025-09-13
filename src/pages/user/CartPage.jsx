@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import botolImg from "../../assets/botol.jpg";     // fallback image
+import botolImg from "../../assets/botol.jpg";
 import logoImg from "../../assets/logo.png";
 import zanuSadImg from "../../assets/zanu-sad.png";
 import Footer from "../../components/user/Footer";
@@ -61,11 +61,11 @@ const CartPage = ({ cartItems, updateQuantity }) => {
               >
                 {/* Gambar produk */}
                 <div className="relative border-2 border-blue-500 rounded-lg p-1">
-                  <img
-  src={item.image && item.image.trim() !== "" ? item.image : botolImg}
-  alt={item.name}
-  className="w-32 h-32 object-cover rounded-md"
-/>
+                  <img 
+                                  src={botolImg} 
+                                  alt="Botol Plastik" 
+                                  className="w-32 h-32 object-cover rounded-md" 
+                                />
 
                 </div>
 
