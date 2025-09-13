@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import zanuImg from "../../assets/zanu.png"; // ✅ import gambar dari assets
 
 const ChatAI = ({ onClose }) => {
   const [messages, setMessages] = useState([
@@ -29,7 +30,7 @@ const ChatAI = ({ onClose }) => {
       setMessages(prevMessages => [...prevMessages, newUserMessage]);
       setInputMessage('');
 
-      // Simulate AI response (to be replaced with actual API call)
+      // Simulasi respons AI
       setTimeout(() => {
         const newAiMessage = {
           sender: 'ai',
@@ -49,7 +50,7 @@ const ChatAI = ({ onClose }) => {
     };
     setMessages(prevMessages => [...prevMessages, newUserMessage]);
     
-    // Simulate AI response for quick questions
+    // Simulasi respons AI untuk pertanyaan cepat
     setTimeout(() => {
       let responseText = '';
       if (question === 'Cara Menjual Limbah') {
@@ -80,7 +81,7 @@ const ChatAI = ({ onClose }) => {
       {/* Chat Header */}
       <div className="bg-white p-4 border-b border-gray-200 flex items-center shadow-sm">
         <div className="flex-shrink-0">
-          <img src="/src/assets/zanu.png" alt="Zanu" className="w-10 h-10" />
+          <img src={zanuImg} alt="Zanu" className="w-10 h-10" />
         </div>
         <div className="ml-3">
           <h5 className="text-lg font-bold text-gray-800">Zanu</h5>
@@ -98,7 +99,7 @@ const ChatAI = ({ onClose }) => {
         {messages.map((message, index) => (
           <div key={index} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} gap-2.5`}>
             {message.sender === 'ai' && (
-              <img src="/src/assets/zanu.png" alt="Zanu" className="w-8 h-8 rounded-full self-start" />
+              <img src={zanuImg} alt="Zanu" className="w-8 h-8 rounded-full self-start" />
             )}
             <div className={`flex flex-col w-full max-w-[200px] leading-1.5 p-4 rounded-xl ${message.sender === 'user' ? 'bg-gray-200 rounded-es-xl rounded-ss-xl' : 'bg-gray-100 rounded-se-xl rounded-ee-xl'}`}>
               <p className="text-sm font-normal text-gray-900">{message.text}</p>
