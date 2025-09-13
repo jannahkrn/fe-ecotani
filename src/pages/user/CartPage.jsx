@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import botolImg from "../../assets/botol.jpg";
+import logoImg from "../../assets/logo.png";
+import zanuSadImg from "../../assets/zanu-sad.png";
 import Footer from '../../components/user/Footer';
 
 const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
@@ -65,10 +67,10 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
                 {/* Gambar produk dengan border biru */}
                 <div className="relative border-2 border-blue-500 rounded-lg p-1">
                   <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-32 h-32 object-cover rounded-md"
-                  />
+  src={item.image || botolImg}   // ✅ fallback botol kalau item.image kosong
+  alt={item.name}
+  className="w-32 h-32 object-cover rounded-md"
+/>
                 </div>
                 
                 <div className="flex-grow flex flex-col justify-between h-[136px]"> {/* Atur tinggi agar konten terbagi dengan baik */}
