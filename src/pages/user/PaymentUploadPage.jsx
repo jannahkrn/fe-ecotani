@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import Footer from '../../components/user/Footer';
 import AuthContext from '../../context/AuthContext';
+import logoImg from "../../assets/logo.png";
+
 import { useNavigate } from 'react-router-dom';
 import { UploadCloud, CheckCircle } from 'lucide-react'; // Impor ikon UploadCloud dan CheckCircle
 
@@ -36,10 +38,10 @@ const PaymentUploadPage = () => {
             <div className="container mx-auto px-12 py-8 flex-grow">
                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
                     <img 
-                        src="src/assets/logo.png"
-                        alt="Ecotani Logo" 
-                        className="h-8" 
-                    />
+                                          src={logoImg} 
+                                          alt="Ecotani Logo" 
+                                          className="h-8" 
+                                        />
                     <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
                     <h1 className="text-2xl font-bold text-[#43703a]">
                         Upload Bukti Pembayaran

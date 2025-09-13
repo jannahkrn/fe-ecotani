@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/user/Footer';
+import logoImg from "../../assets/logo.png";
 
 const CheckoutPage = ({ cartItems }) => {
   const navigate = useNavigate();
@@ -39,11 +40,11 @@ const CheckoutPage = ({ cartItems }) => {
       <div className="container mx-auto px-12 py-8 flex-grow">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
-          <img
-            src="/src/assets/logo.png"
-            alt="Ecotani Logo"
-            className="h-8"
-          />
+          <img 
+                      src={logoImg} 
+                      alt="Ecotani Logo" 
+                      className="h-8" 
+                    />
           <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
           <h1 className="text-2xl font-bold text-[#43703a]">
             Checkout Produk
