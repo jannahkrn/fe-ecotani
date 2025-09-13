@@ -25,10 +25,10 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
         {/* Card judul halaman */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
           <img 
-            src="/src/assets/logo.png"
-            alt="Ecotani Logo" 
-            className="h-8" 
-          />
+  src={logoImg} 
+  alt="Ecotani Logo" 
+  className="h-8" 
+/>
           <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
           <h1 className="text-2xl font-bold text-[#43703a]">
             Keranjang Belanja
@@ -39,10 +39,10 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
         {cartItems.length === 0 ? (
           <div className="text-center py-1">
             <img
-              src="/src/assets/zanu-sad.png"
-              alt="Keranjang Kosong"
-              className="mx-auto w-40 h-auto mb-6"
-            />
+  src={zanuSadImg}
+  alt="Keranjang Kosong"
+  className="mx-auto w-40 h-auto mb-6"
+/>
             <h2 className="text-2xl font-semibold text-gray-700">
               Keranjang Anda Masih Kosong
             </h2>
