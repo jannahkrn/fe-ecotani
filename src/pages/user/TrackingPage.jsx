@@ -176,9 +176,9 @@ const TrackingPage = () => {
                 <p className="font-semibold">Ongkos Kirim</p>
                 <p>Rp15.000</p>
                 <p className="font-semibold">Biaya Admin</p>
-                <p>Kosek</p>
+                <p>Rp2.000</p>
                 <p className="font-semibold">Total Pembayaran</p>
-                <p>Kosek</p>
+                <p>Rp26.000</p>
               </div>
             </div>
           </div>

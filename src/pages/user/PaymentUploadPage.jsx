@@ -115,7 +115,7 @@ const PaymentUploadPage = () => {
                                     <p>BCA</p>
                                     <p>12345678900</p>
                                     <p>Jannah K</p>
-                                    <p>Kosek</p>
+                                    <p>Rp18.000</p>
                                 </div>
                             </div>
                         </div>
