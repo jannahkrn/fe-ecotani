@@ -147,7 +147,6 @@ const RegisterPage = () => {
   </select>
 </div>
 
-
             <div className="text-xs text-gray-600 mt-4">
               <p>
                 Dengan ini saya menyatakan telah membaca, memahami, dan menyetujui Syarat dan Ketentuan serta Kebijakan Privasi Ecotani. Saya juga menyatakan bersedia menerima informasi mengenai produk, layanan, maupun promosi yang disampaikan oleh Ecotani.
