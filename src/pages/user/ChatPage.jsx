@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Footer from "../../components/user/Footer";
 
 const ChatPage = () => {
   const [activeTab, setActiveTab] = useState("penjual");
@@ -35,15 +36,13 @@ const ChatPage = () => {
         
         {/* Card judul halaman */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
-          {<img 
+          <img 
             src="/src/assets/logo.png"
             alt="Ecotani Logo" 
             className="h-8" 
-          />}
+          />
           <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
-          <h1 className="text-2xl font-bold text-[#43703a]">
-            Chat
-          </h1>
+          <h1 className="text-2xl font-bold text-[#43703a]">Chat</h1>
         </div>
         
         {/* Toggle Tab */}
@@ -107,12 +106,14 @@ const ChatPage = () => {
           {/* Area Chat */}
           <div className="w-2/3 flex flex-col justify-between">
             {!selectedChat ? (
-              <><div className="flex-10 flex items-center justify-center text-center text-[#43703a] font-bold">
-                <p className="p-1">Pilih Percakapan</p>
-              </div><div className="flex-1 flex items-center justify-center text-center text-gray-400">
+              <>
+                <div className="flex-10 flex items-center justify-center text-center text-[#43703a] font-bold">
+                  <p className="p-1">Pilih Percakapan</p>
+                </div>
+                <div className="flex-1 flex items-center justify-center text-center text-gray-400">
                   <p className="text-gray-800">Pilih chat untuk memulai percakapan</p>
-                </div></>
-
+                </div>
+              </>
             ) : (
               <div className="flex-1 space-y-4 overflow-y-auto pr-2">
                 {selectedChat.messages.map((msg, idx) => (
@@ -166,6 +167,9 @@ const ChatPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
