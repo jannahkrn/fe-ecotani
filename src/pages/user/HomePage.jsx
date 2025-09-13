@@ -6,6 +6,7 @@ import CitizenScience from "../../components/user/CitizenScience";
 import HelpCenter from "../../components/user/HelpCenter";
 import ProductCard from "../../components/user/ProductCard";
 import PreferensiModal from "../../components/user/PreferensiModal";
+import botolImg from "../../assets/botol.jpg";
 import { RefreshCw, Leaf, Users, DollarSign } from "lucide-react";
 
 const HomePage = ({ cartItems, addToCart, user }) => {
@@ -17,43 +18,43 @@ const HomePage = ({ cartItems, addToCart, user }) => {
   const toggleChat = () => setIsChatOpen(!isChatOpen);
 
   const products = [
-    {
-      id: 1,
-      image: "/src/assets/product-placeholder.png",
-      name: "Botol Plastik",
-      category: "Plastik",
-      price: "Rp3.000/g",
-      priceValue: 3000,
-      seller: "Jannah K",
-      location: "Klaten, Jawa Tengah",
-      rating: 5.0,
-      sales: 10,
-    },
-    {
-      id: 2,
-      image: "/src/assets/product-placeholder.png",
-      name: "Kardus Bekas",
-      category: "Kertas",
-      price: "Rp1.500/kg",
-      priceValue: 1500,
-      seller: "Jannah K",
-      location: "Klaten, Jawa Tengah",
-      rating: 4.8,
-      sales: 25,
-    },
-    {
-      id: 3,
-      image: "/src/assets/product-placeholder.png",
-      name: "Minyak Jelantah",
-      category: "Organik",
-      price: "Rp5.000/L",
-      priceValue: 5000,
-      seller: "Budi S",
-      location: "Yogyakarta, DI Yogyakarta",
-      rating: 4.5,
-      sales: 30,
-    },
-  ];
+  {
+    id: 1,
+    image: botolImg, // ✅ ganti ke gambar botol
+    name: "Botol Plastik",
+    category: "Plastik",
+    price: "Rp3.000/g",
+    priceValue: 3000,
+    seller: "Jannah K",
+    location: "Klaten, Jawa Tengah",
+    rating: 5.0,
+    sales: 10,
+  },
+  {
+    id: 2,
+    image: botolImg, 
+    name: "Botol Plastik",
+    category: "Plastik",
+    price: "Rp3.000/g",
+    priceValue: 3000,
+    seller: "Jannah K",
+    location: "Klaten, Jawa Tengah",
+    rating: 5.0,
+    sales: 10,
+  },
+  {
+    id: 3,
+    image: botolImg, // ✅ sama juga
+    name: "Botol Plastik",
+    category: "Plastik",
+    price: "Rp3.000/g",
+    priceValue: 3000,
+    seller: "Jannah K",
+    location: "Klaten, Jawa Tengah",
+    rating: 5.0,
+    sales: 10,
+  },
+];
 
   const stats = [
     { number: "10,000+", label: "Pengguna Aktif", icon: "👥" },
