@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Footer from "../../components/user/Footer";
+import logoImg from "../../assets/logo.png";
 
 const ChatPage = () => {
   const [activeTab, setActiveTab] = useState("penjual");
@@ -36,8 +37,8 @@ const ChatPage = () => {
         
         {/* Card judul halaman */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
-          <img 
-            src="/src/assets/logo.png"
+           <img 
+            src={logoImg} 
             alt="Ecotani Logo" 
             className="h-8" 
           />
