@@ -1,48 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import botolImg from "../../assets/botol.jpg";
+import React from "react";
+import { Link } from "react-router-dom";
+import botolImg from "../../assets/botol.jpg";     // fallback image
 import logoImg from "../../assets/logo.png";
 import zanuSadImg from "../../assets/zanu-sad.png";
-import Footer from '../../components/user/Footer';
+import Footer from "../../components/user/Footer";
 
-const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
-  // Fungsi untuk menghitung total harga
+const CartPage = ({ cartItems, updateQuantity }) => {
+  // Hitung subtotal
   const subtotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
 
-  // Fungsi untuk menghapus item
+  // Hapus item dengan set quantity ke 0
   const removeItem = (productId) => {
     updateQuantity(productId, 0);
   };
 
   return (
     <div className="font-sans bg-white min-h-screen flex flex-col">
-      {/* Kontainer utama untuk konten halaman */}
+      {/* Kontainer utama */}
       <div className="container mx-auto px-12 py-8 flex-grow">
-        
-        {/* Card judul halaman */}
+        {/* Header / Title */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
-          <img 
-  src={logoImg} 
-  alt="Ecotani Logo" 
-  className="h-8" 
-/>
+          <img src={logoImg} alt="Ecotani Logo" className="h-8" />
           <div className="w-[1px] h-8 bg-gray-300 mx-2"></div>
           <h1 className="text-2xl font-bold text-[#43703a]">
             Keranjang Belanja
           </h1>
         </div>
-        
-        {/* Konten utama keranjang belanja */}
+
+        {/* Kondisi kalau keranjang kosong */}
         {cartItems.length === 0 ? (
-          <div className="text-center py-1">
+          <div className="text-center py-8">
             <img
-  src={zanuSadImg}
-  alt="Keranjang Kosong"
-  className="mx-auto w-40 h-auto mb-6"
-/>
+              src={zanuSadImg}
+              alt="Keranjang Kosong"
+              className="mx-auto w-40 h-auto mb-6"
+            />
             <h2 className="text-2xl font-semibold text-gray-700">
               Keranjang Anda Masih Kosong
             </h2>
@@ -58,38 +53,39 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
           </div>
         ) : (
           <div className="space-y-4">
-            {/* Daftar Produk */}
+            {/* Daftar produk */}
             {cartItems.map((item) => (
               <div
                 key={item.id}
                 className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex items-start gap-6 relative"
               >
-                {/* Gambar produk dengan border biru */}
+                {/* Gambar produk */}
                 <div className="relative border-2 border-blue-500 rounded-lg p-1">
                   <img
-  src={item.image || botolImg}   // ✅ fallback botol kalau item.image kosong
-  alt={item.name}
-  className="w-32 h-32 object-cover rounded-md"
-/>
+                    src={item.image || botolImg} // fallback botol kalau kosong
+                    alt={item.name}
+                    className="w-32 h-32 object-cover rounded-md"
+                  />
                 </div>
-                
-                <div className="flex-grow flex flex-col justify-between h-[136px]"> {/* Atur tinggi agar konten terbagi dengan baik */}
+
+                {/* Detail produk */}
+                <div className="flex-grow flex flex-col justify-between h-[136px]">
                   <div>
-                    {/* Label "Plastik" */}
                     <span className="bg-[#43703a] text-white text-xs font-medium px-2 py-1 rounded-sm w-fit mb-2 inline-block">
-                        Anorganik
+                      Anorganik
                     </span>
                     <h2 className="text-xl font-bold text-[#43703a] mt-1">
-                        {item.name}
+                      {item.name}
                     </h2>
                     <p className="text-gray-500 text-sm mt-1">
                       Penjual: Jannah K
                     </p>
                     <p className="text-lg font-semibold mt-1 text-[#43703a]">
-                      Rp{item.price.toLocaleString('id-ID')}/100 gram
+                      Rp{item.price.toLocaleString("id-ID")}/100 gram
                     </p>
                   </div>
 
+                  {/* Kontrol jumlah */}
                   <div className="flex items-center gap-3">
                     <span className="text-gray-600">Jumlah:</span>
                     <button
@@ -112,8 +108,8 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
                     </button>
                   </div>
                 </div>
-                
-                {/* Container untuk Hapus dan Harga Total */}
+
+                {/* Hapus & total harga */}
                 <div className="flex-none flex flex-col justify-between items-end h-[136px]">
                   <button
                     onClick={() => removeItem(item.id)}
@@ -122,24 +118,24 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
                     Hapus
                   </button>
                   <p className="text-xl font-bold text-[#43703a]">
-                    Rp{(item.price * item.quantity).toLocaleString('id-ID')}
+                    Rp{(item.price * item.quantity).toLocaleString("id-ID")}
                   </p>
                 </div>
               </div>
             ))}
-            
-            {/* Card subtotal dan checkout */}
+
+            {/* Subtotal + Checkout */}
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 h-fit">
               <div className="flex justify-between items-center mb-4 text-lg">
                 <span className="text-gray-600 font-semibold">Subtotal</span>
                 <span className="font-bold text-[#43703a] text-xl">
-                  Rp{subtotal.toLocaleString('id-ID')}
+                  Rp{subtotal.toLocaleString("id-ID")}
                 </span>
               </div>
-              
+
               <Link
                 to="/checkout"
-                className="px-89 py-3 bg-[#43703a] text-white text-center font-semibold rounded-sm transition-colors hover:bg-[#365e32]"
+                className="block py-3 bg-[#43703a] text-white text-center font-semibold rounded-sm transition-colors hover:bg-[#365e32]"
               >
                 Lanjut ke Pembayaran
               </Link>
@@ -147,13 +143,11 @@ const CartPage = ({ cartItems, updateQuantity, isLoggedIn, userName }) => {
           </div>
         )}
       </div>
-      
+
       {/* Footer */}
       <Footer />
     </div>
   );
 };
-
-
 
 export default CartPage;
