@@ -3,6 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../../components/user/Footer';
 import AuthContext from '../../context/AuthContext';
 
+// ✅ Import gambar
+import logoImg from "../../assets/logo.png";
+import botolImg from "../../assets/botol.jpg";
+
 const TrackingPage = () => {
   const { isLoggedIn, userName } = useContext(AuthContext);
   const location = useLocation();
@@ -59,7 +63,7 @@ const TrackingPage = () => {
         )}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-center gap-4 mb-8">
           <img 
-            src="src/assets/logo.png"
+            src={logoImg}
             alt="Ecotani Logo" 
             className="h-8" 
           />
@@ -185,10 +189,10 @@ const TrackingPage = () => {
           <h2 className="text-xl font-bold mb-4">Item Pesanan</h2>
 
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex items-start gap-6 relative">
-            {/* Gambar produk */}
+            {/* ✅ Gambar produk */}
             <div className="relative border-2 border-blue-500 rounded-lg p-1">
               <img 
-                src="/src/assets/detail-product.png" 
+                src={botolImg} 
                 alt="Botol Plastik" 
                 className="w-32 h-32 object-cover rounded-md" 
               />
