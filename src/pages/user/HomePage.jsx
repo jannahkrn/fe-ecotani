@@ -7,6 +7,7 @@ import HelpCenter from "../../components/user/HelpCenter";
 import ProductCard from "../../components/user/ProductCard";
 import PreferensiModal from "../../components/user/PreferensiModal";
 import botolImg from "../../assets/botol.jpg";
+import zanuImg from "../../assets/zanu.png"; // ✅ import gambar dari assets
 import { RefreshCw, Leaf, Users, DollarSign } from "lucide-react";
 
 const HomePage = ({ cartItems, addToCart, user }) => {
@@ -135,10 +136,10 @@ const HomePage = ({ cartItems, addToCart, user }) => {
       >
         <div className="relative">
           <img
-            src="/src/assets/zanu.png"
-            alt="Zanu Mascot"
-            className="relative w-50 h-auto rounded-full"
-          />
+  src={zanuImg}   // ✅ gunakan import
+  alt="Zanu Mascot"
+  className="relative w-50 h-50 rounded-full"
+/>
         </div>
       </div>
 
