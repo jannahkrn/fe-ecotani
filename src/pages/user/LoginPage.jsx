@@ -1,17 +1,15 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AuthContext from '../../context/AuthContext'; // Import AuthContext
+import AuthContext from '../../context/AuthContext';
+import logo from "../../assets/logo.png"; // ✅ Import logo
 
 const LoginPage = () => {
-  // Ambil handleLogin dari Context
   const { handleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    // Panggil fungsi handleLogin dari Context
     handleLogin('Alif');
-    // Arahkan ke halaman utama
     navigate('/');
   };
 
@@ -20,7 +18,8 @@ const LoginPage = () => {
       <div className="flex flex-col items-center justify-center w-full max-w-2xl">
         <div className="text-center mb-8">
           <div className="flex justify-center items-center mb-2">
-            <img src="/src/assets/logo.png" alt="Ecotani Logo" className="h-10" />
+            {/* ✅ Ganti src jadi pakai import */}
+            <img src={logo} alt="Ecotani Logo" className="h-10" />
           </div>
           <p className="text-sm text-gray-600">Platform Jual Beli Limbah</p>
         </div>
