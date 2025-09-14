@@ -1,12 +1,72 @@
-# React + Vite
+# Ecotani (Frontend) 🌿
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend aplikasi Ecotani, dibuat dengan **React** + **Vite**.
 
-Currently, two official plugins are available:
+Demo: https://ecotani-pearl.vercel.app :contentReference[oaicite:0]{index=0}
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Teknologi
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React  
+- Vite  
+- ESLint  
+- Javascript  
+
+---
+
+## 📂 Struktur Proyek (Singkat)
+
+fe-ecotani/
+├── public/
+├── src/
+│ ├── components/
+│ ├── pages/
+│ ├── assets/
+│ ├── hooks/
+│ └── ...
+├── .gitignore
+├── package.json
+├── vite.config.js
+├── eslint.config.js
+└── README.md
+
+---
+
+## 🛠️ Persyaratan
+
+Sebelum menjalankan frontend ini, pastikan sudah:
+
+- Node.js  
+- npm atau yarn  
+
+---
+
+## 🚀 Instalasi & Menjalankan Lokal
+
+1. **Clone repo frontend**  
+   ```
+   git clone https://github.com/jannahkrn/fe-ecotani.git
+   cd fe-ecotani
+Install dependensi
+```
+npm install
+```
+Jalankan development server
+```
+npm run dev
+```
+Server akan berjalan biasanya di http://localhost:5173 (tergantung konfigurasi Vite).
+
+🔧 Konfigurasi Opsional
+Jika ada variabel lingkungan (environment variables) yang perlu diset, buat file .env (jika belum ada) dan isikan kebutuhan misalnya API_BASE_URL, dll.
+
+Periksa vite.config.js kalau ada pengaturan proxy atau alias path.
+
+Periksa eslint.config.js untuk rules linting, style code.
+
+📄 Build untuk Produksi
+Untuk membuat versi produksi:
+```
+npm run build
+```
